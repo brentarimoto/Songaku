@@ -23,7 +23,7 @@ function App() {
     }
   },[dispatch])
 
-  return isLoaded && (
+  return (
     <>
       <Navigation />
 

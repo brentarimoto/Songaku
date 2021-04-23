@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import ProfileButton from './ProfileButton'
-import LogoutButton from './LogoutButton/LogoutButton'
 
 import styles from './Navigation.module.css'
 
@@ -25,7 +24,6 @@ const SetAuthDiv = () =>{
     return(
         <>
             <ProfileButton />
-            <LogoutButton />
         </>
     )
 }

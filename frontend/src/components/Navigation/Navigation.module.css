@@ -1,0 +1,24 @@
+.navbar{
+    display: grid;
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-rows: 50px;
+    grid-template-areas:
+        "home . auth";
+}
+
+.home{
+    grid-area: home;
+}
+
+.authDiv{
+    grid-area: auth;
+}
+
+.profileDiv{
+    font-size: 40px;
+    color: blue;
+}
+
+.fa-user{
+    pointer-events: none;
+}
