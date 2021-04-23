@@ -1,10 +1,12 @@
-/*************** REACT IMPORTS ***************/
+/*************************** REACT IMPORTS ***************************/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-/*************** OTHER IMPORTS ***************/
+/*************************** OTHER FILE IMPORTS ***************************/
+
 import './index.css';
 
 import App from './App';
@@ -12,7 +14,8 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 
 
-/*************** SETUP ***************/
+/*************************** SETUP ***************************/
+
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
@@ -20,10 +23,10 @@ if (process.env.NODE_ENV !== "production") {
 
   window.csrfFetch = csrfFetch;
   window.store = store;
-  window.sessionActions = sessionActions;
 }
 
-/*************** COMPONENTS ***************/
+/*************************** COMPONENTS ***************************/
+
 function Root() {
   return (
     <Provider store={store}>
@@ -34,7 +37,7 @@ function Root() {
   );
 }
 
-/*************** RENDER ***************/
+/*************************** RENDER ***************************/
 
 ReactDOM.render(
   <React.StrictMode>
