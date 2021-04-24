@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    username: {
-      type: DataTypes.STRING,
+    userName: {
+      type: DataTypes.STRING(30),
       allowNull: false,
       unique:true,
       validate: {
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(256),
       allowNull: false,
       unique: true,
       validate: {
@@ -31,6 +31,14 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       },
+    },
+    firstName: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
     },
   },
   {
@@ -90,7 +98,29 @@ module.exports = (sequelize, DataTypes) => {
 
 
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Song, {foreignKey: 'userId'})
+
+    User.belongsToMany(models.Song, {
+      through: "Comment",
+      as: "comments",
+      foreignKey: "userId",
+      otherKey: "songId",
+    });
+
+    User.belongsToMany(models.Song, {
+      through: "Like",
+      as: "likes",
+      foreignKey: "userId",
+      otherKey: "songId",
+    });
+
+    User.belongsToMany(models.Song, {
+      through: "Playlist",
+      as: "playists",
+      foreignKey: "userId",
+      otherKey: "songId",
+    });
+
   };
   return User;
 };
