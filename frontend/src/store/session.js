@@ -55,13 +55,13 @@ export const login = ({credential, password}) => async dispatch => {
 }
 
 // Adds User to database, and set User in Store
-export const signup = ({email, username, password}) => async dispatch => {
+export const signup = ({email, userName, password}) => async dispatch => {
     const res = await csrfFetch('/api/users',{
         method: 'POST',
         headers : {
             'Content-Type' : 'application/json'
         },
-        body: JSON.stringify({email, username, password})
+        body: JSON.stringify({email, userName, password})
     })
 
     if(!res.ok){

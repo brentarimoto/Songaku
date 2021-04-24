@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import LoginForm from './components/LoginForm/LoginForm'
 import SignupForm from './components/SignupForm/SignupForm'
 import Navigation from './components/Navigation/Navigation'
+import TestForm from './components/TestForm/TestForm'
 
 import {restoreUser} from './store/session'
 
@@ -29,7 +30,8 @@ function App() {
 
       <Switch>
         <Route exact path='/'>
-          <h1>Hello from {user ? user.username : 'App'}</h1>
+          <h1>Hello from {user ? user.userName : 'App'}</h1>
+          <TestForm />
         </Route>
         <Route path='/login'>
           <LoginForm />

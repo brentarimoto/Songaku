@@ -35,7 +35,7 @@ const LoginForm = ()=>{
 
         let loginUser = await dispatch(login(user))
 
-        if (loginUser.username) {
+        if (loginUser.userName) {
             history.replace('/')
         } else {
             setErrors(loginUser.errors)

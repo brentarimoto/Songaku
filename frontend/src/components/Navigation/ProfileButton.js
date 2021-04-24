@@ -40,7 +40,7 @@ const ProfileButton = ()=>{
                 className={styles.profileDiv}
                 onClick={openDropdown}
             >
-                <i class="far fa-user"></i>
+                <i className="far fa-user"></i>
             </div>
 
             {dropOpen &&
