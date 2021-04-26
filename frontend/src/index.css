@@ -1,4 +1,4 @@
-/* TODO Add site wide styles */
+/*************** RESET ***************/
 /* body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -39,3 +39,69 @@ nav {
 /* h1 {
   font-size: 2rem;
 } */
+
+/*************** Animations ***************/
+
+@keyframes slideInFromLeft {
+  0% {
+      transform: translateX(-200%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(200%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-200%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes slideOutToTop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-200%);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+      transform: scale(0);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(0);
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(0);
+  }
+}

@@ -13,3 +13,7 @@
     background-color: lightcoral;
     color: white;
 }
+
+.button:hover{
+    cursor: pointer;
+}
