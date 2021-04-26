@@ -1,5 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import LogoutButton from './LogoutButton/LogoutButton'
@@ -32,26 +33,19 @@ const ProfileButton = ()=>{
 
 
     return(
-        <>
-            <div
-                id='profile_icon'
-                className={styles.profileDiv}
-                onClick={openDropdown}
-            >
-                <i className="far fa-user"></i>
-            </div>
-
+        <div
+            id='profile_icon'
+            className={styles.profileDiv}
+            onClick={openDropdown}
+        >
+            <i className="far fa-user"></i>
             {dropOpen &&
-                <>
-                    <div className={styles.dropdownDiv}>
-                        <ul className={styles.dropdown}>
-                            <li>Option1</li>
-                            <LogoutButton />
-                        </ul>
-                    </div>
-                </>
+                <div className={styles.dropdownDiv}>
+                    <Link className = {styles.profile} to='/'>Profile</Link>
+                    <LogoutButton />
+                </div>
             }
-        </>
+        </div>
     )
 }
 

@@ -1,7 +1,7 @@
 /***** Navbar *****/
 .navbar{
     display: grid;
-    grid-template-columns: 150px 100px 1fr 250px;
+    grid-template-columns: 150px 150px 1fr 300px;
     grid-template-rows: 50px;
     grid-template-areas:
         "logo home search auth";
@@ -11,10 +11,17 @@
     background-color: whitesmoke;
 }
 
+.active{
+    color:rgb(228, 60, 38);
+    background-color: rgba(200,200,200,.55);
+    text-decoration: none;
+}
+
 /***** Logo *****/
 .logoDiv{
     grid-area: logo;
     margin-left: 5%;
+    margin-right: 10px;
     background-color: rgb(228, 60, 38);
     height: 100%;
     border-radius: 5px;
@@ -24,31 +31,150 @@
 }
 
 .logo{
+    padding: 0 10px;
     width:90%;
     height:95%
 }
 
-/***** Home *****/
+.logo:hover{
+    cursor: pointer;
+}
+
+/***** Home/Login/Signup *****/
 
 .homeDiv{
     display: flex;
     justify-content: center;
     align-items: center;
+
+    font-size: 20px;
+    color: grey;;
+}
+
+.home{
+    height: 100%;
+    width: 100%;
+    margin: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+/***** Search *****/
+.demoDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100px;
+    font-size: 20px;
+    color: grey;;
 }
 
 /***** Search *****/
 
+.searchDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /***** Auth Section *****/
 .authDiv{
     grid-area: auth;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
 }
 
+/**** Login/Signup****/
+.loginDiv,
+.signupDiv{
+    height: 100%;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+    color: grey;;
+}
+
+.login,
+.signup{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+/**** Profile ****/
 .profileDiv{
+    margin: 0 5%;
+    position: relative;
+    width: 50px;
     font-size: 40px;
-    color: blue;
+    color: rgb(228, 60, 38);
+}
+
+.profileDiv:hover{
+    cursor: pointer;
+}
+
+.dropdownDiv{
+    position: absolute;
+    top: 50px;
+    right: 0;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.profile,
+.logout{
+    border: none;
+    background-color: white;
+    font-size: 20px;
+    color: rgb(228, 60, 38);
+    font-family: initial;
+    text-decoration: none;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.profile:hover,
+.logout:hover{
+    background-color: rgba(200,200,200,.55);
+    cursor: pointer;
 }
 
 .fa-user{
     pointer-events: none;
+}
+
+/**** Upload ****/
+.uploadDiv{
+    height: 100%;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+    color: grey;;
+}
+
+.upload{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }

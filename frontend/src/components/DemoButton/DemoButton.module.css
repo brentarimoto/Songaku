@@ -1,0 +1,15 @@
+.demoButtonDiv{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    height: 40px;
+    width: 80px;
+    border-radius: 5px;
+    background-color: lightcoral;
+    color: white;
+}

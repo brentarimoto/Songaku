@@ -5,7 +5,7 @@ import { useDispatch, useSelector  } from 'react-redux';
 /*************************** OTHER FILE IMPORTS ***************************/
 import {logout} from '../../../store/session'
 
-import styles from './LogoutButton.module.css'
+import styles from '../Navigation.module.css'
 
 
 
@@ -27,12 +27,10 @@ const LogoutButton = ()=>{
     }
 
     return(
-        <div className={styles.logoutDiv}>
-            <button
-                className = {styles.logout}
-                onClick = {handleClick}
-            >Logout</button>
-        </div>
+        <button
+            className = {styles.logout}
+            onClick = {handleClick}
+        >Logout</button>
     )
 }
 
