@@ -23,12 +23,16 @@ module.exports = {
         allowNull: false,
       },
       firstName: {
-        type: Sequelize.STRING(100),
-        allowNull: false,
+        type: Sequelize.STRING(50),
+        defaultValue: null,
       },
       lastName: {
+        type: Sequelize.STRING(50),
+        defaultValue: null,
+      },
+      profilePic: {
         type: Sequelize.STRING(100),
-        allowNull: false,
+        defaultValue: null,
       },
       createdAt: {
         allowNull: false,

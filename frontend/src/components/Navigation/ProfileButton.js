@@ -1,12 +1,10 @@
 /*************************** REACT IMPORTS ***************************/
-import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import LogoutButton from './LogoutButton/LogoutButton'
 
 import styles from './Navigation.module.css'
-import { useEffect, useState } from 'react';
 
 /*************************** COMPONENTS ***************************/
 

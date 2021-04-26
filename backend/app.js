@@ -19,7 +19,8 @@ const isProduction = environment === 'production';
 
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(express.json())
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 
 // Security Middleware
 if (!isProduction) {
@@ -43,7 +44,6 @@ app.use(
     })
 );
 
-app.use(express.urlencoded({ extended: true }));
 
 
 

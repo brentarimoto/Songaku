@@ -1,5 +1,5 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -66,9 +66,9 @@ const SignupForm = ()=>{
                 onSubmit = { handleSubmit }
             >
                 <div className={styles.email}>
-                    <label className= {styles.signupLabel, styles.emailLabel}>Email: </label>
+                    <label className= {[styles.signupLabel, styles.emailLabel]}>Email: </label>
                     <input
-                        className={styles.signupInput, styles.emailInput}
+                        className={[styles.signupInput, styles.emailInput]}
                         type='text'
                         placeholder='Username/Email'
                         value={email}
@@ -76,9 +76,9 @@ const SignupForm = ()=>{
                     ></input>
                 </div>
                 <div className={styles.username}>
-                    <label className= {styles.signupLabel, styles.usernameLabel}>Username: </label>
+                    <label className= {[styles.signupLabel, styles.usernameLabel]}>Username: </label>
                     <input
-                        className={styles.signupInput, styles.usernameInput}
+                        className={[styles.signupInput, styles.usernameInput]}
                         type='text'
                         placeholder='Username/Email'
                         value={username}
@@ -86,9 +86,9 @@ const SignupForm = ()=>{
                     ></input>
                 </div>
                 <div className={styles.password}>
-                    <label className= {styles.signupLabel, styles.passwordLabel}>Password: </label>
+                    <label className= {[styles.signupLabel, styles.passwordLabel]}>Password: </label>
                     <input
-                        className={styles.signupInput, styles.passwordInput}
+                        className={[styles.signupInput, styles.passwordInput]}
                         type='password'
                         placeholder='Password'
                         value={password}
@@ -96,9 +96,9 @@ const SignupForm = ()=>{
                     ></input>
                 </div>
                 <div className={styles.password}>
-                    <label className= {styles.signupLabel, styles.passwordLabel}>Confirm Password: </label>
+                    <label className= {[styles.signupLabel, styles.passwordLabel]}>Confirm Password: </label>
                     <input
-                        className={styles.signupInput, styles.passwordInput}
+                        className={[styles.signupInput, styles.passwordInput]}
                         type='password'
                         placeholder='Confirm Password'
                         value={confirmPassword}

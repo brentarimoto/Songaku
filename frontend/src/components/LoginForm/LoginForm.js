@@ -1,5 +1,5 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -54,9 +54,9 @@ const LoginForm = ()=>{
                 onSubmit = { handleSubmit }
             >
                 <div className={styles.credentials}>
-                    <label className= {styles.loginLabel, styles.credentialLabel}>Username/Email: </label>
+                    <label className= {[styles.loginLabel, styles.credentialLabel]}>Username/Email: </label>
                     <input
-                        className={styles.loginInput, styles.credentialInput}
+                        className={[styles.loginInput, styles.credentialInput]}
                         type='text'
                         placeholder='Username/Email'
                         value={credential}
@@ -64,9 +64,9 @@ const LoginForm = ()=>{
                     ></input>
                 </div>
                 <div className={styles.password}>
-                    <label className= {styles.loginLabel, styles.passwordLabel}>Password: </label>
+                    <label className= {[styles.loginLabel, styles.passwordLabel]}>Password: </label>
                     <input
-                        className={styles.loginInput, styles.passwordInput}
+                        className={[styles.loginInput, styles.passwordInput]}
                         type='password'
                         placeholder='Password'
                         value={password}

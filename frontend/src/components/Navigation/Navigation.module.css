@@ -1,15 +1,45 @@
+/***** Navbar *****/
 .navbar{
     display: grid;
-    grid-template-columns: 100px 1fr 100px;
+    grid-template-columns: 150px 100px 1fr 250px;
     grid-template-rows: 50px;
     grid-template-areas:
-        "home . auth";
+        "logo home search auth";
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(200,200,200,.85);
+    background-color: whitesmoke;
 }
 
-.home{
-    grid-area: home;
+/***** Logo *****/
+.logoDiv{
+    grid-area: logo;
+    margin-left: 5%;
+    background-color: rgb(228, 60, 38);
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.logo{
+    width:90%;
+    height:95%
+}
+
+/***** Home *****/
+
+.homeDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/***** Search *****/
+
+
+/***** Auth Section *****/
 .authDiv{
     grid-area: auth;
 }
