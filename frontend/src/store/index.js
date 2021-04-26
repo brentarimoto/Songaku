@@ -6,11 +6,15 @@ import thunk from 'redux-thunk';
 /*************************** OTHER FILE IMPORTS ***************************/
 
 import sessionReducer from './session'
+import mySongsReducer from './mySongs'
+import genresReducer from './genres'
 
 /*************************** REDUCER ***************************/
 
 const rootReducer  = combineReducers({
-  session: sessionReducer
+  session: sessionReducer,
+  mySongs: mySongsReducer,
+  genres: genresReducer,
 });
 
 /*************************** ENHANCER/MIDDLEWARE ***************************/

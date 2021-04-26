@@ -22,8 +22,9 @@ const LogoutButton = ()=>{
 
         if(!user){return}
 
-        let logoutMessage = await dispatch(logout())
-        history.replace('/')    }
+        await dispatch(logout())
+        history.replace('/')
+    }
 
     return(
         <div className={styles.logoutDiv}>

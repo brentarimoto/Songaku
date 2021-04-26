@@ -33,12 +33,16 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     firstName: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
+      type: DataTypes.STRING(50),
+      defaultValue: null,
     },
     lastName: {
+      type: DataTypes.STRING(50),
+      defaultValue: null,
+    },
+    profilePic: {
       type: DataTypes.STRING(100),
-      allowNull: false,
+      defaultValue: null,
     },
   },
   {
@@ -58,8 +62,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.prototype.toSafeObject = function(){
-    const { id, username, email } = this;
-    return {id, username, email}
+    const { id, userName, email } = this;
+    return {id, userName, email}
   }
 
   User.prototype.validatePassword = function (password) {
@@ -75,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
     const user = await User.scope('loginUser').findOne({
       where: {
         [Op.or]: {
-          username: credential,
+          userName: credential,
           email: credential,
         },
       },
@@ -86,10 +90,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ userName, email, password }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
-      username,
+      userName,
       email,
       hashedPassword,
     });
