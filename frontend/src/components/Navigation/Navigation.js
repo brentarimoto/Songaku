@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import ProfileButton from './ProfileButton'
+import DemoButton from '../DemoButton/DemoButton'
 
 import styles from './Navigation.module.css'
 
@@ -16,13 +17,23 @@ const SetAuthDiv = () =>{
     if(!user){
         return (
             <>
-                <NavLink className = {styles.login} to='/login'>Login</NavLink>
-                <NavLink className = {styles.signup} to='/signup'>Signup</NavLink>
+                <div className = {styles.demoDiv}>
+                    <DemoButton />
+                </div>
+                <div className = {styles.loginDiv}>
+                    <NavLink activeClassName={styles.active} className = {styles.login} to='/login'>Login</NavLink>
+                </div>
+                <div className = {styles.signupDiv}>
+                    <NavLink activeClassName={styles.active}  className = {styles.signup} to='/signup'>Signup</NavLink>
+                </div>
             </>
         )
     }
     return(
         <>
+            <div className = {styles.uploadDiv}>
+                <NavLink activeClassName={styles.active} className={styles.upload} to='/upload'>Upload</NavLink>
+            </div>
             <ProfileButton />
         </>
     )
@@ -37,7 +48,7 @@ const Navigation = ()=>{
                     <img className= {styles.logo} src={`/img/Songaku_Logo.png`}></img>
                 </div>
                 <div className = {styles.homeDiv}>
-                    <NavLink className = {styles.home} to='/'>Home</NavLink>
+                    <NavLink activeClassName={styles.active}  className = {styles.home} exact to='/'>Home</NavLink>
                 </div>
                 <div className = {styles.searchDiv}>
                     Search
