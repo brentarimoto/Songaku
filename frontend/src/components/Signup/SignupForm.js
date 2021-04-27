@@ -70,7 +70,7 @@ const SignupForm = ()=>{
                     <input
                         className={[styles.signupInput, styles.emailInput]}
                         type='text'
-                        placeholder='Username/Email'
+                        placeholder='Email'
                         value={email}
                         onChange={(e)=>setEmail(e.target.value)}
                     ></input>
@@ -80,7 +80,7 @@ const SignupForm = ()=>{
                     <input
                         className={[styles.signupInput, styles.usernameInput]}
                         type='text'
-                        placeholder='Username/Email'
+                        placeholder='Username'
                         value={username}
                         onChange={(e)=>setUsername(e.target.value)}
                     ></input>

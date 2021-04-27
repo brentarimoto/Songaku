@@ -3,6 +3,8 @@ import { NavLink, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
+import LoginModal from '../Login/LoginModal'
+import SignupModal from '../Signup/SignupModal'
 import ProfileButton from './ProfileButton'
 import DemoButton from '../DemoButton/DemoButton'
 
@@ -19,10 +21,10 @@ const SetAuthDiv = () =>{
                     <DemoButton />
                 </div>
                 <div className = {styles.loginDiv}>
-                    <NavLink activeClassName={styles.active} className = {styles.login} to='/login'>Login</NavLink>
+                    <LoginModal />
                 </div>
                 <div className = {styles.signupDiv}>
-                    <NavLink activeClassName={styles.active}  className = {styles.signup} to='/signup'>Signup</NavLink>
+                    <SignupModal />
                 </div>
             </>
         )

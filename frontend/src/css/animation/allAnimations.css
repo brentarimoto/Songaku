@@ -1,0 +1,82 @@
+@keyframes :global(slideInFromTop) {
+    0% {
+        transform: translateY(-200%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+}
+
+@keyframes :global(slideInFromTop) {
+    0% {
+        transform: translateX(-200%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes :global(slideInFromRight) {
+    0% {
+      transform: translateX(200%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+@keyframes :global(slideInFromTop) {
+    0% {
+      transform: translateY(-200%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+}
+
+
+@keyframes :global(slideOutToTop) {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-200%);
+    }
+}
+
+@keyframes :global(scaleUp) {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes :global(scaleDown) {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes :global(scaleDown) {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+
+@keyframes :global(fadeIn) {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

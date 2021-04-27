@@ -4,7 +4,7 @@ import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import {uploadSong} from '../../store/mySongs';
+import {uploadSong} from '../../store/songs';
 
 import styles from './UploadForm.module.css'
 
@@ -19,7 +19,7 @@ const UploadForm = ()=>{
     const [title, setTitle] = useState('')
     const [album, setAlbum] = useState('')
     const [music, setMusic] = useState(null)
-    const [image, setImage] = useState('https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg')
+    const [image, setImage] = useState(null)
     const [genreId, setGenreId] = useState(1)
 
     const [errors, setErrors] = useState([])
@@ -38,11 +38,12 @@ const UploadForm = ()=>{
         setTitle('')
         setAlbum('')
         setMusic(null)
-        setImage('https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg')
+        setImage(null)
     }
 
     const handleGenre = (e)=>{
-        setGenreId(genres.indexOf(e.target.value)+1)
+        const genreId = Object.keys(genres).find(key => genres[key] === e.target.value);
+        setGenreId(genreId)
     }
 
     const handleUpload= async (e)=>{
@@ -61,9 +62,9 @@ const UploadForm = ()=>{
         let addedSong = await dispatch(uploadSong(song))
 
         if (addedSong.id) {
-            console.log(addedSong)
+            history.replace(`/users/${user.id}/songs`)
         } else {
-            console.log(addedSong)
+            // console.log(addedSong)
         }
     }
 
@@ -120,8 +121,8 @@ const UploadForm = ()=>{
                     name='genre'
                     onChange={handleGenre}
                 >
-                    {genres.map(genre=>(
-                        <option key={genre}>{genre}</option>
+                    {Object.entries(genres).map(genre=>(
+                        <option key={genre[1]}>{genre[1]}</option>
                     ))}
                 </select>
             </div>
