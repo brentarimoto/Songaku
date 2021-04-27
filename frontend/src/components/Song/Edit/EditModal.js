@@ -8,7 +8,7 @@ import EditForm from './EditForm';
 
 /*************************** COMPONENTS ***************************/
 
-function EditModal() {
+function EditModal({song}) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ function EditModal() {
       <button className='editModalButton' onClick={() => setShowModal(true)}>Edit</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditForm />
+          <EditForm song={song} onClose={() => setShowModal(false)}/>
         </Modal>
       )}
     </>

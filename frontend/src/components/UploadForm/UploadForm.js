@@ -4,7 +4,7 @@ import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import {uploadSong} from '../../store/songs';
+import {uploadSong, getSongs} from '../../store/songs';
 
 import styles from './UploadForm.module.css'
 
@@ -14,6 +14,7 @@ const UploadForm = ()=>{
     const history = useHistory();
     const dispatch = useDispatch();
     const {user} = useSelector(state => state.session);
+    const songs = useSelector(state => state.songs);
     const genres = useSelector(state => state.genres);
 
     const [title, setTitle] = useState('')
@@ -41,13 +42,17 @@ const UploadForm = ()=>{
         setImage(null)
     }
 
-    const handleGenre = (e)=>{
+    const updateGenre = (e)=>{
         const genreId = Object.keys(genres).find(key => genres[key] === e.target.value);
         setGenreId(genreId)
     }
 
     const handleUpload= async (e)=>{
         e.preventDefault();
+
+        if(!songs[user.id]){
+            dispatch(getSongs(user.id))
+        }
 
         const song = {
             title,
@@ -59,7 +64,13 @@ const UploadForm = ()=>{
         }
 
 
-        let addedSong = await dispatch(uploadSong(song))
+        let {song:addedSong, reload, errors} = await dispatch(uploadSong(song))
+
+        console.log(errors)
+
+        if(errors){return setErrors(errors.errors)}
+
+        if(reload){await dispatch(getSongs(user.id))}
 
         if (addedSong.id) {
             history.replace(`/users/${user.id}/songs`)
@@ -73,6 +84,11 @@ const UploadForm = ()=>{
         <form className={styles.formDiv}
             onSubmit={handleUpload}
         >
+            <ul className={styles.formErrors}>
+                {errors.length>0 && errors.map((error)=>(
+                    <li key={error}>{error}</li>
+                ))}
+            </ul>
             <div className={styles.title}>
                 <label className= {[styles.label, styles.titleLabel]} htmlFor='title'>Title: </label>
                 <input
@@ -119,7 +135,7 @@ const UploadForm = ()=>{
                 <select
                     className={[styles.input, styles.genreInput]}
                     name='genre'
-                    onChange={handleGenre}
+                    onChange={updateGenre}
                 >
                     {Object.entries(genres).map(genre=>(
                         <option key={genre[1]}>{genre[1]}</option>

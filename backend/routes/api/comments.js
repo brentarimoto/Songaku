@@ -26,9 +26,9 @@ const validateComment = [
 router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
   const songId = req.params.id
 
-  const {comments} = await Song.findByPk(songId,{include:[{ model:User, as: "comments"}]})
+  const {UsersComments:users} = await Song.findByPk(songId,{include:[{ model:User, as: "UsersComments"}]})
 
-  return res.json({comments})
+  return res.json({users})
 }))
 
 

@@ -17,9 +17,9 @@ const asyncHandler = require('express-async-handler');
 router.get('/:id(\\d+)/likes', asyncHandler(async (req, res) => {
   const songId = req.params.id
 
-  const {likes} = await Song.findByPk(songId,{include:[{ model:User, as: "likes"}]})
+  const {UsersLikes:likes} = await Song.findByPk(songId,{include:[{ model:User, as: "UsersLikes"}]})
 
-  return res.json({likes:likes.length})
+  return res.json({likeCount:likes.length})
 }))
 
 

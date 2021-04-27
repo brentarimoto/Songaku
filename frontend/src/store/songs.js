@@ -40,8 +40,8 @@ export const getSongs = (userId)=> async dispatch=>{
 
 
     if(!res.ok){
-        const error = await res.json()
-        return error.message
+        const errors = await res.json()
+        return {errors}
     }
 
     const {songs} = await res.json();
@@ -82,49 +82,50 @@ export const uploadSong = ({title, userId, album, music, image, genreId}) => asy
     })
 
     if(!res.ok){
-        const error = await res.json()
-        return error.message
+        const errors = await res.json()
+        return {errors}
     }
 
-    const {song} = await res.json();
+    const {song, reload} = await res.json();
 
     dispatch(addSong(song, userId))
-    return song
+    return {song, reload}
 }
 
-// export const editSong = ({title, userId, album, music, image, genreId, songId}) => async dispatch => {
-//     const files = [music, image]
+export const editSong = ({title, userId, album, music, image, genreId, songId}) => async dispatch => {
+    const files = [music, image]
 
-//     const formData = new FormData();
-//     formData.append('title', title)
-//     formData.append('userId', userId)
-//     formData.append('album', album)
-//     formData.append('genreId', genreId)
+    const formData = new FormData();
+    formData.append('title', title)
+    formData.append('userId', userId)
+    formData.append('album', album)
+    formData.append('genreId', genreId)
 
-//     if (files && files.length!==0){
-//         files.forEach((file)=>{
-//             formData.append("files", file)
-//         })
-//     }
+    if (files && files.length!==0){
+        files.forEach((file)=>{
+            formData.append("files", file)
+        })
+    }
 
-//     const res = await csrfFetch(`/api/songs/${songId}`,{
-//         method: 'PUT',
-//         headers : {
-//             'Content-Type' : 'multipart/form-data'
-//         },
-//         body: formData,
-//     })
+    const res = await csrfFetch(`/api/songs/${songId}`,{
+        method: 'PUT',
+        headers : {
+            'Content-Type' : 'multipart/form-data'
+        },
+        body: formData,
+    })
 
-//     if(!res.ok){
-//         const error = await res.json()
-//         return error.message
-//     }
 
-//     const {song} = await res.json();
+    if(!res.ok){
+        const errors = await res.json()
+        return {errors}
+    }
 
-//     dispatch(addSong(song, userId))
-//     return song
-// }
+    const {song, reload} = await res.json();
+
+    dispatch(addSong(song, userId))
+    return {song, reload}
+}
 
 
 
@@ -135,9 +136,12 @@ export const deleteSong = (id, userId) => async dispatch => {
         method: 'DELETE',
     })
 
-    const {message} = await res.json();
+    if(!res.ok){
+        const errors = await res.json()
+        return {errors}
+    }
 
-    console.log(message)
+    const {message} = await res.json();
 
     if(message==='success'){
         dispatch(removeSong(id, userId))

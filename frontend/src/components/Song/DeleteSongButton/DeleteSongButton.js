@@ -14,12 +14,16 @@ const DeleteSongButton = ({id})=>{
     const dispatch = useDispatch();
     const history= useHistory();
 
+    const [errors, setErrors] = useState([])
+
     const {user} = useSelector(state => state.session);
 
     const handleDelete= async (e)=>{
         e.preventDefault();
 
-        let message = await dispatch(deleteSong(id, user.id))
+        let {message, errors} = await dispatch(deleteSong(id, user.id))
+
+        if(errors){setErrors(errors.errors)}
 
         if(message!=='success'){
             console.log(message)
@@ -30,6 +34,11 @@ const DeleteSongButton = ({id})=>{
         <form className={styles.form}
             onSubmit={handleDelete}
         >
+            <ul className={styles.formErrors}>
+                {errors.length>0 && errors.map((error)=>(
+                    <li key={error}>{error}</li>
+                ))}
+            </ul>
             <button className={styles.button} type='submit'>Delete</button>
         </form>
     )

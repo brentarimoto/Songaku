@@ -13,6 +13,7 @@ import EditModal from './Edit/EditModal';
 const Song = ({song, userId})=>{
     const {user} = useSelector(state => state.session);
     const genres = useSelector(state => state.genres);
+
     let isUser;
 
     if(parseInt(userId)===user?.id){
@@ -43,7 +44,7 @@ const Song = ({song, userId})=>{
                     <h4>{song?.album}</h4>
                 </div>
                 <div className={styles.artist}>
-                    <h4>{song?.artist}</h4>
+                    <h4>{song?.User.userName}</h4>
                 </div>
                 <div className={styles.genre}>
                     <h4>{song?.Genre.name}</h4>
@@ -63,7 +64,7 @@ const Song = ({song, userId})=>{
                     {isUser &&
                         <>
                             <div className={styles.edit}>
-                                <EditModal />
+                                <EditModal song={song}/>
                             </div>
                             <div className={styles.delete}>
                                 <DeleteSongButton id={song.id}/>

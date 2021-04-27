@@ -37,15 +37,10 @@ const validateSignup = [
 //SIGN UP
 router.get('/:id/songs', asyncHandler(async (req, res) => {
   const { id:userId } = req.params
-  const user = await User.findByPk(userId, {
-    include: [{model: Song, include: [{model:Genre, attributes: ['name']}], attributes:['id', 'title', 'userId', 'album', 'url', 'img', 'genreId']}],
-    atributes: ['name']
-  })
-  const {Songs} = user
 
-  const songs = Songs.map((song)=>{
-    song.dataValues['artist']=user.userName
-    return song
+  const songs = await Song.findAll({
+    where:{userId},
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']}],
   })
 
   res.json({songs})
