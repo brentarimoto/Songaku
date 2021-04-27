@@ -6,14 +6,14 @@ import thunk from 'redux-thunk';
 /*************************** OTHER FILE IMPORTS ***************************/
 
 import sessionReducer from './session'
-import mySongsReducer from './mySongs'
+import songsReducer from './songs'
 import genresReducer from './genres'
 
 /*************************** REDUCER ***************************/
 
 const rootReducer  = combineReducers({
   session: sessionReducer,
-  mySongs: mySongsReducer,
+  songs: songsReducer,
   genres: genresReducer,
 });
 

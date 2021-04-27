@@ -3,7 +3,7 @@ const express = require('express');
 const { check } = require('express-validator')
 
 const { setTokenCookie, restoreUser, requireAuth  } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Song, Genre } = require('../../db/models');
 
 /*************************** ROUTER SETUP ***************************/
 const router = express.Router();
@@ -34,19 +34,34 @@ const validateSignup = [
   ];
 
 /*************************** ROUTES ***************************/
+//SIGN UP
+router.get('/:id/songs', asyncHandler(async (req, res) => {
+  const { id:userId } = req.params
+  const user = await User.findByPk(userId, {
+    include: [{model: Song, include: [{model:Genre, attributes: ['name']}], attributes:['id', 'title', 'userId', 'album', 'url', 'img', 'genreId']}],
+    atributes: ['name']
+  })
+  const {Songs} = user
+
+  const songs = Songs.map((song)=>{
+    song.dataValues['artist']=user.userName
+    return song
+  })
+
+  res.json({songs})
+}));
 
 //SIGN UP
 router.post('', validateSignup, asyncHandler(async (req, res) => {
-      const { email, password, username } = req.body;
-      const user = await User.signup({ email, username, password });
+  const { email, password, username } = req.body;
+  const user = await User.signup({ email, userName: username, password });
 
-      await setTokenCookie(res, user);
+  await setTokenCookie(res, user);
 
-      return res.json({
-        user,
-      });
-    }),
-);
+  return res.json({
+    user,
+  });
+}));
 
 
 /*************************** EXPORTS ***************************/

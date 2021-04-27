@@ -1,0 +1,25 @@
+.main{
+    display: flex;
+    justify-content: center;
+}
+
+.userDiv{
+    margin: auto 5%;
+    width: 100%;
+    min-width: 700px;
+    max-width: 1250px;
+    border: 1px solid black;
+    background-color: white;
+
+    display: grid;
+}
+
+.info{
+    height: 200px;
+}
+
+
+
+.active{
+    color: red
+}

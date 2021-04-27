@@ -1,3 +1,12 @@
+/***** Animation *****/
+@import url('../../css/animation/allAnimations.css');
+
+.demoButtonDiv :global{
+    animation-duration: 1s;
+    animation-name: fadeIn;
+}
+
+
 .demoButtonDiv{
     height: 100%;
     width: 100%;
@@ -12,4 +21,8 @@
     border-radius: 5px;
     background-color: lightcoral;
     color: white;
+}
+
+.button:hover{
+    cursor: pointer;
 }

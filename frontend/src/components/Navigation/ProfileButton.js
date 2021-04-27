@@ -1,6 +1,7 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import LogoutButton from './LogoutButton/LogoutButton'
@@ -10,7 +11,7 @@ import styles from './Navigation.module.css'
 /*************************** COMPONENTS ***************************/
 
 const ProfileButton = ()=>{
-
+    const {user} = useSelector(state => state.session);
     const [dropOpen, setDropOpen] = useState(false)
 
     const openDropdown = (e)=>{
@@ -41,7 +42,7 @@ const ProfileButton = ()=>{
             <i className="far fa-user"></i>
             {dropOpen &&
                 <div className={styles.dropdownDiv}>
-                    <Link className = {styles.profile} to='/'>Profile</Link>
+                    <Link className = {styles.profile} to={`/users/${user.id}`}>Profile</Link>
                     <LogoutButton />
                 </div>
             }

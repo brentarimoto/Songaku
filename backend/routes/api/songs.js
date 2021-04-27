@@ -2,7 +2,7 @@
 const express = require('express');
 const { check } = require('express-validator')
 
-const { Song, User } = require('../../db/models');
+const { Song, User, Genre } = require('../../db/models');
 const commentsRouter = require('./comments.js');
 const likesRouter = require('./likes.js')
 
@@ -26,9 +26,6 @@ const validateSongs = [
       .withMessage('Please provide an album name.')
       .isLength({ max:50 })
       .withMessage('Album name must be less than 50 characters'),
-    check('url')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide an audio file.'),
     check('genreId')
       .exists({ checkFalsy: true })
       .withMessage('Please provide a genre.'),
@@ -70,33 +67,27 @@ router.post('/', multipleMulterUpload('files'), validateSongs, asyncHandler(asyn
   // console.log(req.file)
   const exists = await Song.findOne({
     where: {
-      title,
       userId,
       album,
     }
   })
 
-  if(exists){
+
+  if(title===(exists ? exists.title : exists)){
     return res.status(403).json({message:'Song Already Exists'})
   }
 
-  const albumExists = await Song.findOne({
-    where:{
-      userId,
-      album,
-    }
-  })
-
-  if (albumExists){
+  if(req.files.length>1 && (exists ? exists.img : exists)){
     req.files.pop()
   }
+
 
   const files = await multiplePublicFileUpload(req.files)
   const url = files[0]
   let img = files[1] ? files[1] : null;
-  img = albumExists ? albumExists.img : img;
+  img = exists ? (exists.img ? exists.img : img) : img;
 
-  const song = await Song.create({
+  const tempSong = await Song.create({
     title,
     userId,
     album,
@@ -105,8 +96,25 @@ router.post('/', multipleMulterUpload('files'), validateSongs, asyncHandler(asyn
     genreId
   })
 
+  const user = await User.findByPk(userId)
+
+  const song = await Song.findByPk(tempSong.id, {
+    include: [{model: Genre, attributes:['name']}],
+    attributes:['id', 'title', 'userId', 'album', 'url', 'img', 'genreId']
+  })
+
+  song.dataValues['artist']=user.userName
+
+  const albumSongs = await Song.findAll({where:{album:song.album}})
+
+  albumSongs.forEach((albumSong)=>{
+    albumSong.img = (albumSong.img!==song.img) ? song.img : albumSong.img;
+    albumSong.save()
+  })
+
   return res.json({song})
 }))
+
 
 // PUT
 router.put('/:id', validatePutSongs, asyncHandler(async (req, res) => {
@@ -144,7 +152,7 @@ router.put('/:id', validatePutSongs, asyncHandler(async (req, res) => {
 
 // DELETE
 router.delete('/:id', asyncHandler(async (req, res) => {
-  const id = req.params.id
+  const {id} = req.params
 
   const song = await Song.findByPk(id)
 

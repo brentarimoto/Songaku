@@ -14,7 +14,7 @@ const asyncHandler = require('express-async-handler');
 // GET all genres
 router.get('/', asyncHandler(async (req, res) => {
   const genres = await Genre.findAll({
-    attributes :['name']
+    attributes :['id','name']
   })
 
   return res.json({genres})

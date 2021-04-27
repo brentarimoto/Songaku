@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import LoginForm from './components/LoginForm/LoginForm'
-import SignupForm from './components/SignupForm/SignupForm'
+import SignupForm from './components/Signup/SignupForm'
 import Navigation from './components/Navigation/Navigation'
 import UploadForm from './components/UploadForm/UploadForm'
-import DeleteSongButton from './components/DeleteSongButton/DeleteSongButton'
+import Profile from './components/Profile/Profile'
 
 import {restoreUser} from './store/session'
 import {restoreGenres} from './store/genres'
@@ -17,9 +16,13 @@ import {restoreGenres} from './store/genres'
 function App() {
   const dispatch = useDispatch();
   const {user} = useSelector(state => state.session);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(()=>{
     dispatch(restoreUser())
+    if(user){
+      setIsLoaded(true)
+    }
     dispatch(restoreGenres())
   },[dispatch])
 
@@ -29,15 +32,13 @@ function App() {
 
       <Switch>
         <Route exact path='/'>
-          <h1>Hello from {user ? user.userName : 'App'}</h1>
+          <h2>Home</h2>
+        </Route>
+        <Route path='/upload'>
           <UploadForm />
-          <DeleteSongButton />
         </Route>
-        <Route path='/login'>
-          <LoginForm />
-        </Route>
-        <Route path='/signup'>
-          <SignupForm />
+        <Route path='/users/:id'>
+          <Profile isLoaded={isLoaded}/>
         </Route>
       </Switch>
     </>

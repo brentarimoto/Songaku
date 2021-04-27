@@ -21,12 +21,12 @@ export const restoreGenres = () => async dispatch => {
 
     const {genres} = await res.json();
 
+    let obj={}
+    genres.forEach((genre)=>{
+        obj[genre.id]=genre.name
+    })
 
-    const genreList = genres.map(genre=>genre.name)
-
-    if(genres.length){
-        dispatch(setGenres(genreList))
-    }
+    dispatch(setGenres(obj))
 
     return genres
 }
@@ -34,10 +34,10 @@ export const restoreGenres = () => async dispatch => {
 
 /*************************** REDUCER ***************************/
 
-export default function songReducer(state = [], action){
+export default function songReducer(state = {}, action){
     switch(action.type){
         case SET_GENRES:
-            return [...action.genres]
+            return{...action.genres}
         default:
             return state
     }

@@ -9,7 +9,7 @@ const multer = require("multer");
 //  AWS_SECRET_ACCESS_KEY
 //  and aws will automatically use those environment variables
 
-const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+const s3 = new AWS.S3({ apiVersion: "2006-03-01", region: 'us-west-1'});
 
 // --------------------------- Public UPLOAD ------------------------
 
@@ -99,10 +99,7 @@ const singlePublicFileDelete = async (key) => {
     };
 
     try {
-        await s3.deleteObject(deleteParams, function(err, data){
-            if(err) console.log(err, err.stack)
-            else console.log("Response", data)
-        }).promise();
+        await s3.deleteObject(deleteParams).promise();
         return true;
     } catch(e){
         console.log(e)

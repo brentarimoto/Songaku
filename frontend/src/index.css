@@ -1,4 +1,4 @@
-/* TODO Add site wide styles */
+/*************** RESET ***************/
 /* body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -26,16 +26,52 @@ div,
 span,
 body,
 header,
-nav {
+nav,
+button{
   /* font-size: 1rem; */
   color: inherit;
   background-color: transparent;
   margin: 0;
   padding: 0;
   outline: 0;
+  font-family: Varela Round;
   /* font-weight: normal; */
+}
+
+body{
+  background-color: whitesmoke;
+}
+
+:root {
+  --pastelRed: rgba(255, 105, 97,1);
+  --fadedGreyBlue: rgba(190, 202, 211,.55);
+  --snow: rgba(254, 245, 250,.9);
+  --quickSilver: rgba(164, 169, 167,.7);
+  --rainbowIndigo: rgba(29, 48, 100, 1);
 }
 
 /* h1 {
   font-size: 2rem;
 } */
+
+/*************** Animations ***************/
+
+@keyframes modalAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-200%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
