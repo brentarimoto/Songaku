@@ -7,10 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import DeleteSongButton from './DeleteSongButton/DeleteSongButton'
 import styles from './Song.module.css'
 import EditModal from './Edit/EditModal';
+import {setSong} from '../../store/currentSong'
 
 
 /*************************** COMPONENTS ***************************/
 const Song = ({song, userId})=>{
+    const dispatch = useDispatch()
+
     const {user} = useSelector(state => state.session);
     const genres = useSelector(state => state.genres);
 
@@ -31,10 +34,19 @@ const Song = ({song, userId})=>{
         )
     }
 
+    const songPlay=(e)=>{
+        dispatch(setSong(song))
+    }
+
+
     return(
         <div className={styles.songDiv}>
             <div className={styles.albumArtDiv}>
-                <img className={styles.albumArt} src={song?.img ? song.img : `/img/Profile.png`}></img>
+                <img
+                    className={styles.albumArt}
+                    src={song?.img ? song.img : `/img/Profile.png`}
+                    onClick={songPlay}
+                ></img>
             </div>
             <div className={styles.songInfo}>
                 <div className={styles.songName}>

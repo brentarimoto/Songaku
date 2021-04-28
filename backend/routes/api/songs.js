@@ -90,13 +90,19 @@ async function updateAlbumArts(song){
 async function deleteFromAWS(type, song){
   if(type!=='url' && type!=='img'){return false}
 
+  console.log('test1')
+
   let link = song[type]
 
   if(!link){return false}
 
+  console.log('test2')
+
   let key = link.match(/[^\/]+$/g)
 
   if(!key){return false}
+
+  console.log('test3')
 
   await singlePublicFileDelete(key[0])
 
@@ -223,8 +229,8 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
       url = files[0]
       img = files[1]
     } else {
-      url = (req.files.mimetype.includes('audio')) ? files[0]: null;
-      img = (req.files.mimetype.includes('image')) ? files[0]: null;
+      url = (req.files[0].mimetype.includes('audio')) ? files[0]: null;
+      img = (req.files[0].mimetype.includes('image')) ? files[0]: null;
     }
   }
 
@@ -278,7 +284,7 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
   let imgDeleted=true;
 
-  if(album.length<=1){
+  if(album.length<=1 && song.img){
     imgDeleted = await deleteFromAWS('img', song)
   }
 

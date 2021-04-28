@@ -8,9 +8,12 @@ import SignupForm from './components/Signup/SignupForm'
 import Navigation from './components/Navigation/Navigation'
 import UploadForm from './components/UploadForm/UploadForm'
 import Profile from './components/Profile/Profile'
+import AudioPlayer from './components/AudioPlayer/AudioPlayer'
 
 import {restoreUser} from './store/session'
 import {restoreGenres} from './store/genres'
+
+import styles from './App.module.css'
 
 /*************************** COMPONENTS ***************************/
 function App() {
@@ -30,17 +33,21 @@ function App() {
     <>
       <Navigation />
 
-      <Switch>
-        <Route exact path='/'>
-          <h2>Home</h2>
-        </Route>
-        <Route path='/upload'>
-          <UploadForm />
-        </Route>
-        <Route path='/users/:id'>
-          <Profile isLoaded={isLoaded}/>
-        </Route>
-      </Switch>
+      <div className={styles.content}>
+        <Switch>
+          <Route exact path='/'>
+            <h2>Home</h2>
+          </Route>
+          <Route path='/upload'>
+            <UploadForm />
+          </Route>
+          <Route path='/users/:id'>
+            <Profile isLoaded={isLoaded}/>
+          </Route>
+        </Switch>
+      </div>
+
+      <AudioPlayer />
     </>
   );
 }

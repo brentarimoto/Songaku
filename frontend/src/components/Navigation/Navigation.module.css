@@ -11,6 +11,8 @@
 
 /***** Navbar *****/
 .navbar{
+    position: fixed;
+    width: 100%;
     display: grid;
     grid-template-columns: 10px 150px 150px 1fr 300px 10px;
     grid-template-rows: 50px;

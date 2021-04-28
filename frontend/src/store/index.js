@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session'
 import songsReducer from './songs'
 import genresReducer from './genres'
+import currentSongReducer from './currentSong'
+
 
 /*************************** REDUCER ***************************/
 
@@ -15,6 +17,7 @@ const rootReducer  = combineReducers({
   session: sessionReducer,
   songs: songsReducer,
   genres: genresReducer,
+  currentSong: currentSongReducer,
 });
 
 /*************************** ENHANCER/MIDDLEWARE ***************************/

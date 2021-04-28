@@ -15,7 +15,7 @@ const Profile = ({isLoaded})=>{
     let { path, url } = useRouteMatch();
 
     return (
-        <div className={styles.main}>
+        <div className={styles.mainProfile}>
             <div className={styles.userDiv}>
                 <div className={styles.info}>
                     <h1>User Info</h1>
