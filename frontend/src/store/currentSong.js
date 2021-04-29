@@ -16,7 +16,6 @@ export const setSong = (song)=>{
 /*************************** REDUCER ***************************/
 
 export default function songsReducer(state = null, action){
-    console.log(action)
     switch(action.type){
         case SET_SONG:
             return {...action.song}

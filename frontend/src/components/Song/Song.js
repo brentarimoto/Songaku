@@ -1,6 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { Link, useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
@@ -50,7 +50,7 @@ const Song = ({song, userId})=>{
             </div>
             <div className={styles.songInfo}>
                 <div className={styles.songName}>
-                    <h3>{song?.title}</h3>
+                    <Link to={`/users/${userId}/songs/${song.id}`}>{song?.title}</Link>
                 </div>
                 <div className={styles.album}>
                     <h4>{song?.album}</h4>

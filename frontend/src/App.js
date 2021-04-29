@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import SignupForm from './components/Signup/SignupForm'
 import Navigation from './components/Navigation/Navigation'
-import UploadForm from './components/UploadForm/UploadForm'
 import Profile from './components/Profile/Profile'
 import AudioPlayer from './components/AudioPlayer/AudioPlayer'
 
@@ -37,9 +35,6 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <h2>Home</h2>
-          </Route>
-          <Route path='/upload'>
-            <UploadForm />
           </Route>
           <Route path='/users/:id'>
             <Profile isLoaded={isLoaded}/>

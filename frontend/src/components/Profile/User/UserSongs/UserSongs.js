@@ -4,8 +4,8 @@ import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams 
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import Song from '../../Song/Song'
-import { getSongs } from '../../../store/songs'
+import Song from '../../../Song/Song'
+import { getSongs } from '../../../../store/songs'
 import styles from './UserSongs.module.css'
 
 

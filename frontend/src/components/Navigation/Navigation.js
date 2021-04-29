@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 /*************************** OTHER FILE IMPORTS ***************************/
 import LoginModal from '../Login/LoginModal'
 import SignupModal from '../Signup/SignupModal'
+import UploadModal from '../Upload/UploadModal'
 import ProfileButton from './ProfileButton'
 import DemoButton from '../DemoButton/DemoButton'
 
@@ -32,7 +33,13 @@ const SetAuthDiv = () =>{
     return(
         <>
             <div className = {styles.uploadDiv}>
-                <NavLink activeClassName={styles.active} className={styles.upload} to='/upload'>Upload</NavLink>
+                <UploadModal />
+            </div>
+            <div className = {styles.profileNavDiv}>
+                <NavLink
+                    activeClassName={styles.active}  className = {styles.profileNav}
+                    to={`/users/${user.id}`}
+                >Profile</NavLink>
             </div>
             <ProfileButton />
         </>

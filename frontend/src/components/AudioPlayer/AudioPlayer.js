@@ -7,6 +7,7 @@ import ReactSlider from "react-slider";
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import styles from './AudioPlayer.module.css'
+import {usePlayerContext} from '../../context/player'
 import './Slider.css'
 
 
@@ -41,26 +42,56 @@ const PlayPause = ({play, setPlay, currentSong})=>{
     }
 }
 
+const Mute = ({mute, setMute, currentSong})=>{
+    const handleMute=(e)=>{
+        setMute(prev=>!prev)
+    }
+
+    if(mute){
+        return(
+            <div className={styles.muteDiv}>
+                <i className={`fas fa-volume-mute ${styles.mute}`} onClick={handleMute}></i>
+            </div>
+        )
+    } else {
+        return(
+            <div className={styles.unmuteDiv}>
+                <i className={`fas fa-volume-off ${styles.unmute}`} onClick={handleMute}></i>
+            </div>
+        )
+    }
+}
+
 const AudioPlayer = ({song, userId})=>{
     const currentSong = useSelector(state=>state.currentSong)
 
-    const [play, setPlay] = useState(false)
-    const [time, setTime] = useState(0)
-    const [totalTime, setTotalTime] = useState(0)
-    const [percent, setPercent] = useState(0)
+    const {
+        play, setPlay,
+        time, setTime,
+        totalTime, setTotalTime,
+        percent, setPercent,
+        volPercent, setVolPercent,
+        volume, setVolume,
+        mute, setMute
+    } = usePlayerContext()
 
     const valueRef = useRef(null);
 
-    const handleBackward=(e)=>{
+    const handleBackward=()=>{
         valueRef.current.seekTo(valueRef.current.getCurrentTime() - 10)
     }
 
-    const handleForward=(e)=>{
+    const handleForward=()=>{
         valueRef.current.seekTo(valueRef.current.getCurrentTime() + 10)
     }
 
-    const OnChange=(val)=>{
+    const handleSeek=(val)=>{
         valueRef.current.seekTo(val/100*totalTime)
+    }
+
+    const handleVol=(val)=>{
+        setVolPercent(val/100)
+        setVolume(Math.round(val/10))
     }
 
     const onProgress = ({played, playedSeconds, loadedSeconds}) => {
@@ -76,6 +107,11 @@ const AudioPlayer = ({song, userId})=>{
 
         setPercent(played * 100)
     };
+
+    const onEnded=()=>{
+        valueRef.current.seekTo(0)
+        setPlay(false)
+    }
 
     return(
         <div className={styles.audioPlayerDiv}>
@@ -100,25 +136,40 @@ const AudioPlayer = ({song, userId})=>{
                     className='seekSlider'
                     thumbClassName='seekThumb'
                     trackClassName='seekTrack'
-                    onChange={OnChange}
+                    onChange={handleSeek}
                     step={.01}
                     orientation='horizontal'
                     renderThumb={(props, state) => <div {...props}>{time}</div>}
                 />
                 <div className={styles.volume}>
+                    <ReactSlider
+                        value={volPercent*100}
+                        className='volSlider'
+                        thumbClassName='volThumb'
+                        trackClassName='volTrack'
+                        onChange={handleVol}
+                        step={.1}
+                        min={0}
+                        max={100}
+                        orientation='vertical'
+                        pearling
+                        renderThumb={(props, state) => <div {...props}>{volume}</div>}
+                        invert
+                    />
                 </div>
-
+                <Mute mute={mute} setMute={setMute} currentSong={currentSong}/>
                 <ReactPlayer
                     className={styles.player}
                     ref={valueRef}
                     playing={play}
                     width='100%'
-                    height='50px'
-                    volume={.5}
+                    volume={volPercent}
                     controls={false}
                     onProgress={onProgress}
+                    onEnded={onEnded}
                     progressInterval={1}
                     url={currentSong?.url}
+                    muted={mute}
                 />
             </div>
             <div className={styles.songInfo}>
@@ -130,7 +181,7 @@ const AudioPlayer = ({song, userId})=>{
             <div className={styles.extras}>
                 <div className={styles.likesDiv}>
                     <div className={styles.likesImg}>
-                        LikesImg
+                        <i className={`fas fa-heart ${styles.heart}`}></i>
                     </div>
                     <div className={styles.likes}>
                         Likes

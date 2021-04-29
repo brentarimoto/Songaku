@@ -1,0 +1,44 @@
+.commentContainer{
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 60px 6fr 1fr;
+    grid-template-rows: 30px 1fr;
+    grid-template-areas:
+    "profPic username date"
+    "profPic comment change";
+    margin-bottom: 20px;
+}
+
+.profPicDiv{
+    grid-area: profPic;
+    height:60px;
+    width:60px;
+}
+
+.profPic{
+    object-fit: contain;
+    width:100%;
+    height:100%;
+}
+
+.userNameDiv{
+    grid-area: username;
+    color: var(--username)
+}
+
+.commentDiv{
+    grid-area: comment;
+    color: var(--comment)
+}
+
+.dateDiv{
+    grid-area: date;
+}
+
+.changeDiv{
+    grid-area: change;
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: space-evenly;
+}

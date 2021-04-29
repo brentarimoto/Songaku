@@ -3,11 +3,13 @@ import { csrfFetch } from './csrf';
 
 /*************************** TYPES ***************************/
 
+const SET_SONG = 'set/SONG'
 const SET_SONGS = 'set/SONGS'
 const ADD_SONG = 'add/SONG'
 const REMOVE_SONG = 'remove/SONG'
 
 /*************************** ACTIONS ***************************/
+
 export const setSongs = (songs, userId)=>{
     return {
         type: SET_SONGS,
@@ -33,8 +35,8 @@ export const removeSong = (id, userId)=>{
 }
 
 /*************************** THUNKS ***************************/
-// Get songs
 
+// Get songs
 export const getSongs = (userId)=> async dispatch=>{
     const res = await csrfFetch(`/api/users/${userId}/songs`)
 
@@ -156,6 +158,10 @@ export const deleteSong = (id, userId) => async dispatch => {
 export default function songsReducer(state = {}, action){
     let newState;
     switch(action.type){
+        case SET_SONG:
+            newState = {...state}
+            newState[action.userId][action.song.id] = {...action.song}
+            return newState
         case SET_SONGS:
             newState = {...state}
             newState[action.userId] = {...action.songs}

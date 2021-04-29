@@ -62,8 +62,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.prototype.toSafeObject = function(){
-    const { id, userName, email } = this;
-    return {id, userName, email}
+    const { id, userName, email, profilePic } = this;
+    return {id, userName, email, profilePic}
   }
 
   User.prototype.validatePassword = function (password) {
@@ -102,6 +102,10 @@ module.exports = (sequelize, DataTypes) => {
 
 
   User.associate = function(models) {
+    User.hasMany(models.Comment, {foreignKey: 'userId'})
+    User.hasMany(models.Like, {foreignKey: 'userId'})
+    User.hasMany(models.Playlist, {foreignKey: 'userId'})
+
     User.hasMany(models.Song, {foreignKey: 'userId'})
 
     User.belongsToMany(models.Song, {

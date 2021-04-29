@@ -15,7 +15,6 @@ const { handleValidationErrors } = require('../../utils/validation');
 const validateComment = [
     check('comment')
       .exists({ checkFalsy: true })
-      .isEmail()
       .withMessage('Please provide a comment.'),
     handleValidationErrors,
   ];
@@ -26,29 +25,34 @@ const validateComment = [
 router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
   const songId = req.params.id
 
-  const {UsersComments:users} = await Song.findByPk(songId,{include:[{ model:User, as: "UsersComments"}]})
+  const comments = await Comment.findAll( {
+    where: {songId},
+    include: [{model:User, attributes:['userName', 'profilePic']}],
+    attributes: ['id', 'userId', 'comment','createdAt'],
+    order: [['id']]
+  })
 
-  return res.json({users})
+  return res.json({comments})
 }))
 
 
 // GET a user's comments on a song
-router.get('/:id(\\d+)/comments/:userId', asyncHandler(async (req, res) => {
-    const {id: songId, userId} = req.params
+// router.get('/:id(\\d+)/comments/:userId', asyncHandler(async (req, res) => {
+//     const {id: songId, userId} = req.params
 
-    const comment = await Comment.findOne({
-        where: {
-            userId,
-            songId
-        }
-    })
+//     const comment = await Comment.findOne({
+//         where: {
+//             userId,
+//             songId
+//         }
+//     })
 
-    if(!comment){
-        return res.status(403).json({message:'Comment Does Not Exist'})
-    }
+//     if(!comment){
+//         return res.status(403).json({message:'Comment Does Not Exist'})
+//     }
 
-    return res.json({comment})
-}))
+//     return res.json({comment})
+// }))
 
 
 // POST comment to a song
@@ -56,13 +60,20 @@ router.post('/:id(\\d+)/comments', validateComment, asyncHandler(async (req, res
   const { id:songId } = req.params
   const {comment, userId} = req.body
 
-  const newComment = await Comment.create({
+  const newCom = await Comment.create({
     userId,
     songId,
     comment
   })
 
-  return res.json({comment:newComment})
+  const newComment = await Comment.findOne( {
+    where: {createdAt:newCom.createdAt},
+    include: [{model:User, attributes:['userName', 'profilePic']}],
+    attributes: ['id', 'userId', 'comment','createdAt'],
+    order: [['id']]
+  })
+
+  return res.json({newComment})
 
 }))
 

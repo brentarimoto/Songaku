@@ -1,25 +1,14 @@
+/***** Animation *****/
+@import url('../../css/animation/allAnimations.css');
+
+.mainProfile :global{
+    animation: fadeIn .25s;
+}
+
+/***** PROFILE *****/
 .mainProfile{
     display: flex;
-    justify-content: center;
-}
-
-.userDiv{
-    margin: auto 5%;
-    width: 100%;
-    min-width: 700px;
-    max-width: 1250px;
-    border: 1px solid black;
-    background-color: white;
-
-    display: grid;
-}
-
-.info{
-    height: 200px;
-}
-
-
-
-.active{
-    color: red
+    direction: column;
+    justify-content: flex-start;
+    height:100%;
 }

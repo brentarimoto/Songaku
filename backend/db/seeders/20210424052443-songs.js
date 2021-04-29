@@ -4,12 +4,12 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const songs =[
       {
-        title:'song',
+        title:'Soul to Squeeze',
         userId:1,
-        album:'album',
-        url:'https://songakubucket.s3-us-west-1.amazonaws.com/S2S+(Mix+1).mp3',
-        img:'https://pbs.twimg.com/profile_images/480894518540005376/7XCp52sK.jpeg',
-        genreId: 1,
+        album:'Vibes',
+        url:'https://songakubucket.s3-us-west-1.amazonaws.com/1619639648573.mp3',
+        img:'https://songakubucket.s3-us-west-1.amazonaws.com/1619639783741.jpeg',
+        genreId: 12,
         createdAt: new Date(),
         updatedAt: new Date()
       },

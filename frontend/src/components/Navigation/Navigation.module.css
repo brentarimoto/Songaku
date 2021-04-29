@@ -2,12 +2,22 @@
 @import url('../../css/animation/allAnimations.css');
 
 .loginDiv :global ,
-.signupDiv :global ,
-.upload :global,
-.profile :global{
+.signupDiv :global{
     animation-duration: .75s;
     animation-name: fadeIn;
 }
+
+.profile :global{
+    animation: slideInFromRight .25s, fadeIn .5s;
+    animation-fill-mode: forwards;
+
+}
+.logout :global{
+    animation: slideInFromRight .25s, fadeIn .5s;
+    animation-delay: .05s;
+    animation-fill-mode: forwards;
+}
+
 
 /***** Navbar *****/
 .navbar{
@@ -30,7 +40,7 @@
 
 .active{
     color:var(--pastelRed);
-    background-color: var(--fadedGreyBlue);
+    background-color: var(--pastelBlue);
     text-decoration: none;
 }
 
@@ -109,7 +119,8 @@
     color: grey;;
 }
 
-/**** Login/Signup****/
+/**** Login/Signup/ProfileNav****/
+.profileNavDiv,
 .loginDiv,
 .signupDiv{
     height: 100%;
@@ -122,6 +133,7 @@
     color: grey;
 }
 
+.profileNav,
 .login,
 .signup{
     height: 100%;
@@ -166,11 +178,12 @@
     border-right: 1px solid grey;
     border-left: 1px solid grey;
     border-bottom: 1px solid grey;
+    opacity: 0;
 }
 
 .profile:hover,
 .logout:hover{
-    background-color: var(--fadedGreyBlue);
+    background-color: var(--pastelBlue);
     cursor: pointer;
 }
 

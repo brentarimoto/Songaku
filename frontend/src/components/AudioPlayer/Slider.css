@@ -1,42 +1,118 @@
 .seekSlider{
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    margin-left: 1%;
-
+    margin: 0 7px;
 }
 
 .seekThumb{
-    background-color: grey;
-    color: black;
+    background-color: var(--sliderPlayed);
+    color: var(--sliderPlayed);
 
-    top: 15px;
-    height: 30px;
-    line-height: 75px;
-    width: 30px;
+    top: 25px;
+    height: 10px;
+    width: 10px;
     font-size: 15px;
+    line-height: 54px;
+    text-indent: -7px;
     text-align: center;
     border-radius: 50%;
-    cursor: grab;
-
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
+    border: none;
 }
 
+.seekSlider:hover{
+    cursor: pointer;
+}
+
+.seekSlider:hover .seekThumb,
+.seekThumb:hover{
+    background-color: var(--skyBlue);
+    line-height: 52px;
+    top: 22px;
+    height: 16px;
+    width: 16px;
+}
+
+.seekSlider:hover .seekTrack{
+    z-index: 1;
+}
+
+.seekSlider:active,
 .seekThumb:active{
     cursor: grabbing;
 }
 
 .seekTrack {
     top: 25px;
-    background: gray;
+    background: var(--sliderPlayed);
     border-radius: 999px;
     left: 5px;
     height: 10px;
-    width: 100%;
-  }
+    z-index: 2;
+}
 
-  .seekTrack.seekTrack-0 {
-    background: red;
-  }
+.seekTrack.seekTrack-1 {
+    background: var(--sliderUnplayed);
+    z-index: 1;
+}
+
+.volSlider{
+    width: 100%;
+    height: 100%;
+}
+
+
+.volThumb{
+    background-color: var(--sliderPlayed);
+    color: var(--snow);
+
+    height: 10px;
+    width: 10px;
+    font-size: 0;
+    text-align: center;
+    border-radius: 50%;
+    cursor: grab;
+    left: 25px;
+    bottom: 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.volTrack {
+    background: var(--sliderPlayed);
+    border-radius: 999px;
+    width: 10px;
+    bottom:0;
+    left: 25px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.volTrack.volTrack-1 {
+    background: var(--sliderUnplayed);
+    z-index: 1;
+}
+
+.volSlider:hover{
+    cursor: pointer;
+}
+
+.volSlider:hover .volThumb{
+    background-color: var(--skyBlue);
+    font-size: 10px;
+    height: 16px;
+    width: 16px;
+    left: 22px;
+
+}
+
+.volSlider:hover .volTrack{
+    z-index: 1;
+}
+
+.volSlider:active,
+.volThumb:active{
+    cursor: grabbing;
+}

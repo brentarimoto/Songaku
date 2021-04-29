@@ -10,17 +10,13 @@ import styles from './UploadForm.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const UploadForm = ()=>{
+const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, setImage, setShowModal})=>{
     const history = useHistory();
     const dispatch = useDispatch();
     const {user} = useSelector(state => state.session);
     const songs = useSelector(state => state.songs);
     const genres = useSelector(state => state.genres);
 
-    const [title, setTitle] = useState('')
-    const [album, setAlbum] = useState('')
-    const [music, setMusic] = useState(null)
-    const [image, setImage] = useState(null)
     const [genreId, setGenreId] = useState(1)
 
     const [errors, setErrors] = useState([])
@@ -73,6 +69,8 @@ const UploadForm = ()=>{
         if(reload){await dispatch(getSongs(user.id))}
 
         if (addedSong.id) {
+            reset()
+            setShowModal(false)
             history.replace(`/users/${user.id}/songs`)
         } else {
             // console.log(addedSong)

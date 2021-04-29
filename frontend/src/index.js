@@ -12,6 +12,8 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import ModalProvider from './context/Modal'
 
+import PlayerProvider from './context/player'
+
 import './index.css';
 
 /*************************** SETUP ***************************/
@@ -30,11 +32,13 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
   return (
     <Provider store={store}>
-      <ModalProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ModalProvider>
+      <PlayerProvider>
+        <ModalProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ModalProvider>
+      </PlayerProvider>
     </Provider>
   );
 }

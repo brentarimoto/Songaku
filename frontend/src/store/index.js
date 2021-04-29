@@ -9,6 +9,7 @@ import sessionReducer from './session'
 import songsReducer from './songs'
 import genresReducer from './genres'
 import currentSongReducer from './currentSong'
+import commentsReducer from './comments'
 
 
 /*************************** REDUCER ***************************/
@@ -18,6 +19,7 @@ const rootReducer  = combineReducers({
   songs: songsReducer,
   genres: genresReducer,
   currentSong: currentSongReducer,
+  comments: commentsReducer,
 });
 
 /*************************** ENHANCER/MIDDLEWARE ***************************/

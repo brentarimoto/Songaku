@@ -132,6 +132,11 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 
   const song = await Song.findByPk(songId)
 
+  if(!song){
+    const err = createError('Song Does Not Exists', 'Song Does Not Exists', 404)
+    next(err)
+  }
+
   return res.json({song})
 }))
 
