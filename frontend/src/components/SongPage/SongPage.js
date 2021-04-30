@@ -63,6 +63,7 @@ const SongPage = ({isLoaded})=>{
     const songPlay=(e)=>{
         if(!currentSong){
             dispatch(setSong(song))
+            setPlay(true)
         } else if(currentSong.id!==song.id){
             dispatch(setSong(song))
             setPlay(true)
@@ -117,25 +118,27 @@ const SongPage = ({isLoaded})=>{
                     />
                 </div>
             </div>
-            <div className={styles.myCommentContainer}>
-                <div className={styles.myProfPicDiv}>
-                    <img
-                        className={styles.myProfPic}
-                        src={user?.profilePic ? user.profilePic : `/img/Profile.png`}
-                    ></img>
-                </div>
-                <div className={styles.myCommentDiv}>
-                    <textarea
-                        value={myComment}
-                        className={styles.myComment}
-                        onChange={(e)=>setMyComment(e.target.value)}
-                    ></textarea>
-                    <button onClick={handleComment}>Comment</button>
+            <div className={styles.myCommentSection}>
+                <div className={styles.myCommentContainer}>
+                    <div className={styles.myProfPicDiv}>
+                        <img
+                            className={styles.myProfPic}
+                            src={user?.profilePic ? user.profilePic : `/img/Profile.png`}
+                        ></img>
+                    </div>
+                    <div className={styles.myCommentDiv}>
+                        <textarea
+                            value={myComment}
+                            className={styles.myComment}
+                            onChange={(e)=>setMyComment(e.target.value)}
+                        ></textarea>
+                        <button onClick={handleComment}>Comment</button>
+                    </div>
                 </div>
             </div>
             <div className={styles.commentsDiv}>
                 {comments[songId] && Object.keys(comments[songId]).reverse().map((id)=>(
-                    <Comment key={comments[songId][id].id} comment={comments[songId][id]}/>
+                    <Comment key={comments[songId][id].id} comment={comments[songId][id]} songId={songId}/>
                 ))}
             </div>
         </div>

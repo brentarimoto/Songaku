@@ -1,20 +1,94 @@
+/***** Animation *****/
+@import url('../../../css/animation/allAnimations.css');
+
+.userDiv :global{
+    animation: fadeIn 1s;
+}
+
+
 .userDiv{
-    margin: auto 5%;
+    margin: 0 1%;
     width: 100%;
     min-width: 700px;
     max-width: 1250px;
-    border: 1px solid black;
-    background-color: white;
 
     display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 300px auto;
+    grid-template-areas:
+    "info info"
+    "items suggest";
+    /* border: 1px solid black; */
+    /* background-color: var(--background2); */
 }
 
 .info{
-    height: 200px;
+    grid-area: info;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background2);
 }
 
+.itemsDiv{
+    grid-area: items;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 1fr;
+    grid-template-areas:
+    "nav"
+    "items";
+}
 
+.itemsNav{
+    grid-area: nav;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.navItem{
+    /* box-sizing: border-box; */
+    padding: 0 10px;
+    font-size: 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navItemSpacer{
+    box-sizing: border-box;
+    padding: 10px 0;
+    width: 100%;
+    height:100%;
+}
+
+.navItemLine{
+    height:100%;
+    width: 100%;
+    border-right: 1px solid var(--borderColor);
+}
 
 .active{
-    color: red
+    color: var(--userNavActive)
+}
+
+.itemDiv{
+    width: 100%;
+    margin-top: 10px;
+    grid-area: items;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-right: 1px solid var(--borderColor);
+}
+
+.suggestionsDiv{
+    grid-area: suggest;
+    width: 100%;
+    height: 100%;
+    /* background-color: var(--background2); */
 }

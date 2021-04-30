@@ -10,7 +10,7 @@ import songsReducer from './songs'
 import genresReducer from './genres'
 import currentSongReducer from './currentSong'
 import commentsReducer from './comments'
-
+import likesReducer from './likes'
 
 /*************************** REDUCER ***************************/
 
@@ -20,6 +20,7 @@ const rootReducer  = combineReducers({
   genres: genresReducer,
   currentSong: currentSongReducer,
   comments: commentsReducer,
+  likes: likesReducer,
 });
 
 /*************************** ENHANCER/MIDDLEWARE ***************************/

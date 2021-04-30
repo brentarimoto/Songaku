@@ -81,62 +81,49 @@ export const postComment = (comment, userId, songId) => async dispatch => {
     return newComment
 }
 
-export const editComment = ({title, userId, album, music, image, genreId, songId}) => async dispatch => {
-    // const files = [music, image]
-
-    // const formData = new FormData();
-    // formData.append('title', title)
-    // formData.append('userId', userId)
-    // formData.append('album', album)
-    // formData.append('genreId', genreId)
-
-    // if (files && files.length!==0){
-    //     files.forEach((file)=>{
-    //         formData.append("files", file)
-    //     })
-    // }
-
-    // const res = await csrfFetch(`/api/songs/${songId}`,{
-    //     method: 'PUT',
-    //     headers : {
-    //         'Content-Type' : 'multipart/form-data'
-    //     },
-    //     body: formData,
-    // })
+export const editComment = (comment, id, songId) => async dispatch => {
+    console.log('test')
+    const res = await csrfFetch(`/api/songs/${songId}/comments/${id}`,{
+        method: 'PUT',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({comment}),
+    })
 
 
-    // if(!res.ok){
-    //     const errors = await res.json()
-    //     return {errors}
-    // }
+    if(!res.ok){
+        const errors = await res.json()
+        return {errors}
+    }
 
-    // const {song, reload} = await res.json();
+    const {existingComment} = await res.json();
 
-    // dispatch(addSong(song, userId))
-    // return {song, reload}
+    dispatch(addComment(existingComment, songId))
+    return {existingComment}
 }
 
 
 
 // Delete Song in database, and then delete from store
-export const deleteComment = (id, userId) => async dispatch => {
+export const deleteComment = (id, songId) => async dispatch => {
 
-    // const res = await csrfFetch(`/api/songs/${id}`,{
-    //     method: 'DELETE',
-    // })
+    const res = await csrfFetch(`/api/songs/${songId}/comments/${id}`,{
+        method: 'DELETE'
+    })
 
-    // if(!res.ok){
-    //     const errors = await res.json()
-    //     return {errors}
-    // }
+    if(!res.ok){
+        const errors = await res.json()
+        return {errors}
+    }
 
-    // const {message} = await res.json();
+    const {message} = await res.json();
 
-    // if(message==='success'){
-    //     dispatch(removeSong(id, userId))
-    // }
+    if(message==='success'){
+        dispatch(removeComment(id, songId))
+    }
 
-    // return message
+    return message
 }
 
 
@@ -160,7 +147,7 @@ export default function commentsReducer(state = {}, action){
             return newState
         case REMOVE_COMMENT:
             newState={...state}
-            // delete newState[action.userId][action.id]
+            delete newState[action.songId][action.id]
             return newState
         default:
             return state

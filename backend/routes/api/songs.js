@@ -37,7 +37,6 @@ const validateSongs = [
 function validateSongFile(req, res, next){
   if(!req.files.length){
     const err = createError('Please provide an audio file', 'File Not Provided', 400)
-    console.log('ERROR', err)
     next(err)
     return
   }
@@ -90,19 +89,13 @@ async function updateAlbumArts(song){
 async function deleteFromAWS(type, song){
   if(type!=='url' && type!=='img'){return false}
 
-  console.log('test1')
-
   let link = song[type]
 
   if(!link){return false}
 
-  console.log('test2')
-
   let key = link.match(/[^\/]+$/g)
 
   if(!key){return false}
-
-  console.log('test3')
 
   await singlePublicFileDelete(key[0])
 
@@ -143,8 +136,6 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 
 // --------- POST (UPLOAD) a song --------- //
 router.post('/', multipleMulterUpload('files'), validateSongs,  asyncHandler(async (req, res, next) => {
-  console.log('test')
-
   const {title, userId, album, genreId} = req.body
 
   const exists = await Song.findOne({
@@ -252,7 +243,7 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
     reload = await updateAlbumArts(tempSong)
   }
 
-  tempSong.save();
+  await tempSong.save();
 
   const song = await Song.findByPk(tempSong.id, {
     include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']}],

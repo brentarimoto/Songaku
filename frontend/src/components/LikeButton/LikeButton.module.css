@@ -1,0 +1,12 @@
+@import url('../../css/animation/allAnimations.css');
+
+.heartFull :global{
+    animation: scaleUp .25s
+}
+
+
+.button{
+    color: var(--skyBlue);
+    border: none;
+    font-size: 100%;
+}

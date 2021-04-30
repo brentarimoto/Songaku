@@ -27,24 +27,27 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Song.associate = function(models) {
-    Song.hasMany(models.Comment, {foreignKey: 'songId'})
-    Song.hasMany(models.Like, {foreignKey: 'songId'})
-    Song.hasMany(models.Playlist, {foreignKey: 'songId'})
-    Song.belongsTo(models.User, {foreignKey: 'userId'})
+    Song.hasMany(models.Comment, {foreignKey: 'songId', onDelete: 'cascade', hooks: true})
+    Song.hasMany(models.Like, {foreignKey: 'songId', onDelete: 'cascade', hooks: true})
+    Song.hasMany(models.Playlist, {foreignKey: 'songId', onDelete: 'cascade', hooks: true})
 
-    Song.belongsToMany(models.User, {
-      through: "Comment",
-      as: "UsersComments",
-      foreignKey: "songId",
-      otherKey: "userId",
-    });
+    Song.belongsTo(models.User, {foreignKey: 'userId', onDelete: 'cascade'})
 
-    Song.belongsToMany(models.User, {
-      through: "Like",
-      as: "UsersLikes",
-      foreignKey: "songId",
-      otherKey: "userId",
-    });
+    // Song.belongsToMany(models.User, {
+    //   through: "Comment",
+    //   as: "UsersComments",
+    //   foreignKey: "songId",
+    //   otherKey: "userId",
+    // });
+
+    // Song.belongsToMany(models.User, {
+    //   through: "Like",
+    //   as: "UsersLikes",
+    //   foreignKey: "songId",
+    //   otherKey: "userId",
+    //   onDelete: 'cascade',
+    //   hooks: true
+    // });
 
     Song.belongsToMany(models.User, {
       through: "Playlist",

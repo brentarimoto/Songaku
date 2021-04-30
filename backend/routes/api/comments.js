@@ -28,12 +28,26 @@ router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
   const comments = await Comment.findAll( {
     where: {songId},
     include: [{model:User, attributes:['userName', 'profilePic']}],
-    attributes: ['id', 'userId', 'comment','createdAt'],
     order: [['id']]
   })
 
   return res.json({comments})
 }))
+
+// EXAMPLE CODE for fiding a comment, and deleting that instance
+// router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
+//   const commentId = req.params.id
+
+//   const comments = await Comment.findOne({
+//     where: {id:commentId}
+//   })
+
+//   // console.log(comments)
+
+//   const value = await Comment.destroy({where: {id:commentId}})
+
+//   return res.json({value})
+// }))
 
 
 // GET a user's comments on a song
@@ -66,10 +80,8 @@ router.post('/:id(\\d+)/comments', validateComment, asyncHandler(async (req, res
     comment
   })
 
-  const newComment = await Comment.findOne( {
-    where: {createdAt:newCom.createdAt},
+  const newComment = await Comment.findByPk(newCom.id, {
     include: [{model:User, attributes:['userName', 'profilePic']}],
-    attributes: ['id', 'userId', 'comment','createdAt'],
     order: [['id']]
   })
 
@@ -83,21 +95,25 @@ router.put('/:id(\\d+)/comments/:commentId', asyncHandler(async (req, res) => {
   const { commentId } = req.params
   const {comment} = req.body
 
-  const existingComment = await Comment.findByPk(commentId)
+  const existingComment = await Comment.findByPk(commentId, {
+    include: [{model:User, attributes:['userName', 'profilePic']}],
+    order: [['id']]
+  })
 
   if(!existingComment){
     return res.status(404).json({message:'Comment Does Not Exist'})
   }
+
   existingComment.comment=comment
 
   await existingComment.save()
 
-  return res.json({comment:existingComment})
+  return res.json({existingComment})
 }))
 
 
 // DELETE a comment on a song
-router.delete('/:id(\\d+)/comments/:commentId', asyncHandler(async (req, res) => {
+router.delete('/:id(\\d+)/comments/:commentId(\\d+)', asyncHandler(async (req, res) => {
   const { commentId } = req.params
 
   const existingComment = await Comment.findByPk(commentId)

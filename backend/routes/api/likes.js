@@ -17,10 +17,14 @@ const asyncHandler = require('express-async-handler');
 router.get('/:id(\\d+)/likes', asyncHandler(async (req, res) => {
   const songId = req.params.id
 
-  const {UsersLikes:likes} = await Song.findByPk(songId,{include:[{ model:User, as: "UsersLikes"}]})
+  const likes = await Like.findAll({
+    where:{songId},
+    include: [{model: User, attributes: ['userName']}]
+  })
 
-  return res.json({likeCount:likes.length})
+  return res.json({likes})
 }))
+
 
 
 // POST a like on a song
@@ -36,7 +40,8 @@ router.post('/:id(\\d+)/likes', asyncHandler(async (req, res) => {
   })
 
   if(exists){
-    return res.status(403).json({message:'Like Already Exists'})
+    const err = createError('Like Already Exists', 'Like Already Exists', 403)
+    next(err)
   }
 
   const newLike = await Like.create({
@@ -44,13 +49,13 @@ router.post('/:id(\\d+)/likes', asyncHandler(async (req, res) => {
     songId,
   })
 
-  return res.json({message:'success'})
+  return res.json({createdAt: newLike.createdAt})
 
 }))
 
 
 // DELETE a like on a song
-router.delete('/:id(\\d+)/likes/:likeId', asyncHandler(async (req, res) => {
+router.delete('/:id(\\d+)/likes/', asyncHandler(async (req, res) => {
   const songId = req.params.id
   const {userId} = req.body
 
@@ -65,7 +70,7 @@ router.delete('/:id(\\d+)/likes/:likeId', asyncHandler(async (req, res) => {
     return res.status(404).json({message:'Like Does Not Exist'})
   }
 
-  await existingComment.destroy()
+  await existingLike.destroy()
 
   return res.json({message:'success'})
 }))

@@ -20,17 +20,20 @@ const User = ({isLoaded})=>{
                 <h1>User Info</h1>
             </div>
             <div className={styles.itemsDiv}>
-                <div className={styles.itemsNav}>
-                    <nav>
-                        <NavLink activeClassName={styles.active} exact to={`${url}`}>Base</NavLink>
-                        <NavLink activeClassName={styles.active} to={`${url}/songs`}>Songs</NavLink>
-                        <NavLink activeClassName={styles.active} to={`${url}/playlists`}>Playlist</NavLink>
-                    </nav>
-                </div>
-                <div className={styles.item}>
+                <nav className={styles.itemsNav}>
+                    {/* <NavLink activeClassName={styles.active} exact to={`${url}`}>Base</NavLink> */}
+                    <NavLink className={styles.navItem} activeClassName={styles.active} to={`${url}/songs`}>Songs</NavLink>
+                    <NavLink className={styles.navItem}  activeClassName={styles.active} to={`${url}/playlists`}>Playlist</NavLink>
+                    <div className={styles.navItemSpacer}>
+                        <div className={styles.navItemLine}>
+
+                        </div>
+                    </div>
+                </nav>
+                <div className={styles.itemDiv}>
                     <Switch>
                         <Route exact path={`${path}`}>
-                            <h2>Base</h2>
+                            <Redirect to={`${url}/songs`}/>
                         </Route>
                         <Route path={`${path}/songs`}>
                             <UserSongs />
@@ -40,6 +43,9 @@ const User = ({isLoaded})=>{
                         </Route>
                     </Switch>
                 </div>
+            </div>
+            <div className={styles.suggestionsDiv}>
+
             </div>
         </div>
     )

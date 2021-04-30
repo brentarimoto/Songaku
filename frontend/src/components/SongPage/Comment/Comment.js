@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactSlider from 'react-slider'
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import EditButton from './EditButton'
-import DeleteButton from './DeleteButton'
+import { deleteComment, editComment } from '../../../store/comments'
 import styles from './Comment.module.css'
 
 
@@ -32,9 +31,49 @@ function dateConverter(seqDate){
 }
 
 /*************************** COMPONENTS ***************************/
-const Comment = ({comment, isLoaded})=>{
+
+
+const EditSection=({newComment, setNewComment, editOn, comment})=>{
+    if(editOn){
+        return(
+            <div className={styles.newCommentDiv}>
+                <textarea
+                    value={newComment}
+                    className={styles.newComment}
+                    onChange={(e)=>setNewComment(e.target.value)}
+                ></textarea>
+            </div>
+        )
+    } else {
+        return(<h3>{comment?.comment}</h3>)
+    }
+
+}
+
+
+
+
+const Comment = ({comment})=>{
+    const dispatch = useDispatch()
     const {user} = useSelector((state)=>state.session)
-    console.log(comment?.userId===user?.id)
+
+    const [newComment, setNewComment] = useState('')
+    const [editOn, setEditOn] = useState(false)
+
+    const handleEdit =(e)=>{
+        if(editOn && newComment!==comment?.comment){
+            dispatch(editComment(newComment, comment.id, comment.songId))
+            setNewComment('')
+            setEditOn(false)
+        } else {
+            setNewComment(comment?.comment)
+            setEditOn(true)
+        }
+    }
+
+    const handleDelete = ()=>{
+        dispatch(deleteComment(comment.id, comment.songId))
+    }
 
     return (
         <div className={styles.commentContainer}>
@@ -45,14 +84,20 @@ const Comment = ({comment, isLoaded})=>{
                 <h3>{comment?.User?.userName}</h3>
             </div>
             <div className={styles.commentDiv}>
-                <h3>{comment?.comment}</h3>
+                <EditSection newComment={newComment} setNewComment={setNewComment} editOn={editOn} comment={comment} commentUserId={comment?.userId} userId={user?.id}/>
             </div>
             <div className={styles.dateDiv}>
                 <h3>{dateConverter(comment?.createdAt)}</h3>
             </div>
             {(user && comment?.userId===user?.id) && <div className={styles.changeDiv}>
-                <EditButton comment={comment} userId={user.id}/>
-                <DeleteButton comment={comment} userId={user.id}/>
+                <button className={styles.commentButton} onClick={handleEdit}>Edit</button>
+                <button className={styles.commentButton} onClick={handleDelete}>Delete</button>
+                {editOn && (
+                    <>
+                        <button className={styles.commentButton} onClick={()=>setEditOn(false)}>Cancel</button>
+                        <div className={styles.commentButton}></div>
+                    </>
+                )}
             </div>}
         </div>
     )

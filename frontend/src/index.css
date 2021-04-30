@@ -52,31 +52,52 @@ body{
   --pastelBlue: rgba(173, 195, 209,1);
   --pastelPurple: rgba(179, 153, 212, 1);
   --pastelOrange: rgba(243, 154, 39,1);
-
-
   --fadedGreyBlue: rgba(190, 202, 211,.55);
-  --snow: rgba(254, 245, 250,1);
+
+
+  --snow: rgba(254, 245, 250,.7);
   --quickSilver: rgba(164, 169, 167,.7);
   --rainbowIndigo: rgba(29, 48, 100, 1);
+  --fadedRainbowIndigo: rgba(29, 48, 100, .15);
   --jetStream: rgba(186, 219, 202, 1);
   --pinkPearl: rgba(225, 167, 202, 1);
   --paleLavender: rgba(223, 210, 244, 1);
+  --fadedPaleLavender: rgba(223, 210, 244, .5);
   --skyBlue: rgba(06, 157, 217,1);
   --darkSkyBlue: rgba(147, 194, 198, 1);
   --paleBlue: rgba(184, 235, 233, 1);
-  /* --greenSheen: rgba(251, 234, 200, 1); */
   --purpleMountain: rgba(156, 115, 167, 1);
   --darkViolet: rgba(131, 95, 139,1);
   --beige: rgba(245, 245, 221,1);
 
+  --background1: var(--fadedGreyBlue);
+  --background2: var(--pastelBlue);
+  --background3: var(--darkSkyBlue);
+
+  --borderColor: var(--darkViolet);
+
+  --userNavActive: var(--pastelPurple);
+
   --songTitle: var(--pastelRed);
   --otherSongInfo: var(--pastelRed);
+  --genreTextColor: var(--skyBlue);
+  --genreBackground: var(--jetStream);
+
   --songHeaders: var(--skyBlue);
+
   --sliderPlayed: var(--pastelRed);
   --sliderUnplayed: var(--beige);
 
   --username: var(--skyBlue);
   --comment: var(--pastelRed);
+
+  --commentBackground: var(--fadedRainbowIndigo);
+  --commentShadow: var(--purpleMountain);
+
+  --profPicBackground: var(--jetStream);
+
+  --modalBackground: var(--pastelPurple);
+  --modalFadedBackground: var(--snow)
 }
 
 /* h1 {

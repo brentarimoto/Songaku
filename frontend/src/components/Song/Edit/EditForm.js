@@ -18,7 +18,7 @@ const EditForm = ({song, onClose})=>{
 
     const [title, setTitle] = useState(song?.title)
     const [album, setAlbum] = useState(song?.album)
-    const [genreId, setGenreId] = useState(song?.genreId)
+    const [genre, setGenre] = useState(song?.Genre.name)
     const [music, setMusic] = useState(null)
     const [image, setImage] = useState(null)
     const [errors, setErrors] = useState([])
@@ -34,8 +34,7 @@ const EditForm = ({song, onClose})=>{
     };
 
     const updateGenre = (e)=>{
-        const genreId = Object.keys(genres).find(key => genres[key] === e.target.value);
-        setGenreId(genreId)
+        setGenre(e.target.value)
     }
 
     const reset = () =>{
@@ -48,6 +47,9 @@ const EditForm = ({song, onClose})=>{
 
     const handleEdit= async (e)=>{
         e.preventDefault();
+
+        const genreId = Object.keys(genres).find(key => genres[key] === genre);
+
 
         const newSong = {
             title,
@@ -130,6 +132,7 @@ const EditForm = ({song, onClose})=>{
                 <div className={styles.genre}>
                     <label className= {[styles.label, styles.genreLabel]} htmlFor='genre'>Genre: </label>
                     <select
+                        value={genre}
                         className={[styles.input, styles.genreInput]}
                         name='genre'
                         onChange={updateGenre}

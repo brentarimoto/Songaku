@@ -1,19 +1,10 @@
-@keyframes :global(slideInFromTop) {
-    0% {
-        transform: translateY(-200%);
-      }
-      100% {
-        transform: translateY(0);
-      }
-}
-
-@keyframes :global(slideInFromTop) {
+@keyframes :global(slideInFromLeft) {
     0% {
         transform: translateX(-200%);
-    }
-    100% {
+      }
+      100% {
         transform: translateX(0);
-    }
+      }
 }
 
 @keyframes :global(slideInFromRight) {
@@ -25,6 +16,15 @@
     }
 }
 
+@keyframes :global(slideInFromBottom) {
+    0% {
+        transform: translateY(-200%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 @keyframes :global(slideInFromTop) {
     0% {
       transform: translateY(-200%);
@@ -33,6 +33,16 @@
       transform: translateY(0);
     }
 }
+
+@keyframes :global(setIn) {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 
 
 @keyframes :global(slideOutToTop) {
