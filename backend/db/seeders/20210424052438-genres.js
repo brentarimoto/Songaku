@@ -1,5 +1,4 @@
 'use strict';
-const fetch = require("node-fetch");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
