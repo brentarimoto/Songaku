@@ -3,7 +3,8 @@ const express = require('express');
 const { check } = require('express-validator')
 
 const { setTokenCookie, restoreUser, requireAuth  } = require('../../utils/auth');
-const { User, Song, Genre } = require('../../db/models');
+const { User, Song, Genre, Album } = require('../../db/models');
+const playlistsRouter = require('./playlists');
 
 /*************************** ROUTER SETUP ***************************/
 const router = express.Router();
@@ -33,14 +34,14 @@ const validateSignup = [
     handleValidationErrors,
   ];
 
-/*************************** ROUTES ***************************/
+/*************************** USER ROUTES ***************************/
 //SIGN UP
 router.get('/:id/songs', asyncHandler(async (req, res) => {
   const { id:userId } = req.params
 
   const songs = await Song.findAll({
     where:{userId},
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']}],
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']},{model:Album}],
   })
 
   res.json({songs})
@@ -58,6 +59,8 @@ router.post('', validateSignup, asyncHandler(async (req, res) => {
   });
 }));
 
+/*************************** PLAYLIST ROUTES ***************************/
+router.use('/', playlistsRouter)
 
 /*************************** EXPORTS ***************************/
 

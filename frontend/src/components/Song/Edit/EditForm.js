@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {editSong, getSongs} from '../../../store/songs'
+import {setSong} from '../../../store/currentSong'
 
 import styles from './EditForm.module.css'
 
@@ -15,9 +16,10 @@ const EditForm = ({song, onClose})=>{
     const dispatch = useDispatch();
     const {user} = useSelector(state => state.session);
     const genres = useSelector(state => state.genres);
+    const currentSong = useSelector(state => state.currentSong);
 
     const [title, setTitle] = useState(song?.title)
-    const [album, setAlbum] = useState(song?.album)
+    const [album, setAlbum] = useState(song?.Album.name)
     const [genre, setGenre] = useState(song?.Genre.name)
     const [music, setMusic] = useState(null)
     const [image, setImage] = useState(null)
@@ -64,11 +66,12 @@ const EditForm = ({song, onClose})=>{
 
         let {song: editedSong, reload, errors} = await dispatch(editSong(newSong))
 
-        if(errors){return setErrors(errors.errors)}
+        if(errors){setErrors(errors?.errors || [errors.message])}
 
         if(reload){await dispatch(getSongs(user.id))}
 
         if (editedSong?.id) {
+            if(currentSong?.id===editedSong.id){dispatch(setSong(editedSong))}
             onClose()
         } else {
             console.log(editedSong?.message)

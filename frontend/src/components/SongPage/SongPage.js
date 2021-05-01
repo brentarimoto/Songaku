@@ -89,7 +89,7 @@ const SongPage = ({isLoaded})=>{
                     </div>
                     <div className={styles.album}>
                         <h3 className={styles.header}>Album: </h3>
-                        <h3>{song?.album}</h3>
+                        <h3>{song?.Album.name}</h3>
                     </div>
                     <div className={styles.genre}>
                         <h3 className={styles.header}>Genre: </h3>
@@ -99,7 +99,7 @@ const SongPage = ({isLoaded})=>{
                 <div className={styles.albumArtDiv}>
                     <img
                         className={styles.albumArt}
-                        src={song?.img ? song.img : `/img/Profile.png`}
+                        src={song?.Album.url ? song.Album.url : `/img/Profile.png`}
                         onClick={songPlay}
                     ></img>
                 </div>

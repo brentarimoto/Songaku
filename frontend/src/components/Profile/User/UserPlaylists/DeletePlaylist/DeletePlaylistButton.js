@@ -4,13 +4,13 @@ import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import {deleteSong} from '../../../store/songs';
+import {deletePlaylist} from '../../../../../store/playlists';
 
-import styles from './DeleteSongButton.module.css'
+import styles from './DeletePlaylistButton.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const DeleteSongButton = ({id, albumId})=>{
+const DeletePlaylistButton = ({name, id})=>{
     const dispatch = useDispatch();
     const history= useHistory();
 
@@ -18,12 +18,12 @@ const DeleteSongButton = ({id, albumId})=>{
 
     const {user} = useSelector(state => state.session);
 
-    const handleDelete= async (e)=>{
+    const handleDeletePlaylist= async (e)=>{
         e.preventDefault();
 
-        let {message, errors} = await dispatch(deleteSong(id, user.id, albumId))
+        let {message, errors} = await dispatch(deletePlaylist(id, user.id))
 
-        if(errors){setErrors(errors?.errors || [errors.message])}
+        if(errors){setErrors(errors.errors)}
 
         if(message!=='success'){
             console.log(message)
@@ -31,20 +31,18 @@ const DeleteSongButton = ({id, albumId})=>{
     }
 
     return(
-        <form className={styles.form}
-            onSubmit={handleDelete}
-        >
+        <div className={styles.form}>
             <ul className={styles.formErrors}>
                 {errors.length>0 && errors.map((error)=>(
                     <li key={error}>{error}</li>
                 ))}
             </ul>
             <h4>Are you sure?</h4>
-            <h4>Files will be permanently deleted. </h4>
-            <button className={styles.button} type='submit'>Delete</button>
-        </form>
+            <h4>{name} will be permanently deleted. </h4>
+            <button className={styles.button} type='submit' onClick={handleDeletePlaylist}>Delete</button>
+        </div>
     )
 }
 
 /*************************** EXPORT ***************************/
-export default DeleteSongButton;
+export default DeletePlaylistButton;

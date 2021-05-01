@@ -105,6 +105,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Comment, {foreignKey: 'userId', onDelete: 'cascade', hooks: true})
     User.hasMany(models.Like, {foreignKey: 'userId', onDelete: 'cascade', hooks: true})
     User.hasMany(models.Playlist, {foreignKey: 'userId', onDelete: 'cascade', hooks: true})
+    User.hasMany(models.Song, {foreignKey: 'userId', onDelete: 'cascade', hooks: true})
 
     User.hasMany(models.Song, {foreignKey: 'userId', onDelete: 'cascade', hooks: true})
 
@@ -124,12 +125,12 @@ module.exports = (sequelize, DataTypes) => {
     //   hooks: true
     // });
 
-    User.belongsToMany(models.Song, {
-      through: "Playlist",
-      as: "SongsInPlaylists",
-      foreignKey: "userId",
-      otherKey: "songId",
-    });
+    // User.belongsToMany(models.Song, {
+    //   through: "Playlist",
+    //   as: "SongsInPlaylists",
+    //   foreignKey: "userId",
+    //   otherKey: "songId",
+    // });
 
   };
   return User;

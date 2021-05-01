@@ -32,14 +32,6 @@ const Song = ({song, userId})=>{
         }
     },[dispatch])
 
-    let isUser;
-
-    if(parseInt(userId)===user?.id){
-        isUser=true;
-    } else {
-        isUser=false;
-    }
-
     if(!genres){
         return(
             <h1>Loading...</h1>
@@ -64,7 +56,7 @@ const Song = ({song, userId})=>{
             <div className={styles.albumArtDiv}>
                 <img
                     className={styles.albumArt}
-                    src={song?.img ? song.img : `/img/Profile.png`}
+                    src={song?.Album.url ? song.Album.url : `/img/Profile.png`}
                     onClick={songPlay}
                 ></img>
             </div>
@@ -76,7 +68,7 @@ const Song = ({song, userId})=>{
                     <h4>{song?.User.userName}</h4>
                 </div>
                 <div className={styles.album}>
-                    <h4>{song?.album}</h4>
+                    <h4>{song?.Album.name}</h4>
                 </div>
                 <div className={styles.genre}>
                     <h4>{song?.Genre.name}</h4>
@@ -92,7 +84,7 @@ const Song = ({song, userId})=>{
                             {likes[song.id] && likes[song.id].count}
                         </div>
                     </div>
-                    {isUser &&
+                    {parseInt(userId)===user?.id &&
                     <>
                         <div className={styles.playlistDiv}>
                             Playlist
@@ -102,7 +94,7 @@ const Song = ({song, userId})=>{
                                 <EditModal song={song}/>
                             </div>
                             <div className={styles.delete}>
-                                <DeleteModal id={song.id}/>
+                                <DeleteModal id={song.id} albumId={song.Album.id}/>
                             </div>
                         </div>
                     </>

@@ -24,10 +24,10 @@
     position: fixed;
     width: 100%;
     display: grid;
-    grid-template-columns: 10px 150px 150px 1fr 300px 10px;
+    grid-template-columns: 10px 150px auto 1fr auto 10px;
     grid-template-rows: 50px;
     grid-template-areas:
-        " . logo home search auth .";
+        " . logo homeUpload search auth .";
     padding: 0;
     border-bottom: 1px solid rgba(200,200,200,.85);
     background-color: whitesmoke;
@@ -67,10 +67,18 @@
     cursor: pointer;
 }
 
-/***** Home/Login/Signup *****/
+/***** Home/Upload *****/
+
+.homeUpload{
+    grid-area: homeUpload;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .homeDiv{
-    grid-area: home;
+    height: 100%;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,12 +90,32 @@
 .home{
     height: 100%;
     width: 100%;
-    margin: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
 }
+
+.uploadDiv{
+    height: 100%;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+    color: grey;;
+}
+
+.upload{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
 
 /***** Search *****/
 
@@ -191,25 +219,4 @@
 
 .fa-user{
     pointer-events: none;
-}
-
-/**** Upload ****/
-.uploadDiv{
-    height: 100%;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 20px;
-    color: grey;;
-}
-
-.upload{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
 }

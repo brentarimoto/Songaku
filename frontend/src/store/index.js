@@ -11,6 +11,8 @@ import genresReducer from './genres'
 import currentSongReducer from './currentSong'
 import commentsReducer from './comments'
 import likesReducer from './likes'
+import playlistsReducer from './playlists'
+import albumsReducer from './albums'
 
 /*************************** REDUCER ***************************/
 
@@ -21,6 +23,8 @@ const rootReducer  = combineReducers({
   currentSong: currentSongReducer,
   comments: commentsReducer,
   likes: likesReducer,
+  playlists: playlistsReducer,
+  albums: albumsReducer,
 });
 
 /*************************** ENHANCER/MIDDLEWARE ***************************/

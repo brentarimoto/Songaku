@@ -52,8 +52,6 @@ export const loadLikes = (songId)=> async dispatch=>{
     let likesObj={}
     likesObj[songId]={count:likes.length, users:{}};
 
-    console.log(likes)
-
 
     likes.forEach((like)=>{
         likesObj[songId].users[like.userId]=like.createdAt

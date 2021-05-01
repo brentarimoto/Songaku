@@ -1,7 +1,7 @@
 @import url('../../css/animation/allAnimations.css');
 
 .songDiv :global{
-    animation: fadeIn 1s
+    animation: fadeIn 1s, slightSlideInFromLeft .75s
 }
 
 .songDiv{

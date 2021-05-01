@@ -60,20 +60,14 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
         }
 
 
-        let {song:addedSong, reload, errors} = await dispatch(uploadSong(song))
+        let {song:addedSong, errors} = await dispatch(uploadSong(song))
 
-        console.log(errors)
+        if(errors){setErrors(errors?.errors || [errors.message])}
 
-        if(errors){return setErrors(errors.errors)}
-
-        if(reload){await dispatch(getSongs(user.id))}
-
-        if (addedSong.id) {
+        if (addedSong?.id) {
             reset()
             setShowModal(false)
             history.replace(`/users/${user.id}/songs`)
-        } else {
-            // console.log(addedSong)
         }
     }
 

@@ -32,14 +32,23 @@ const SetAuthDiv = () =>{
     }
     return(
         <>
-            <div className = {styles.uploadDiv}>
-                <UploadModal />
+            <div className = {styles.profileNavDiv}>
+                <NavLink
+                    activeClassName={styles.active}  className = {styles.profileNav}
+                    to={`/users/${user.id}/songs`}
+                >Songs</NavLink>
             </div>
             <div className = {styles.profileNavDiv}>
                 <NavLink
                     activeClassName={styles.active}  className = {styles.profileNav}
-                    to={`/users/${user.id}`}
-                >Profile</NavLink>
+                    to={`/users/${user.id}/albums`}
+                >Albums</NavLink>
+            </div>
+            <div className = {styles.profileNavDiv}>
+                <NavLink
+                    activeClassName={styles.active}  className = {styles.profileNav}
+                    to={`/users/${user.id}/playlists`}
+                >Playlists</NavLink>
             </div>
             <ProfileButton />
         </>
@@ -60,8 +69,13 @@ const Navigation = ()=>{
             <div className = {styles.logoDiv}>
                 <img className= {styles.logo} src={`/img/Songaku_Logo.png`} onClick={handleLogo}></img>
             </div>
-            <div className = {styles.homeDiv}>
-                <NavLink activeClassName={styles.active}  className = {styles.home} exact to='/'>Home</NavLink>
+            <div className={styles.homeUpload}>
+                <div className = {styles.homeDiv}>
+                    <NavLink activeClassName={styles.active}  className = {styles.home} exact to='/'>Home</NavLink>
+                </div>
+                <div className = {styles.uploadDiv}>
+                    <UploadModal />
+                </div>
             </div>
             <div className = {styles.searchDiv}>
                 {user? user.userName : 'App'}

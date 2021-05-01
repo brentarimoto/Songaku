@@ -6,6 +6,15 @@
         transform: translateX(0);
       }
 }
+@keyframes :global(slightSlideInFromLeft) {
+    0% {
+        transform: translateX(-10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+}
+
 
 @keyframes :global(slideInFromRight) {
     0% {
@@ -62,6 +71,16 @@
         transform: scale(1);
     }
 }
+
+@keyframes :global(slightScaleUp) {
+    0% {
+        transform: scale(.75);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 
 @keyframes :global(scaleDown) {
     0% {

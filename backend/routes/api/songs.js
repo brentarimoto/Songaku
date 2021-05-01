@@ -2,7 +2,7 @@
 const express = require('express');
 const { check } = require('express-validator')
 
-const { Song, User, Genre } = require('../../db/models');
+const { Song, User, Genre, Album } = require('../../db/models');
 const commentsRouter = require('./comments.js');
 const likesRouter = require('./likes.js')
 
@@ -86,10 +86,8 @@ async function updateAlbumArts(song){
 
 }
 
-async function deleteFromAWS(type, song){
-  if(type!=='url' && type!=='img'){return false}
-
-  let link = song[type]
+async function deleteFromAWS(item){
+  let link = item.url
 
   if(!link){return false}
 
@@ -138,42 +136,61 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 router.post('/', multipleMulterUpload('files'), validateSongs,  asyncHandler(async (req, res, next) => {
   const {title, userId, album, genreId} = req.body
 
-  const exists = await Song.findOne({
-    where: {
-      userId,
-      album,
-    }
+  const existingAlbum = await Album.findOne({
+    where: {name:album, userId},
+    include: [{model:Song}]
   })
 
-  if(title===(exists ? exists.title : exists)){
-    const err = createError('Song Already Exists', 'Song Already Exists', 403)
-    next(err)
+  if(existingAlbum){
+    const songTitles= existingAlbum.Songs.map((song)=>{
+      return song.title
+    })
+
+    if(songTitles.includes(title)){
+      const err = createError('Song Already Exists In Album', 'Song Already Exists In Album', 403)
+      next(err)
+    }
   }
 
-  if(req.files.length>1 && (exists ? exists.img : exists)){
+  if(req.files.length>1 && (existingAlbum ? existingAlbum.url : null)){
     req.files.pop()
   }
 
-
   const files = await multiplePublicFileUpload(req.files)
   const url = files[0]
-  let img = files[1] ? files[1] : null;
-  img = exists ? (exists.img ? exists.img : img) : img;
+  let imgUrl = files[1] ? files[1] : null;
+  imgUrl = existingAlbum ? (existingAlbum.url ? existingAlbum.url : imgUrl) : imgUrl;
 
-  const tempSong = await Song.create({
+  let albumId;
+  let reload;
+
+  if(existingAlbum){
+    albumId=existingAlbum.id
+    if(imgUrl){
+      existingAlbum.url=imgUrl
+      await existingAlbum.save()
+    }
+    reload=true;
+  } else{
+    const newAlbum = await Album.create({
+      userId,
+      name:album,
+      url:imgUrl
+    })
+    albumId=newAlbum.id
+  }
+
+  const newSong = await Song.create({
     title,
     userId,
-    album,
+    albumId,
     url,
-    img,
     genreId
   })
 
-  const song = await Song.findByPk(tempSong.id, {
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']}],
+  const song = await Song.findByPk(newSong.id, {
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']},{model:Album}],
   })
-
-  const reload = await updateAlbumArts(song)
 
   return res.json({song, reload})
 }))
@@ -187,7 +204,7 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
   const tempSong = await Song.findByPk(id)
 
   if(!tempSong){
-    const err = createError('Song Does Not Exists', 'Song Does Not Exists', 404)
+    const err = createError('Song Does Not Exist', 'Song Does Not Exist', 404)
     next(err)
   }
 
@@ -201,52 +218,62 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
   if (title){tempSong.title=title}
   if (genreId){tempSong.genreId=genreId}
 
-  if(album){
-    const albumExists = await Song.findOne({
-      where:{
-        album
-      }
-    })
-
-    if(albumExists){
-      tempSong.img=albumExists.img
-    }
-
-    tempSong.album=album
-  }
-
   let url;
-  let img;
+  let imgUrl;
 
   if(req.files.length){
     const files = await multiplePublicFileUpload(req.files)
 
     if(req.files.length>1){
       url = files[0]
-      img = files[1]
+      imgUrl = files[1]
     } else {
       url = (req.files[0].mimetype.includes('audio')) ? files[0]: null;
-      img = (req.files[0].mimetype.includes('image')) ? files[0]: null;
+      imgUrl = (req.files[0].mimetype.includes('image')) ? files[0]: null;
     }
   }
 
   if(url){
-    let urlDeleted = await deleteFromAWS('url', tempSong)
+    let urlDeleted = await deleteFromAWS(tempSong)
     tempSong.url=url
   }
 
-  let reload=false;
+  let reload;
 
-  if(img){
-    imgDeleted = await deleteFromAWS('img', tempSong)
-    tempSong.img=img
-    reload = await updateAlbumArts(tempSong)
+  let albumExists = await Album.findOne({
+    where:{
+      name: (album||'')
+    }
+  })
+
+  if(albumExists){
+    tempSong.albumId=albumExists.id
+    if(imgUrl){
+      imgDeleted = await deleteFromAWS(albumExists)
+      albumExists.url=imgUrl
+      await albumExists.save()
+      reload = true;
+    }
+  } else{
+    if(album){
+      const newAlbum = await Album.create({
+        userId,
+        name:album,
+        url:imgUrl
+      })
+      tempSong.albumId=newAlbum.id
+    } else if(imgUrl){
+      const existingAlbum = await Album.findByPk(tempSong.albumId)
+      existingAlbum.url=imgUrl
+      existingAlbum.save()
+      reload=true
+    }
   }
 
   await tempSong.save();
 
   const song = await Song.findByPk(tempSong.id, {
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']}],
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']},{model:Album}],
   })
 
   return res.json({song, reload})
@@ -258,20 +285,20 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
 router.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   const {id} = req.params
 
-  const song = await Song.findByPk(id)
+  const song = await Song.findByPk(id,{
+    include: Album
+  })
 
   if(!song){
     const err = createError('Song Does Not Exists', 'Song Does Not Exists', 404)
     next(err)
   }
 
-  const album = await Song.findAll({
-    where:{
-      album:song.album
-    }
-  })
+  const {albumId} = req.body
 
-  let urlDeleted = await deleteFromAWS('url', song)
+  const album = await Song.findAll({where:{albumId}})
+
+  let urlDeleted = await deleteFromAWS(song)
 
   if(!urlDeleted){
     const err = createError('Error with AWS Song Delete', 'Error with AWS Song Delete', 500)
@@ -280,18 +307,43 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
   let imgDeleted=true;
 
-  if(album.length<=1 && song.img){
-    imgDeleted = await deleteFromAWS('img', song)
+  if(album.length<=1){
+    const lastAlbum = await Album.findByPk(song.Album.id)
+
+    if(song.Album.url){imgDeleted = await deleteFromAWS(song.Album)}
+
+    if(!imgDeleted){
+      const err = createError('Error with AWS Image Delete', 'Error with AWS Image Delete', 500)
+      next(err)
+    }
+
+    await lastAlbum.destroy();
+
+  } else {
+    await song.destroy()
   }
 
-  if(!imgDeleted){
-    const err = createError('Error with AWS Image Delete', 'Error with AWS Image Delete', 500)
+  return res.json({message:'success'})
+}))
+
+/*************************** ALBUM UPDATE ***************************/
+
+router.put('/albums', asyncHandler(async (req, res) => {
+  const {prev, name} = req.body
+
+  const songs = await Song.findAll({where:{album:prev}})
+
+  if(!songs.length){
+    const err = createError('Album Does Not Exist', 'Album Does Not Exist', 404)
     next(err)
   }
 
-  await song.destroy()
+  songs.forEach(async(song)=>{
+    song.album=name
+    await song.save()
+  })
 
-  return res.json({message:'success'})
+  return res.json({songs})
 }))
 
 /*************************** COMMENT ROUTES ***************************/

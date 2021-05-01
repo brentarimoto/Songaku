@@ -6,9 +6,8 @@ module.exports = {
       {
         title:'Soul to Squeeze',
         userId:1,
-        album:'Vibes',
+        albumId:1,
         url:'https://songakubucket.s3-us-west-1.amazonaws.com/1619639648573.mp3',
-        img:'https://songakubucket.s3-us-west-1.amazonaws.com/1619639783741.jpeg',
         genreId: 12,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -16,10 +15,9 @@ module.exports = {
       {
         title:'Xmas Medley',
         userId:1,
-        album:'Vibes',
-        url:'https://songakubucket.s3-us-west-1.amazonaws.com/1619731619259.mp3',
-        img:'https://songakubucket.s3-us-west-1.amazonaws.com/1619639783741.jpeg',
-        genreId: 12,
+        albumId:1,
+        url:'https://songakubucket.s3-us-west-1.amazonaws.com/1619851140639.mp3',
+        genreId: 9,
         createdAt: new Date(),
         updatedAt: new Date()
       },

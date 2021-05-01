@@ -97,7 +97,9 @@ body{
   --profPicBackground: var(--jetStream);
 
   --modalBackground: var(--pastelPurple);
-  --modalFadedBackground: var(--snow)
+  --modalFadedBackground: var(--snow);
+
+  --playlistButtons: var(--skyBlue);
 }
 
 /* h1 {

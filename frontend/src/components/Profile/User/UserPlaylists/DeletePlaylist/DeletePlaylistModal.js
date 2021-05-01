@@ -3,20 +3,21 @@ import React, { useState } from 'react';
 
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import { Modal } from '../../../context/Modal';
-import DeleteSongButton from './DeleteSongButton';
+import { Modal } from '../../../../../context/Modal';
+import DeletePlaylistButton from './DeletePlaylistButton';
+import styles from './DeletePlaylistButton.module.css'
 
 /*************************** COMPONENTS ***************************/
 
-function DeleteModal({id, albumId}) {
+function DeletePlaylistModal({name, id}) {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <button className='deleteModalButton' onClick={() => setShowModal(true)}>Delete</button>
+      <i className={`deletePlaylistModalButton fas fa-minus ${styles.deleteIcon}`} onClick={() => setShowModal(true)}></i>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <DeleteSongButton id={id} albumId={albumId} onClose={() => setShowModal(false)}/>
+          <DeletePlaylistButton id={id} name={name} onClose={() => setShowModal(false)}/>
         </Modal>
       )}
     </>
@@ -26,4 +27,4 @@ function DeleteModal({id, albumId}) {
 
 /*************************** EXPORT ***************************/
 
-export default DeleteModal;
+export default DeletePlaylistModal;

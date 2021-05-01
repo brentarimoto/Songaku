@@ -10,7 +10,7 @@ import styles from './UserSongs.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const UserSongs = ({isLoaded})=>{
+const UserSongs = ({setCurrentTab})=>{
 
     const dispatch = useDispatch()
     const songs = useSelector(state => state.songs);
@@ -18,6 +18,7 @@ const UserSongs = ({isLoaded})=>{
     const {id:userId} = useParams()
 
     useEffect(()=>{
+        setCurrentTab('Songs')
         if(!songs[userId]){
             dispatch(getSongs(userId))
         }

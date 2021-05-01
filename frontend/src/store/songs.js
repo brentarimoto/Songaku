@@ -91,7 +91,10 @@ export const uploadSong = ({title, userId, album, music, image, genreId}) => asy
     const {song, reload} = await res.json();
 
     dispatch(addSong(song, userId))
-    return {song, reload}
+
+    if(reload){await dispatch(getSongs(userId))}
+
+    return {song}
 }
 
 export const editSong = ({title, userId, album, music, image, genreId, songId}) => async dispatch => {
@@ -132,10 +135,14 @@ export const editSong = ({title, userId, album, music, image, genreId, songId}) 
 
 
 // Delete Song in database, and then delete from store
-export const deleteSong = (id, userId) => async dispatch => {
+export const deleteSong = (id, userId, albumId) => async dispatch => {
 
     const res = await csrfFetch(`/api/songs/${id}`,{
         method: 'DELETE',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({albumId}),
     })
 
     if(!res.ok){

@@ -34,41 +34,6 @@ router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
   return res.json({comments})
 }))
 
-// EXAMPLE CODE for fiding a comment, and deleting that instance
-// router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
-//   const commentId = req.params.id
-
-//   const comments = await Comment.findOne({
-//     where: {id:commentId}
-//   })
-
-//   // console.log(comments)
-
-//   const value = await Comment.destroy({where: {id:commentId}})
-
-//   return res.json({value})
-// }))
-
-
-// GET a user's comments on a song
-// router.get('/:id(\\d+)/comments/:userId', asyncHandler(async (req, res) => {
-//     const {id: songId, userId} = req.params
-
-//     const comment = await Comment.findOne({
-//         where: {
-//             userId,
-//             songId
-//         }
-//     })
-
-//     if(!comment){
-//         return res.status(403).json({message:'Comment Does Not Exist'})
-//     }
-
-//     return res.json({comment})
-// }))
-
-
 // POST comment to a song
 router.post('/:id(\\d+)/comments', validateComment, asyncHandler(async (req, res) => {
   const { id:songId } = req.params

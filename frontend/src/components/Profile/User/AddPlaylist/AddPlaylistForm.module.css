@@ -1,0 +1,8 @@
+.addPlaylist{
+    padding-right: 10px;
+    color: var(--playlistButtons)
+}
+
+.addPlaylist:hover{
+    cursor: pointer;
+}

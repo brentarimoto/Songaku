@@ -9,16 +9,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
-    album: {
+    userId: {
       allowNull: false,
-      type: DataTypes.STRING(50)
+      type: DataTypes.INTEGER
     },
     url: {
       allowNull: false,
       type: DataTypes.STRING(100)
-    },
-    img: {
-      type: DataTypes.STRING(100),
     },
     genreId: {
       allowNull: false,
@@ -29,9 +26,9 @@ module.exports = (sequelize, DataTypes) => {
   Song.associate = function(models) {
     Song.hasMany(models.Comment, {foreignKey: 'songId', onDelete: 'cascade', hooks: true})
     Song.hasMany(models.Like, {foreignKey: 'songId', onDelete: 'cascade', hooks: true})
-    Song.hasMany(models.Playlist, {foreignKey: 'songId', onDelete: 'cascade', hooks: true})
 
     Song.belongsTo(models.User, {foreignKey: 'userId', onDelete: 'cascade'})
+    Song.belongsTo(models.Album, {foreignKey: 'albumId', onDelete: 'cascade'})
 
     // Song.belongsToMany(models.User, {
     //   through: "Comment",
@@ -49,11 +46,12 @@ module.exports = (sequelize, DataTypes) => {
     //   hooks: true
     // });
 
-    Song.belongsToMany(models.User, {
-      through: "Playlist",
-      as: "UsersPlaylists",
+    Song.belongsToMany(models.Playlist, {
+      through: "PlaylistSong",
+      as: "PlaylistWithSong",
       foreignKey: "songId",
-      otherKey: "userId",
+      otherKey: "playlistId",
+      onDelete: 'cascade'
     });
 
     Song.belongsTo(models.Genre, {foreignKey: 'genreId'})

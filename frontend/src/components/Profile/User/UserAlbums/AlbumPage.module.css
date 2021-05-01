@@ -1,0 +1,14 @@
+@import url('../../../../css/animation/allAnimations.css');
+
+.playlistHeaderDiv :global{
+    animation: fadeIn 1s
+}
+
+.playlistHeaderDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.playlistName{
+    border-bottom: 1px solid var(--rainbowIndigo);
+}
