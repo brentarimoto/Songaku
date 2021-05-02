@@ -1,6 +1,9 @@
 /*************************** OTHER FILE IMPORTS ***************************/
 import { csrfFetch } from './csrf';
 
+/*************************** HELPER FUNCTIONS ***************************/
+import convertSongsToObject from '../utils/convertSongsToObject'
+
 /*************************** TYPES ***************************/
 
 const SET_PLAYLISTS = 'set/PLAYLISTS'
@@ -10,6 +13,7 @@ const REMOVE_PLAYLIST = 'remove/PLAYLIST '
 
 const ADD_TO_PLAYLIST = 'addTo/PLAYLIST'
 const REMOVE_FROM_PLAYLIST = 'removeFrom/PLAYLIST'
+
 
 
 
@@ -46,9 +50,28 @@ export const removePlaylist= (id,userId)=>{
     }
 }
 
+export const addToPlaylist = (song, id, userId)=>{
+    return {
+        type: ADD_TO_PLAYLIST,
+        song,
+        id,
+        userId
+    }
+}
+
+export const removeFromPlaylist = (songId, id, userId)=>{
+    return {
+        type: REMOVE_FROM_PLAYLIST,
+        songId,
+        id,
+        userId
+    }
+}
+
+
 /*************************** THUNKS ***************************/
 
-// Get songs
+// Get playlists
 export const loadPlaylists = (userId)=> async dispatch=>{
     const res = await csrfFetch(`/api/users/${userId}/playlists`)
 
@@ -63,11 +86,9 @@ export const loadPlaylists = (userId)=> async dispatch=>{
     let playlistObj = {[userId]:{}};
 
     playlists.forEach((playlist)=>{
-        let tempObj={}
-        playlist.SongsInPlaylist.forEach((song)=>{
-            tempObj[song.id]=song
-        })
-        playlistObj[userId][playlist.id]={id:playlist.id, name:playlist.name, songs:tempObj};
+        let songsObj=convertSongsToObject(playlist.SongsInPlaylist)
+
+        playlistObj[userId][playlist.id]={id:playlist.id, name:playlist.name, songs:songsObj};
     })
 
     dispatch(setPlaylists(playlistObj))
@@ -76,7 +97,7 @@ export const loadPlaylists = (userId)=> async dispatch=>{
 }
 
 
-// Uploads song to database, and adds it to store
+// Creates Playlist in database, and adds it to store
 export const createPlaylist = (name, userId) => async dispatch => {
     const res = await csrfFetch(`/api/users/${userId}/playlists`,{
         method: 'POST',
@@ -97,6 +118,7 @@ export const createPlaylist = (name, userId) => async dispatch => {
     return playlist
 }
 
+// Edit Playlist
 export const changePlaylist = (name, id, userId) => async dispatch => {
     const res = await csrfFetch(`/api/users/${userId}/playlists/${id}`,{
         method: 'PUT',
@@ -116,12 +138,9 @@ export const changePlaylist = (name, id, userId) => async dispatch => {
 
     let playlistObj = {};
 
-    let tempObj={}
-    existingPlaylist.SongsInPlaylist.forEach((song)=>{
-        tempObj[song.id]=song
-    })
+    let songsObj=convertSongsToObject(existingPlaylist.SongsInPlaylist)
 
-    playlistObj[existingPlaylist.id]={id:existingPlaylist.id, name:existingPlaylist.name, songs:tempObj};
+    playlistObj[existingPlaylist.id]={id:existingPlaylist.id, name:existingPlaylist.name, songs:songsObj};
 
     dispatch(editPlaylist(playlistObj, userId))
 
@@ -130,10 +149,10 @@ export const changePlaylist = (name, id, userId) => async dispatch => {
 
 
 
-// Delete Song in database, and then delete from store
+// Delete playlist in database, and then delete from store
 export const deletePlaylist = (id, userId) => async dispatch => {
 
-    const res = await csrfFetch(`/api/users/${userId}/comments/${id}`,{
+    const res = await csrfFetch(`/api/users/${userId}/playlists/${id}`,{
         method: 'DELETE'
     })
 
@@ -149,6 +168,50 @@ export const deletePlaylist = (id, userId) => async dispatch => {
     }
 
     return message
+}
+
+// Adds song to playlist (adds to PlaylistSong table) and adds song to correct playlist store
+export const addSongPlaylist = (id, songId, userId) => async dispatch => {
+    const res = await csrfFetch(`/api/users/${userId}/playlists/${id}/song`,{
+        method: 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({songId}),
+    })
+
+    if(!res.ok){
+        const errors = await res.json()
+        return errors
+    }
+
+    const {song} = await res.json();
+
+    const songObj={[song.id]:song}
+
+    dispatch(addToPlaylist(songObj, id, userId))
+
+    return song
+}
+
+// Removes song to playlist (deletes from PlaylistSong table) and removes song from correct playlist store
+export const deleteSongPlaylist = (id, songId, userId) => async dispatch => {
+    const res = await csrfFetch(`/api/users/${userId}/playlists/${id}/song`,{
+        method: 'DELETE',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({songId}),
+    })
+
+    if(!res.ok){
+        const errors = await res.json()
+        return errors
+    }
+
+    dispatch(removeFromPlaylist(songId, id, userId))
+
+    return 'success'
 }
 
 
@@ -171,6 +234,14 @@ export default function playlistsReducer(state = {}, action){
         case REMOVE_PLAYLIST:
             newState={...state}
             delete newState[action.userId][action.id]
+            return newState
+        case ADD_TO_PLAYLIST:
+            newState={...state}
+            newState[action.userId][action.id].songs={...newState[action.userId][action.id].songs, ...action.song}
+            return newState
+        case REMOVE_FROM_PLAYLIST:
+            newState={...state}
+            delete newState[action.userId][action.id].songs[action.songId]
             return newState
         default:
             return state

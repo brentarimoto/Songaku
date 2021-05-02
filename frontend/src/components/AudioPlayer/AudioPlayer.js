@@ -6,8 +6,11 @@ import ReactPlayer from 'react-player/lazy'
 import ReactSlider from "react-slider";
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import styles from './AudioPlayer.module.css'
 import {usePlayerContext} from '../../context/player'
+import LikeButton from '../LikeButton/LikeButton'
+
+
+import styles from './AudioPlayer.module.css'
 import './Slider.css'
 
 
@@ -64,6 +67,8 @@ const Mute = ({mute, setMute, currentSong})=>{
 
 const AudioPlayer = ({song, userId})=>{
     const currentSong = useSelector(state=>state.currentSong)
+    const {user} = useSelector(state=>state.session)
+    const likes = useSelector(state=>state.likes)
 
     const {
         play, setPlay,
@@ -180,11 +185,9 @@ const AudioPlayer = ({song, userId})=>{
             </div>
             <div className={styles.extras}>
                 <div className={styles.likesDiv}>
-                    <div className={styles.likesImg}>
-                        <i className={`fas fa-heart ${styles.heart}`}></i>
-                    </div>
+                    {user && currentSong?.id && <LikeButton songId={currentSong?.id}/>}
                     <div className={styles.likes}>
-                        Likes
+                        {likes[currentSong?.id] && likes[currentSong?.id].count} Likes
                     </div>
                 </div>
             </div>

@@ -2,12 +2,13 @@
 import { useEffect, useState } from 'react'
 import { Link, useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-
+import ClipLoader from 'react-spinners/ClipLoader'
 /*************************** OTHER FILE IMPORTS ***************************/
 import DeleteModal from './DeleteSongButton/DeleteModal'
 import LikeButton from '../LikeButton/LikeButton'
 import styles from './Song.module.css'
 import EditModal from './Edit/EditModal';
+import AddToPlaylist from './AddToPlaylist/AddToPlaylist'
 import {usePlayerContext} from '../../context/player'
 import {setSong} from '../../store/currentSong'
 import {loadLikes} from '../../store/likes'
@@ -32,11 +33,6 @@ const Song = ({song, userId})=>{
         }
     },[dispatch])
 
-    if(!genres){
-        return(
-            <h1>Loading...</h1>
-        )
-    }
 
     const songPlay=(e)=>{
         if(!currentSong){
@@ -56,48 +52,48 @@ const Song = ({song, userId})=>{
             <div className={styles.albumArtDiv}>
                 <img
                     className={styles.albumArt}
-                    src={song?.Album.url ? song.Album.url : `/img/Profile.png`}
+                    src={song?.Album?.url ? song?.Album?.url : `/img/Profile.png`}
                     onClick={songPlay}
                 ></img>
             </div>
             <div className={styles.songInfo}>
                 <div className={styles.songName}>
-                    <Link to={`/users/${userId}/songs/${song.id}`}>{song?.title}</Link>
+                    <Link to={`/users/${song?.User.id}/songs/${song.id}`}>{song?.title}</Link>
                 </div>
                 <div className={styles.artist}>
-                    <h4>{song?.User.userName}</h4>
+                    <Link to={`/users/${song?.User.id}`}>{song?.User.userName}</Link>
                 </div>
                 <div className={styles.album}>
-                    <h4>{song?.Album.name}</h4>
+                    <Link to={`/users/${song?.User.id}/albums/${song?.Album.id}`}>{song?.Album.name}</Link>
                 </div>
                 <div className={styles.genre}>
                     <h4>{song?.Genre.name}</h4>
                 </div>
-                <div className={styles.songWave}>
-
-                </div>
             </div>
             <div className={styles.extras}>
                     <div className={styles.likesDiv}>
-                        <LikeButton songId={song?.id}/>
+                        {user && <LikeButton songId={song?.id}/>}
                         <div className={styles.likes}>
-                            {likes[song.id] && likes[song.id].count}
+                            {likes[song.id] && likes[song.id].count} Likes
                         </div>
                     </div>
-                    {parseInt(userId)===user?.id &&
-                    <>
-                        <div className={styles.playlistDiv}>
-                            Playlist
-                        </div>
-                        <div className={styles.buttons}>
-                            <div className={styles.edit}>
-                                <EditModal song={song}/>
+                    {song?.User?.id===user?.id &&
+                        <>
+                            <div className={styles.playlistDiv}>
+                                <AddToPlaylist song={song}/>
                             </div>
-                            <div className={styles.delete}>
-                                <DeleteModal id={song.id} albumId={song.Album.id}/>
-                            </div>
-                        </div>
-                    </>
+                            {song.User.id===user.id && song.id!==1 && song.id!==2 &&
+                                <div className={styles.buttons}>
+                                    <div className={styles.edit}>
+                                        <EditModal song={song}/>
+                                    </div>
+                                    <div className={styles.delete}>
+                                        <DeleteModal id={song.id} albumId={song.Album.id}/>
+                                    </div>
+                                </div>
+                            }
+                            {(song.id===1 || song.id===2) && <h6>Please Upload Music to Test Edit & Delete</h6>}
+                        </>
                     }
             </div>
         </div>

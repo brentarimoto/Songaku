@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {deleteSong} from '../../../store/songs';
+import {loadAlbums} from '../../../store/albums'
 
 import styles from './DeleteSongButton.module.css'
 
@@ -21,13 +22,9 @@ const DeleteSongButton = ({id, albumId})=>{
     const handleDelete= async (e)=>{
         e.preventDefault();
 
-        let {message, errors} = await dispatch(deleteSong(id, user.id, albumId))
+        let {message, reload, errors} = await dispatch(deleteSong(id, user.id, albumId))
 
         if(errors){setErrors(errors?.errors || [errors.message])}
-
-        if(message!=='success'){
-            console.log(message)
-        }
     }
 
     return(

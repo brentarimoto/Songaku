@@ -1,5 +1,7 @@
 /*************************** OTHER FILE IMPORTS ***************************/
 import { csrfFetch } from './csrf';
+import {loadAlbums} from './albums'
+import {loadPlaylists} from './playlists'
 
 /*************************** TYPES ***************************/
 
@@ -55,6 +57,7 @@ export const getSongs = (userId)=> async dispatch=>{
     })
 
     dispatch(setSongs(songsObj, userId))
+
     return songs
 }
 
@@ -92,9 +95,13 @@ export const uploadSong = ({title, userId, album, music, image, genreId}) => asy
 
     dispatch(addSong(song, userId))
 
-    if(reload){await dispatch(getSongs(userId))}
+    if(reload){
+        dispatch(getSongs(userId))
+        dispatch(loadAlbums(userId))
+        dispatch(loadPlaylists(userId))
+    }
 
-    return {song}
+    return {song, reload}
 }
 
 export const editSong = ({title, userId, album, music, image, genreId, songId}) => async dispatch => {
@@ -129,6 +136,13 @@ export const editSong = ({title, userId, album, music, image, genreId, songId}) 
     const {song, reload} = await res.json();
 
     dispatch(addSong(song, userId))
+
+    if(reload){
+        dispatch(getSongs(userId))
+        dispatch(loadAlbums(userId))
+        dispatch(loadPlaylists(userId))
+    }
+
     return {song, reload}
 }
 
@@ -150,14 +164,18 @@ export const deleteSong = (id, userId, albumId) => async dispatch => {
         return {errors}
     }
 
-    const {message} = await res.json();
+    const {message, reload} = await res.json();
 
     if(message==='success'){
         dispatch(removeSong(id, userId))
+        dispatch(loadAlbums(userId))
+        dispatch(loadPlaylists(userId))
     }
 
-    return message
+    return {message, reload}
 }
+
+/*************************** SPECIAL SEARCH THUNK ***************************/
 
 
 /*************************** REDUCER ***************************/

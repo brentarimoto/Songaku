@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import AlbumPage from './AlbumPage'
-import Album from './Album'
+import Playlist from '../UserPlaylists/Playlist'
 import {loadAlbums} from '../../../../store/albums'
 
 import styles from './UserAlbums.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const UserPlaylists = ({setCurrentTab})=>{
+const UserAlbums = ({setCurrentTab})=>{
 
     let { path, url } = useRouteMatch();
     const {id:userId} = useParams()
@@ -34,13 +34,13 @@ const UserPlaylists = ({setCurrentTab})=>{
             <Switch>
                 <Route exact path={`${path}`}>
                     <div className={styles.albums}>
-                        {albums[userId] && Object.entries(albums[userId]).map(([name, album])=>(
-                            <Album key={name} name={name} album={album}/>
+                        {albums[userId] && Object.entries(albums[userId]).map(([id, album])=>(
+                            <Playlist key={id} id={id} playlist={album} album={true}/>
                         ))}
                     </div>
                 </Route>
-                <Route path={`${path}/:name`}>
-                    {/* <AlbumPage userId={userId}/> */}
+                <Route path={`${path}/:albumId`}>
+                    <AlbumPage userId={userId} albums={albums}/>
                 </Route>
             </Switch>
         </>
@@ -48,4 +48,4 @@ const UserPlaylists = ({setCurrentTab})=>{
 }
 
 /*************************** EXPORT ***************************/
-export default UserPlaylists;
+export default UserAlbums;

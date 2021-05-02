@@ -1,11 +1,14 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { useHistory, Redirect, Switch, Route, Link, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import ReactSlider from 'react-slider'
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import Comment from './Comment/Comment'
+import LikeButton from '../LikeButton/LikeButton'
+import AddToPlaylist from '../Song/AddToPlaylist/AddToPlaylist'
+
 import {loadComments, postComment} from '../../store/comments'
 import {usePlayerContext} from '../../context/player'
 import {setSong} from '../../store/currentSong'
@@ -41,6 +44,7 @@ const SongPage = ({isLoaded})=>{
     const songs = useSelector(state => state.songs);
     const currentSong = useSelector(state => state.currentSong);
     const comments = useSelector(state => state.comments);
+    const likes = useSelector(state => state.likes);
 
     const [myComment, setMyComment] = useState('')
 
@@ -49,9 +53,6 @@ const SongPage = ({isLoaded})=>{
             dispatch(loadComments(songId))
         }
     },[dispatch])
-
-
-    if(!songs){ return(null)}
 
     if(!songs[id]){
         dispatch(getSongs(id))
@@ -64,7 +65,7 @@ const SongPage = ({isLoaded})=>{
         if(!currentSong){
             dispatch(setSong(song))
             setPlay(true)
-        } else if(currentSong.id!==song.id){
+        } else if(currentSong?.id!==song?.id){
             dispatch(setSong(song))
             setPlay(true)
         } else {
@@ -81,40 +82,49 @@ const SongPage = ({isLoaded})=>{
             <div className={styles.songDiv}>
                 <div className={styles.songInfo}>
                     <div className={styles.songName}>
-                        <h1>{song?.title}</h1>
+                        <Link to={`/users/${user?.id}/songs/${song?.id}`}>{song?.title}</Link>
+                        <h5 className={styles.songHeader}>Song:</h5>
                     </div>
                     <div className={styles.artist}>
-                        <h3 className={styles.header}>Artist: </h3>
-                        <h3>{song?.User.userName}</h3>
+                        <Link to={`/users/${song?.User.id}`}>{song?.User.userName}</Link>
+                        <h5 className={styles.songHeader}>Artist:</h5>
                     </div>
                     <div className={styles.album}>
-                        <h3 className={styles.header}>Album: </h3>
-                        <h3>{song?.Album.name}</h3>
+                        <Link to={`/users/${song?.User.id}/albums/${song?.Album.id}`}>{song?.Album.name}</Link>
+                        <h5 className={styles.songHeader}>Album:</h5>
                     </div>
                     <div className={styles.genre}>
-                        <h3 className={styles.header}>Genre: </h3>
                         <h3>{song?.Genre.name}</h3>
+                        <h5 className={styles.songHeader}>Genre:</h5>
                     </div>
                 </div>
                 <div className={styles.albumArtDiv}>
                     <img
                         className={styles.albumArt}
-                        src={song?.Album.url ? song.Album.url : `/img/Profile.png`}
+                        src={song?.Album.url ? song?.Album.url : `/img/Profile.png`}
                         onClick={songPlay}
                     ></img>
                 </div>
                 <div className={styles.extras}>
-                    {song?.Genre.name}
+                    <div className={styles.likesDiv}>
+                        {user && <LikeButton songId={song?.id}/>}
+                        <div className={styles.likes}>
+                            {likes[song?.id] && likes[song?.id].count} Likes
+                        </div>
+                    </div>
+                    {user && <div className={styles.playlistDiv}>
+                        <AddToPlaylist song={song} userId={user.id}/>
+                    </div>}
                 </div>
                 <div className={styles.waveform}>
                     <ReactSlider
-                        value={currentSong?.id === song.id ? percent : 0}
+                        value={currentSong?.id === song?.id ? percent : 0}
                         className='seekSlider songSlider'
                         thumbClassName='seekThumb songThumb'
                         trackClassName='seekTrack'
                         step={.01}
                         orientation='horizontal'
-                        renderThumb={(props, state) => <div {...props}>{currentSong?.id === song.id ? time : null}</div>}
+                        renderThumb={(props, state) => <div {...props}>{currentSong?.id === song?.id ? time : null}</div>}
                     />
                 </div>
             </div>

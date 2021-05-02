@@ -9,9 +9,8 @@ import styles from './PlaylistPage.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const PlaylistPage = ({userId})=>{
+const PlaylistPage = ({userId, playlists})=>{
     const {playlistId} = useParams()
-    const playlists = useSelector(state => state.playlists);
     let songs;
 
     if(playlists[userId]){

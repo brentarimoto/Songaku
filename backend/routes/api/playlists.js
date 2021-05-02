@@ -2,7 +2,8 @@
 const express = require('express');
 const { check } = require('express-validator')
 
-const { Playlist, Song, User, Genre, Album } = require('../../db/models');
+const { Playlist, Song, User, Genre, Album, PlaylistSong } = require('../../db/models');
+const { createError } = require('../../utils/createError')
 
 /*************************** ROUTER SETUP ***************************/
 const router = express.Router();
@@ -19,9 +20,9 @@ const validatePlaylist = [
     handleValidationErrors,
 ];
 
-/*************************** COMMENT ROUTES ***************************/
+/*************************** PLAYLIST ROUTES ***************************/
 
-// GET a users playlists
+// GET a users PLAYLISTS
 router.get('/:id(\\d+)/playlists', asyncHandler(async (req, res) => {
   const userId = req.params.id
 
@@ -30,14 +31,14 @@ router.get('/:id(\\d+)/playlists', asyncHandler(async (req, res) => {
     include: [{
         model:Song,
         as:'SongsInPlaylist',
-        include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']},{model:Album}],
+        include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
     }],
   })
 
   return res.json({playlists})
 }))
 
-// POST playlist
+// POST PLAYLIST
 router.post('/:id(\\d+)/playlists', validatePlaylist, asyncHandler(async (req, res) => {
   const { id:userId } = req.params
   const {name} = req.body
@@ -52,7 +53,7 @@ router.post('/:id(\\d+)/playlists', validatePlaylist, asyncHandler(async (req, r
 }))
 
 
-// PUT (EDIT) comment on a song
+// PUT (EDIT) PLAYLIST
 router.put('/:id(\\d+)/playlists/:playlistId(\\d+)', validatePlaylist, asyncHandler(async (req, res) => {
   const { playlistId} = req.params
   const {name} = req.body
@@ -61,12 +62,13 @@ router.put('/:id(\\d+)/playlists/:playlistId(\\d+)', validatePlaylist, asyncHand
     include: [{
         model: Song,
         as:'SongsInPlaylist',
-        include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']},{model:Album}],
+        include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
     }],
   })
 
   if(!existingPlaylist){
-    return res.status(404).json({message:'Playlist Does Not Exist'})
+    const err = createError('Playlist Does Not Exist', 'Playlist Does Not Exist', 403)
+    next(err)
   }
 
   existingPlaylist.name=name
@@ -77,14 +79,17 @@ router.put('/:id(\\d+)/playlists/:playlistId(\\d+)', validatePlaylist, asyncHand
 }))
 
 
-// DELETE a comment on a song
-router.delete('/:id(\\d+)/comments/:playlistId(\\d+)', asyncHandler(async (req, res) => {
+// DELETE PLAYLIST
+router.delete('/:id(\\d+)/playlists/:playlistId(\\d+)', asyncHandler(async (req, res, next) => {
   const { playlistId } = req.params
+
+  console.log(playlistId)
 
   const existingPlaylist = await Playlist.findByPk(playlistId)
 
   if(!existingPlaylist){
-    return res.status(404).json({message:'Comment Does Not Exist'})
+    const err = createError('Playlist Does Not Exist', 'Playlist Does Not Exist', 403)
+    next(err)
   }
 
   await existingPlaylist.destroy()
@@ -93,6 +98,54 @@ router.delete('/:id(\\d+)/comments/:playlistId(\\d+)', asyncHandler(async (req, 
 }))
 
 
+/*************************** SONGS ON PLAYLIST ROUTES ***************************/
+// POST song to playlist
+router.post('/:id(\\d+)/playlists/:playlistId/song', asyncHandler(async (req, res) => {
+  const { playlistId } = req.params
+  const {songId} = req.body
+
+  const playlist = await Playlist.findByPk(playlistId)
+
+  if(!playlist){
+    const err = createError('Playlist Does Not Exist', 'Playlist Does Not Exist', 404)
+    next(err)
+  }
+
+  const song = await Song.findByPk(songId,{
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+  })
+
+  if(!song){
+    const err = createError('Song Does Not Exist', 'Song Does Not Exist', 404)
+    next(err)
+  }
+
+  await PlaylistSong.create({
+    playlistId,
+    songId
+  })
+
+  return res.json({song})
+
+}))
+
+// DELETES song to playlist
+router.delete('/:id(\\d+)/playlists/:playlistId/song', asyncHandler(async (req, res) => {
+  const { playlistId } = req.params
+  const {songId} = req.body
+
+  const existingPlaylistSong= await PlaylistSong.findOne({where:{playlistId,songId}})
+
+  if(!PlaylistSong){
+    const err = createError('Song Does Not Exist In Playlist', 'Song Does Not Exist In Playlist', 404)
+    next(err)
+  }
+
+  await existingPlaylistSong.destroy()
+
+  return res.json({PlaylistSong})
+
+}))
 
 /*************************** EXPORTS ***************************/
 

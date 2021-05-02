@@ -8,6 +8,7 @@ import SignupModal from '../Signup/SignupModal'
 import UploadModal from '../Upload/UploadModal'
 import ProfileButton from './ProfileButton'
 import DemoButton from '../DemoButton/DemoButton'
+import SearchBar from './SearchBar/SearchBar'
 
 import styles from './Navigation.module.css'
 
@@ -15,6 +16,7 @@ import styles from './Navigation.module.css'
 // Conditional for showing login vs profile
 const SetAuthDiv = () =>{
     const {user} = useSelector(state => state.session);
+
     if(!user){
         return (
             <>
@@ -73,12 +75,12 @@ const Navigation = ()=>{
                 <div className = {styles.homeDiv}>
                     <NavLink activeClassName={styles.active}  className = {styles.home} exact to='/'>Home</NavLink>
                 </div>
-                <div className = {styles.uploadDiv}>
+                {user && <div className = {styles.uploadDiv}>
                     <UploadModal />
-                </div>
+                </div>}
             </div>
             <div className = {styles.searchDiv}>
-                {user? user.userName : 'App'}
+                <SearchBar />
             </div>
             <div className = {styles.authDiv}>
                 <SetAuthDiv />

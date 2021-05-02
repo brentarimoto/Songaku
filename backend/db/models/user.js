@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       defaultValue: null,
     },
+    about: {
+      type: DataTypes.STRING(250),
+      defaultValue: null,
+    },
   },
   {
     defaultScope: {

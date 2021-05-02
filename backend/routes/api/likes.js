@@ -3,6 +3,7 @@ const express = require('express');
 const { check } = require('express-validator')
 
 const { Like, Song, User } = require('../../db/models');
+const { createError } = require('../../utils/createError')
 
 /*************************** ROUTER SETUP ***************************/
 const router = express.Router();
@@ -19,7 +20,7 @@ router.get('/:id(\\d+)/likes', asyncHandler(async (req, res) => {
 
   const likes = await Like.findAll({
     where:{songId},
-    include: [{model: User, attributes: ['userName']}]
+    include: [{model: User, attributes: ['userName','id']}]
   })
 
   return res.json({likes})

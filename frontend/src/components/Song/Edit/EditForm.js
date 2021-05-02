@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {editSong, getSongs} from '../../../store/songs'
+import {loadAlbums} from '../../../store/albums'
+import {loadPlaylists} from '../../../store/playlists'
 import {setSong} from '../../../store/currentSong'
 
 import styles from './EditForm.module.css'
@@ -64,11 +66,11 @@ const EditForm = ({song, onClose})=>{
         }
 
 
-        let {song: editedSong, reload, errors} = await dispatch(editSong(newSong))
+        let {song: editedSong, errors} = await dispatch(editSong(newSong))
+
 
         if(errors){setErrors(errors?.errors || [errors.message])}
 
-        if(reload){await dispatch(getSongs(user.id))}
 
         if (editedSong?.id) {
             if(currentSong?.id===editedSong.id){dispatch(setSong(editedSong))}

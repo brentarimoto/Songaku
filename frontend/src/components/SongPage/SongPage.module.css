@@ -33,9 +33,7 @@
 
 
 .mainSongPage{
-    margin: auto 1%;
-    box-sizing: border-box;
-    padding-bottom: 60px;
+    margin: 0 1%;
     width: 100%;
     min-height: 100%;
     min-width: 700px;
@@ -81,25 +79,48 @@
     height: 100%;
     border-radius: 5px;
     background-color: rgba(0,0,0,.02);
-    /* -webkit-text-stroke: .5px var(--); */
     font-size: 20px;
-    color: var(--songTitle);
+    position: relative;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    /* box-shadow: 2px 2px 5px 1px var(--beige); */
     opacity: 0;
 }
 
-.album,
-.artist,
-.genre{
-    color: var(--otherSongInfo);
+.songName a{
+    color: var(--songTitle);
+    font-size: 250%;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.header{
-    color: var(--songHeaders)
+.album a,
+.artist a{
+    color: var(--otherSongInfo);
+    font-size: 150%;
+    text-decoration: none;
+}
+
+.artist a{
+    font-style: italic;
+}
+
+
+.genre h3{
+    border: 1px solid var(--genreTextColor);
+    border-radius: 5px;
+    font-size: 120%;
+    color: var(--genreTextColor);
+    background-color: var(--genreBackground);
+}
+
+.songHeader{
+    color: var(--songHeaders);
+    position: absolute;
+    top:5px;
+    left:5px;
+
 }
 
 
@@ -120,9 +141,23 @@
     background-color: rgba(0,0,0,.02);
     grid-area: extras;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
 }
+
+.likesDiv{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    font-size: 20px;
+}
+
+.playlistDiv{
+    width: 100%;
+    font-size: 30px;
+}
+
 
 .waveform{
     grid-area: waveform;

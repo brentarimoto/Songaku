@@ -27,7 +27,7 @@ router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
 
   const comments = await Comment.findAll( {
     where: {songId},
-    include: [{model:User, attributes:['userName', 'profilePic']}],
+    include: [{model:User, attributes:['userName', 'profilePic','id']}],
     order: [['id']]
   })
 
@@ -46,7 +46,7 @@ router.post('/:id(\\d+)/comments', validateComment, asyncHandler(async (req, res
   })
 
   const newComment = await Comment.findByPk(newCom.id, {
-    include: [{model:User, attributes:['userName', 'profilePic']}],
+    include: [{model:User, attributes:['userName', 'profilePic','id']}],
     order: [['id']]
   })
 
@@ -61,7 +61,7 @@ router.put('/:id(\\d+)/comments/:commentId', asyncHandler(async (req, res) => {
   const {comment} = req.body
 
   const existingComment = await Comment.findByPk(commentId, {
-    include: [{model:User, attributes:['userName', 'profilePic']}],
+    include: [{model:User, attributes:['userName', 'profilePic', 'id']}],
     order: [['id']]
   })
 

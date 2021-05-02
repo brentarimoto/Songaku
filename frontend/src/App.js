@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Navigation from './components/Navigation/Navigation'
 import Profile from './components/Profile/Profile'
 import AudioPlayer from './components/AudioPlayer/AudioPlayer'
+import Search from './components/Search/SearchPage'
 
 import {restoreUser} from './store/session'
 import {restoreGenres} from './store/genres'
@@ -36,8 +37,14 @@ function App() {
           <Route exact path='/'>
             <h2>Home</h2>
           </Route>
-          <Route path='/users/:id'>
+          <Route path={`/users/:id(\\d+)`}>
             <Profile isLoaded={isLoaded}/>
+          </Route>
+          <Route path={`/search/:searchWords`}>
+            <Search />
+          </Route>
+          <Route>
+            <h2>Please Look Somwewhere Else</h2>
           </Route>
         </Switch>
       </div>

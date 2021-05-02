@@ -10,10 +10,11 @@
     animation: fadeIn 1s;
 }
 
-
+/***** User *****/
 .userDiv{
     margin: 0 1%;
     width: 100%;
+    height: 100%;
     min-width: 700px;
     max-width: 1250px;
 
@@ -27,13 +28,83 @@
     /* background-color: var(--background2); */
 }
 
+/***** Info Section *****/
 .info{
     grid-area: info;
     width: 100%;
     height: 100%;
     background-color: var(--background2);
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr 2fr;
+    grid-template-areas:
+    "profPic name"
+    "profPic otherInfo";
+
 }
 
+.profPicDiv{
+    grid-area: profPic;
+    justify-self: center;
+    align-self: center;
+
+    box-sizing: border-box;
+    width: 200px;
+    height: 200px;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--profPicBackground2);
+    border-radius: 50%;
+    overflow: hidden;
+
+}
+
+.profPic{
+    width: 100%;
+}
+
+.nameSection{
+    padding: 5% 20px;
+    grid-area: name;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.userName{
+    margin: 0 10px;
+    font-size: 150%;
+}
+.firstName{
+    margin: 0 3px 0 5px;
+}
+.lastName{
+    margin: 0 5px 0 3px;
+}
+
+.otherInfo{
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.about{
+    margin: 0 10px;
+}
+
+.songCount,
+.albumCount,
+.playlistCount{
+    margin: 0 10px;
+}
+
+
+
+/***** Content/Items Section *****/
 .itemsDiv{
     grid-area: items;
     display: grid;

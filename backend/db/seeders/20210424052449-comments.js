@@ -1,12 +1,27 @@
 'use strict';
+const models = require('../models')
+const faker = require('faker');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     const comments =[
-      {userId: 1, songId:1, comment:'Noice', createdAt: new Date(), updatedAt: new Date()},
-      {userId: 2, songId:1, comment:'I Like it', createdAt: new Date(), updatedAt: new Date()},
-      {userId: 1, songId:1, comment:'Again Noice', createdAt: new Date(), updatedAt: new Date()},
     ]
+
+    const users = await models.User.findAll();
+    const songs = await models.Song.findAll();
+
+    for (let i = 0; i < 100; i++) {
+      const randUser = Math.floor(Math.random() * (users.length - 1) + 1);
+      const randSong = Math.floor(Math.random() * (songs.length - 1) + 1);
+      let newComment = {
+        userId: randUser,
+        songId: randSong,
+        comment: faker.lorem.paragraph(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      comments.push(newComment);
+    }
 
     return queryInterface.bulkInsert('Comments', comments, {});
   },

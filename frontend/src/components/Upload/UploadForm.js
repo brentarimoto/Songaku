@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {uploadSong, getSongs} from '../../store/songs';
+import {loadAlbums} from '../../store/albums'
 
 import styles from './UploadForm.module.css'
 
@@ -61,6 +62,7 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
 
 
         let {song:addedSong, errors} = await dispatch(uploadSong(song))
+        await dispatch(loadAlbums(user.id))
 
         if(errors){setErrors(errors?.errors || [errors.message])}
 

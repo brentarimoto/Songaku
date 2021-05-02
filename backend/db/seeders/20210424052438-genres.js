@@ -17,10 +17,11 @@ module.exports = {
       {name: 'Metal'},
       {name: 'Oldies'},
       {name: 'Pop'},
-      {name: 'Rap'},
+      {name: 'Jazz'},
       {name: 'R&B'},
       {name: 'Rock'},
       {name: 'Techno'},
+      {name: 'Other'},
     ]
 
     return queryInterface.bulkInsert('Genres', songs, {});

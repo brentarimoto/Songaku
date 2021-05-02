@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 /*************************** OTHER FILE IMPORTS ***************************/
 
 import sessionReducer from './session'
+import usersReducer from './users'
 import songsReducer from './songs'
 import genresReducer from './genres'
 import currentSongReducer from './currentSong'
@@ -13,11 +14,13 @@ import commentsReducer from './comments'
 import likesReducer from './likes'
 import playlistsReducer from './playlists'
 import albumsReducer from './albums'
+import searchReducer from './search'
 
 /*************************** REDUCER ***************************/
 
 const rootReducer  = combineReducers({
   session: sessionReducer,
+  users: usersReducer,
   songs: songsReducer,
   genres: genresReducer,
   currentSong: currentSongReducer,
@@ -25,6 +28,7 @@ const rootReducer  = combineReducers({
   likes: likesReducer,
   playlists: playlistsReducer,
   albums: albumsReducer,
+  search: searchReducer,
 });
 
 /*************************** ENHANCER/MIDDLEWARE ***************************/

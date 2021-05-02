@@ -7,38 +7,36 @@ import ClipLoader from 'react-spinners/ClipLoader'
 /*************************** OTHER FILE IMPORTS ***************************/
 import Song from '../../../Song/Song'
 import { getSongs } from '../../../../store/songs'
-import styles from './UserSongs.module.css'
+import styles from './Suggestions.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const UserSongs = ({setCurrentTab})=>{
-
+const UserSongs = ({type})=>{
 
     const dispatch = useDispatch()
-    const songs = useSelector(state => state.songs);
     const genres = useSelector(state => state.genres);
 
-    const {id:userId} = useParams()
+    const [suggestedSongs, setSuggestedSongs]=useState()
 
-    useEffect(()=>{
-        setCurrentTab('Songs')
-        if(!songs[userId]){
-            dispatch(getSongs(userId))
-        }
-    },[dispatch])
+    // const {id:userId} = useParams()
 
-    if(!songs[userId] || !genres[1]){
-        return(
-            <ClipLoader />
-        )
-    }
+    // useEffect(()=>{
+    // },[dispatch])
+
+    // if(!songs[userId] || !genres[1]){
+    //     return(
+    //         <ClipLoader />
+    //     )
+    // }
 
     return(
-        <div className={styles.songsDiv}>
-            {songs[userId] && Object.entries(songs[userId]).map(([id, song])=>(
+        <div className={styles.suggestionsDiv}>
+            <h2>Suggestions</h2>
+            {/* {songs[userId] && Object.entries(songs[userId]).map(([id, song])=>(
                 <Song key={id} song={song} userId={userId} />
-            ))}
+            ))} */}
         </div>
+
     )
 }
 

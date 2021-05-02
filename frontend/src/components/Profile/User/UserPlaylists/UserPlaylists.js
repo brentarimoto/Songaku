@@ -40,7 +40,7 @@ const UserPlaylists = ({setCurrentTab})=>{
                     </div>
                 </Route>
                 <Route path={`${path}/:playlistId`}>
-                    <PlaylistPage userId={userId}/>
+                    <PlaylistPage userId={userId} playlists={playlists}/>
                 </Route>
             </Switch>
         </>

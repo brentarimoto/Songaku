@@ -4,7 +4,9 @@ import { Link, useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useP
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import {changePlaylist} from '../../../../store/playlists'
+import {changePlaylist, loadPlaylists} from '../../../../store/playlists'
+import {changeAlbum} from '../../../../store/albums'
+import {getSongs} from '../../../../store/songs'
 import DeletePlaylistModal from './DeletePlaylist/DeletePlaylistModal'
 import styles from './Playlist.module.css'
 
@@ -32,7 +34,7 @@ const EditPlaylist = ({editOn, setEditOn, newName, setNewName, url, playlist, ha
 }
 
 
-const Playlist = ({id, playlist})=>{
+const Playlist = ({id, playlist, album})=>{
     const history=useHistory();
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
@@ -43,10 +45,6 @@ const Playlist = ({id, playlist})=>{
     const [editOn, setEditOn] = useState(false)
     const [newName, setNewName] = useState(playlist.name)
 
-    useEffect(()=>{
-        setEditOn(false)
-    },[playlist])
-
 
     const array=Object.entries(playlist.songs)
     let firstSong;
@@ -56,7 +54,6 @@ const Playlist = ({id, playlist})=>{
     }
 
     const playlistClick=(e)=>{
-        console.log(e.target.className.includes('albumArt'))
         if(e.target.className.includes('albumArt') || e.target.className.includes('playlistInfoDiv')){
             history.push(`${url}/${playlist.id}`)
         }
@@ -65,7 +62,13 @@ const Playlist = ({id, playlist})=>{
     const handleEditPlaylist=()=>{
         if(editOn){
             if(newName!==playlist.name){
-                dispatch(changePlaylist(newName, id, user.id))
+                if(album){
+                    dispatch(changeAlbum(newName, id, user.id))
+                    setEditOn(false)
+                } else{
+                    dispatch(changePlaylist(newName, id, user.id))
+                    setEditOn(false)
+                }
             }
         } else{
             setEditOn(true)
@@ -75,16 +78,16 @@ const Playlist = ({id, playlist})=>{
     return(
         <div className={styles.playlistDiv} onClick={playlistClick}>
             <div className={styles.albumArtDiv}>
-                <img className={styles.albumArt} src={firstSong?.Album.url ? firstSong?.Album.url : `/img/Profile.png`}></img>
+                <img className={styles.albumArt} src={firstSong?.Album?.url ? firstSong?.Album?.url : `/img/Profile.png`}></img>
             </div>
             <div className={styles.playlistInfoDiv}>
                 <EditPlaylist editOn={editOn} setEditOn={setEditOn} newName={newName} setNewName={setNewName} url={url} playlist={playlist} handleEditPlaylist={handleEditPlaylist}/>
             </div>
             { parseInt(userId) === user?.id &&
                 <>
-                    <div className={styles.deleteIconDiv}>
+                    {!album && <div className={styles.deleteIconDiv}>
                         <DeletePlaylistModal name={playlist.name} id={id}/>
-                    </div>
+                    </div>}
                     <div className={styles.editIconDiv}>
                         <i className={`fas fa-edit ${styles.editIcon}`} onClick={handleEditPlaylist} name='edit'></i>
                         {editOn && <i className={`fas fa-times ${styles.cancelIcon}`}

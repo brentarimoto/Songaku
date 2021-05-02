@@ -1,0 +1,29 @@
+.addToPlaylistDiv{
+    width: 100%;
+    height: 100%;
+}
+
+.addToPlaylist{
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--optionHeader);
+    background-color: var(--playlistSelectBC);
+    border-radius: 5px;
+}
+
+.optionHeader{
+    color: var(--optionHeader);
+    text-align: center;
+}
+
+.inPlaylist{
+    color: var(--inPlaylist);
+    text-align: center;
+}
+
+.notPlaylist{
+    color: var(--notPlaylist);
+    text-align: center;
+}

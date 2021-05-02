@@ -48,17 +48,46 @@
 
 .songName{
     grid-area: title;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 170%;
+    font-weight: bold;
+}
+
+.songName a{
+    text-decoration: none;
+    color:var(--songTitle);
 }
 
 .artist{
     grid-area: artist;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.artist a{
+    font-style: italic;
+    text-decoration: none;
+    color:var(--otherSongInfo);
 }
 
 .album{
     grid-area: album;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
+.album a{
+    text-decoration: none;
+    color:var(--otherSongInfo);
+}
+
+
 .genre{
+    padding: 5px;
     grid-area: genre;
     display: flex;
     flex-direction: column;

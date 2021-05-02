@@ -90,24 +90,36 @@
 .title{
     grid-area: title;
     color: var(--songTitle);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .artist{
     grid-area: artist;
     color: var(--otherSongInfo);
     font-size: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .album{
     grid-area: album;
     color: var(--otherSongInfo);
     font-size: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .genre{
     grid-area: genre;
     color: var(--otherSongInfo);
     font-size: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /***** EXTRAS *****/

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
+import ClipLoader from 'react-spinners/ClipLoader'
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import Song from '../../../Song/Song'
@@ -9,25 +10,42 @@ import styles from './AlbumPage.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const AlbumPage = ({userId})=>{
-    let {name} = useParams()
-    name = name.split('%').join(' ')
+const AlbumPage = ({userId, albums})=>{
+    const {albumId} = useParams()
 
-    const playlists = useSelector(state => state.playlists);
+    if(!albums[userId]){
+        return(
+            <ClipLoader/>
+        )
+    }
+
     let songs;
+    let name;
 
-    // if(playlists[userId]){
-    //     songs = playlists[userId][playlistId].songs
-    // }
+    if(albums[userId]){
+        if(!albums[userId][albumId]){
+            return(
+                <Redirect to={`/users/${userId}/albums`}/>
+            )
+        }
 
-    // const name = playlists[userId] ? playlists[userId][playlistId].name : null;
+
+        if(albums[userId][albumId]){
+            songs = albums[userId][albumId].songs
+        }
+
+
+        if(albums[userId][albumId]){
+            name = albums[userId] ? albums[userId][albumId].name : null;
+        }
+    }
 
     return(
-        <div className={styles.playlistSongsDiv}>
-            <div className={styles.playlistHeaderDiv}>
-                <h2 className={styles.playlistName}>{name}</h2>
+        <div className={styles.albumSongsDiv}>
+            <div className={styles.albumHeaderDiv}>
+                <h2 className={styles.albumName}>{name}</h2>
             </div>
-            <div className={styles.playlistSongs}>
+            <div className={styles.albumSongs}>
                 {songs && Object.entries(songs).map(([id, song])=>(
                     <Song key={id} song={song} userId={userId} />
                 ))}

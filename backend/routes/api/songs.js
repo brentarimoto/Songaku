@@ -2,9 +2,12 @@
 const express = require('express');
 const { check } = require('express-validator')
 
-const { Song, User, Genre, Album } = require('../../db/models');
+const { Op } = require("sequelize");
+
+const { Song, User, Genre, Album, Like } = require('../../db/models');
 const commentsRouter = require('./comments.js');
 const likesRouter = require('./likes.js')
+const { createError } = require('../../utils/createError')
 
 /*************************** ROUTER SETUP ***************************/
 const router = express.Router();
@@ -100,14 +103,6 @@ async function deleteFromAWS(item){
   return true
 }
 
-function createError(message, title, status, errors=[]){
-  const err = new Error(message)
-  err.title = title
-  err.errors= (errors.length) ? [...errors] : [message];
-  err.status= status
-  return err
-}
-
 /*************************** SONG ROUTES ***************************/
 
 // GET all songs
@@ -169,8 +164,8 @@ router.post('/', multipleMulterUpload('files'), validateSongs,  asyncHandler(asy
     if(imgUrl){
       existingAlbum.url=imgUrl
       await existingAlbum.save()
+      reload=true;
     }
-    reload=true;
   } else{
     const newAlbum = await Album.create({
       userId,
@@ -178,6 +173,7 @@ router.post('/', multipleMulterUpload('files'), validateSongs,  asyncHandler(asy
       url:imgUrl
     })
     albumId=newAlbum.id
+    reload=true;
   }
 
   const newSong = await Song.create({
@@ -189,7 +185,7 @@ router.post('/', multipleMulterUpload('files'), validateSongs,  asyncHandler(asy
   })
 
   const song = await Song.findByPk(newSong.id, {
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']},{model:Album}],
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
   })
 
   return res.json({song, reload})
@@ -240,40 +236,56 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
 
   let reload;
 
-  let albumExists = await Album.findOne({
-    where:{
-      name: (album||'')
-    }
-  })
+  const currentAlbum = await Album.findByPk(tempSong.albumId,{include:Song})
 
-  if(albumExists){
-    tempSong.albumId=albumExists.id
-    if(imgUrl){
-      imgDeleted = await deleteFromAWS(albumExists)
-      albumExists.url=imgUrl
-      await albumExists.save()
-      reload = true;
-    }
-  } else{
-    if(album){
+  if(album && album!==currentAlbum.name){
+    let albumExists = await Album.findOne({
+      where:{
+        name: (album)
+      }
+    })
+
+    if(albumExists){
+
+      if(imgUrl){
+        imgDeleted = await deleteFromAWS(albumExists)
+        albumExists.url=imgUrl
+        await albumExists.save()
+        reload = true;
+      }
+
+      tempSong.albumId = albumExists.id
+
+    } else{
       const newAlbum = await Album.create({
         userId,
         name:album,
         url:imgUrl
       })
-      tempSong.albumId=newAlbum.id
-    } else if(imgUrl){
-      const existingAlbum = await Album.findByPk(tempSong.albumId)
-      existingAlbum.url=imgUrl
-      existingAlbum.save()
+      tempSong.albumId = newAlbum.id
       reload=true
+    }
+
+    await tempSong.save();
+
+    if(currentAlbum.Songs.length<=1){
+      await currentAlbum.destroy()
+      reload=true;
+    }
+
+  } else{
+    if(imgUrl){
+      imgDeleted = await deleteFromAWS(currentAlbum)
+      currentAlbum.url=imgUrl
+      await currentAlbum.save()
+      reload = true;
     }
   }
 
   await tempSong.save();
 
   const song = await Song.findByPk(tempSong.id, {
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName']},{model:Album}],
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
   })
 
   return res.json({song, reload})
@@ -306,6 +318,7 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   }
 
   let imgDeleted=true;
+  let reload;
 
   if(album.length<=1){
     const lastAlbum = await Album.findByPk(song.Album.id)
@@ -318,32 +331,13 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
     }
 
     await lastAlbum.destroy();
+    reload=true;
 
   } else {
     await song.destroy()
   }
 
-  return res.json({message:'success'})
-}))
-
-/*************************** ALBUM UPDATE ***************************/
-
-router.put('/albums', asyncHandler(async (req, res) => {
-  const {prev, name} = req.body
-
-  const songs = await Song.findAll({where:{album:prev}})
-
-  if(!songs.length){
-    const err = createError('Album Does Not Exist', 'Album Does Not Exist', 404)
-    next(err)
-  }
-
-  songs.forEach(async(song)=>{
-    song.album=name
-    await song.save()
-  })
-
-  return res.json({songs})
+  return res.json({message:'success', reload})
 }))
 
 /*************************** COMMENT ROUTES ***************************/
@@ -354,6 +348,37 @@ router.use('/', commentsRouter)
 
 router.use('/', likesRouter)
 
+/*************************** SUGGESTIONS ROUTES ***************************/
+
+// GET specific song
+router.post('/search', asyncHandler(async (req, res) => {
+  const {string}=req.body
+  // const req.body
+  const songs = await Song.findAll({
+    where: {
+      [Op.or] : [
+        {title: {
+          [Op.iLike]: `%${string}%`
+        }}
+      ]
+    },
+    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+  });
+
+  return res.json({songs})
+}))
+
+
+// GET specific song
+router.get('/suggestions/likes', asyncHandler(async (req, res) => {
+  // const req.body
+  const songs = await Song.findAndCountAll({
+    include:[{model:Like, required:true}],
+    limit: 10,
+  });
+
+  return res.json({songs})
+}))
 
 
 /*************************** EXPORTS ***************************/

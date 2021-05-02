@@ -13,19 +13,47 @@ import styles from './User.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const User = ({isLoaded})=>{
+const User = ({pageUser})=>{
 
     const { path, url } = useRouteMatch();
     const {id:userId} = useParams()
 
     const {user} = useSelector(state => state.session);
+    const songs = useSelector(state => state.songs[userId]);
+    const albums = useSelector(state => state.albums[userId]);
+    const playlists = useSelector(state => state.playlists[userId]);
 
     const [currentTab, setCurrentTab] = useState('')
 
     return (
         <div className={styles.userDiv}>
             <div className={styles.info}>
-                <h1>User Info</h1>
+                <div className={styles.profPicDiv}>
+                    <img className={styles.profPic} src={pageUser?.profilePic ? pageUser.profilePic : `/img/Profile.png`}></img>
+                </div>
+                <div className={styles.nameSection}>
+                    <div className={styles.userName}>
+                        <h2>{pageUser?.userName}</h2>
+                    </div>
+                    <div className={styles.firstName}>
+                        <h4>{pageUser?.firstName && `(${pageUser?.firstName}`}</h4>
+                    </div>
+                    <div className={styles.lastName}>
+                        <h4>{pageUser?.lastName && `${pageUser?.lastName})`}</h4>
+                    </div>
+                </div>
+                <div className={styles.otherInfo}>
+                    <h4 className={styles.about}>{pageUser?.about}</h4>
+                    {/* <div className={styles.songCount}>
+                        <h4>Songs: {Object.keys(songs || {})?.length}</h4>
+                    </div>
+                    <div className={styles.albumCount}>
+                        <h4>Albums: {Object.keys(albums || {})?.length}</h4>
+                    </div>
+                    <div className={styles.playlistCount}>
+                        <h4>Playlists: {Object.keys(playlists || {})?.length}</h4>
+                    </div> */}
+                </div>
             </div>
             <div className={styles.itemsDiv}>
                 <nav className={styles.itemsNav}>
