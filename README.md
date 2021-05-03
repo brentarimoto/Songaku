@@ -2,14 +2,14 @@
 
 [Songaku](https://songaku.herokuapp.com/), a [SoundCloud](https://soundcloud.com/) inspired project, is an audio streaming/sharing website that allows users to upload and listen to music through its database. Users can signup/login to create their own playlists, comment on, like, and organize music in the existing database of music.
 
-### **Live Link: [GoodGamesGG](https://songaku.herokuapp.com/)**
+### **Live Link: [Songaku](https://songaku.herokuapp.com/)**
 
 ## Starting Development
 - Check out the [Wiki](https://github.com/brentarimoto/Songaku/wiki) Documentation for more details on features and API documentation!
 
 ## Technologies 
 #### Front-End
-- React
+- React (ReactPlayer, React-Spinners, 
 - Redux
 - Javascript
 - HTML
@@ -24,21 +24,21 @@
 - Sequelize: Manage Database
 
 ## Features
- - User session authentication/authorization handled using bcryptjs for hashing and Express session for cookie generation
- - Authorized users granted access to creating and editting ratings/reviews.
- - Authorized users are able to create custom libraries and add games to it.
- - Uses AJAX to filter games in game page asynchronously
+ - User session authentication/authorization handled using bcryptjs for hashing
+ - Authorized users granted access to creating, editing, and deleting songs, albums, comments, likes, and playlsts.
+ - Unauthorized users will be able to view but not interact with all songs, albums, comments, likes, and playlists.
+ - User can search for songs through the searchbar, and are offered some suggestions of top liked songs.
 
 ## Challenges
- - We initially had alot of issues with unseeding our database, running into foreign key constraints. The issue stemmed from us manipulating our database via dotenv instead of just sequelize locally, and there were certain practices we had to do differently.
- - We initially had alot of CSS issues, making sure our pages didn't inherit any styles we didn't want it to. We also needed to make our website responsive to different screen sizes.
+ - The organization of the database, and the limited timeframe were definitely the most difficult factors 
+ - Another challenge was developing a clean format so as to be able to comeback to the code at another point in time and easily see any issues.
 
 ## Code Highlights
 
 <img src='/wiki/demoGif.gif'>
 
 ## Future Implementations
- - AJAX implementation for adding to libraries in Mygames page
- - Search bar to search across all models
- - Having genres on each game to give users more preference options
- - Displaying an accounts page with user information
+ - Plans for creating options to edit the User Account will come first
+ - Cleaner implementation of existing code (including CSS)
+ - Further implementation of suggested songs specific to each user.
+ - User to user interaction via messages, follows, etc.
