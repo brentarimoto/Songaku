@@ -56,8 +56,8 @@ function App() {
         <a className={styles.aboutMeName} href="https://brentarimoto.herokuapp.com/">Brent Arimoto</a>
         <h6>/</h6>
         <a className={styles.aboutMeEmail} href="mailto:brentarimoto@gmail.com">brentarimoto@gmail.com</a>
-        <a className={styles.aboutMeGithub} href="https://github.com/brentarimoto"><i className="fab fa-linkedin-in"></i></a>
-        <a className={styles.aboutMeLinkedIn} href="https://www.linkedin.com/in/brent-arimoto/"><i className="fab fa-github"></i></a>
+        <a className={styles.aboutMeGithub} href="https://www.linkedin.com/in/brent-arimoto/"><i className="fab fa-linkedin-in"></i></a>
+        <a className={styles.aboutMeLinkedIn} href="https://github.com/brentarimoto/"><i className="fab fa-github"></i></a>
       </div>
     </>
   );
