@@ -9,7 +9,7 @@
 
 ## Technologies 
 #### Front-End
-- React (ReactPlayer, React-Spinners, 
+- React (ReactPlayer, React Slider, React-Spinners)
 - Redux
 - Javascript
 - HTML
