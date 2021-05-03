@@ -12,19 +12,17 @@
     background-color: var(--playlistSelectBC);
     border-radius: 5px;
     border: none;
+    text-align: center;
 }
 
 .optionHeader{
     color: var(--optionHeader);
-    text-align: center;
 }
 
 .inPlaylist{
     color: var(--inPlaylist);
-    text-align: center;
 }
 
 .notPlaylist{
     color: var(--notPlaylist);
-    text-align: center;
 }

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
+import ClipLoader from 'react-spinners/ClipLoader'
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {uploadSong, getSongs} from '../../store/songs';
@@ -19,6 +20,7 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
     const genres = useSelector(state => state.genres);
 
     const [genreId, setGenreId] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
 
     const [errors, setErrors] = useState([])
 
@@ -51,6 +53,8 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
             dispatch(getSongs(user.id))
         }
 
+        setIsLoading(true)
+
         const song = {
             title,
             userId: user.id,
@@ -71,6 +75,7 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
             setShowModal(false)
             history.replace(`/users/${user.id}/songs`)
         }
+        setIsLoading(false)
     }
 
 
@@ -84,50 +89,55 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
                 ))}
             </ul>
             <div className={styles.title}>
-                <label className= {[styles.label, styles.titleLabel]} htmlFor='title'>Title: </label>
+                <label className= {[styles.label]} htmlFor='title'>Title</label>
                 <input
-                    className={[styles.input, styles.titleInput]}
+                    className={[styles.input]}
                     name='title'
                     type='text'
                     placeholder='Title'
                     value={title}
                     onChange={(e)=>setTitle(e.target.value)}
+                    autocomplete="off"
+                    required
                 ></input>
             </div>
             <div className={styles.album}>
-                <label className= {[styles.label, styles.albumLabel]} htmlFor='album'>Album: </label>
+                <label className= {[styles.label]} htmlFor='album'>Album</label>
                 <input
-                    className={[styles.input, styles.albumInput]}
+                    className={[styles.input]}
                     name='album'
                     type='text'
                     placeholder='Album'
                     value={album}
                     onChange={(e)=>setAlbum(e.target.value)}
+                    autocomplete="off"
+                    required
                 ></input>
             </div>
             <div className={styles.music}>
-                <label className= {[styles.label, styles.musicLabel]} htmlFor='music'>Upload Song: </label>
+                <label className= {[styles.label]} htmlFor='music'>Upload Song: </label>
                 <input
-                    className={[styles.input, styles.musicInput]}
-                    name='music'
+                    className={[styles.musicInput]}
+                    id='music'
                     type='file'
                     accept='.m4a, .mp3, .wav, .aac, .wma'
                     onChange={updateSong}
                 ></input>
             </div>
             <div className={styles.image}>
-                <label className= {[styles.label, styles.imageLabel]} htmlFor='image'>Upload Album Art: </label>
+                <label className= {[styles.label,]} htmlFor='image'>Upload Album Art: </label>
                 <input
-                    className={[styles.input, styles.imageInput]}
+                    className={[styles.imageInput]}
                     name='image'
                     type='file'
+                    accept='.jpg, .jpeg, .png'
                     onChange={updateImage}
                 ></input>
             </div>
             <div className={styles.genre}>
-                <label className= {[styles.label, styles.genreLabel]} htmlFor='genre'>Genre: </label>
+                <label className= {[styles.label]} htmlFor='genre'>Genre: </label>
                 <select
-                    className={[styles.input, styles.genreInput]}
+                    className={[styles.genreInput]}
                     name='genre'
                     onChange={updateGenre}
                 >
@@ -136,7 +146,12 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
                     ))}
                 </select>
             </div>
-            <button className={styles.button} type='submit'>Upload</button>
+            <div className={styles.buttonDiv}>
+                {isLoading ?
+                    <ClipLoader /> :
+                    <button className={styles.button} type='submit'>Upload</button>
+                }
+            </div>
         </form>
     )
 }

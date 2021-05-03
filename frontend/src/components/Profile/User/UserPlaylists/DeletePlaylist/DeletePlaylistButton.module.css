@@ -2,3 +2,33 @@
     font-size: 18px;
     padding:2px;
 }
+
+.formErrors{
+    list-style: none;
+    color: var(--beige)
+}
+
+.form{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas:
+    "headers delete";
+    align-items: center;
+}
+
+.headers{
+    grid-area: headers;
+    color: var(--rainbowIndigo);
+    padding: 2px;
+}
+
+.button{
+    grid-area: delete;
+    width: 100%;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: var(--uploadButtonBackground);
+    color: var(--uploadButtonText);
+    border: none;
+}

@@ -67,9 +67,12 @@
 }
 
 .commentButton{
-    width: 50px;
-    height: 25px;
     margin: 5px;
+    width: 45px;
+    border: none;
+    border-radius: 5px;
+    color: var(--rainbowIndigo);
+    background-color: rgba(64,64,64,.2);
 }
 
 .newCommentDiv{

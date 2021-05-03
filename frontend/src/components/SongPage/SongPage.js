@@ -72,6 +72,7 @@ const SongPage = ({isLoaded})=>{
 
     const handleComment=()=>{
         dispatch(postComment(myComment, user.id, songId))
+        setMyComment('')
     }
 
     return (
@@ -125,28 +126,30 @@ const SongPage = ({isLoaded})=>{
                     />
                 </div>
             </div>
-            <div className={styles.myCommentSection}>
-                <div className={styles.myCommentContainer}>
-                    <div className={styles.myProfPicDiv}>
-                        <img
-                            className={styles.myProfPic}
-                            src={user?.profilePic ? user.profilePic : `/img/Profile.png`}
-                        ></img>
+            <div className={styles.allCommentSection}>
+                {user && <div className={styles.myCommentSection}>
+                    <div className={styles.myCommentContainer}>
+                        <div className={styles.myProfPicDiv}>
+                            <img
+                                className={styles.myProfPic}
+                                src={user?.profilePic ? user.profilePic : `/img/Profile.png`}
+                            ></img>
+                        </div>
+                        <div className={styles.myCommentDiv}>
+                            <textarea
+                                value={myComment}
+                                className={styles.myComment}
+                                onChange={(e)=>setMyComment(e.target.value)}
+                            ></textarea>
+                            <button className={styles.myCommentButton} onClick={handleComment}>Comment</button>
+                        </div>
                     </div>
-                    <div className={styles.myCommentDiv}>
-                        <textarea
-                            value={myComment}
-                            className={styles.myComment}
-                            onChange={(e)=>setMyComment(e.target.value)}
-                        ></textarea>
-                        <button onClick={handleComment}>Comment</button>
-                    </div>
+                </div>}
+                <div className={styles.commentsDiv}>
+                    {comments[songId] && Object.keys(comments[songId]).reverse().map((id)=>(
+                        <Comment key={comments[songId][id].id} comment={comments[songId][id]} songId={songId}/>
+                    ))}
                 </div>
-            </div>
-            <div className={styles.commentsDiv}>
-                {comments[songId] && Object.keys(comments[songId]).reverse().map((id)=>(
-                    <Comment key={comments[songId][id].id} comment={comments[songId][id]} songId={songId}/>
-                ))}
             </div>
             <div className={styles.topSongsDiv}>
                 <Suggestions genreId={song?.Genre.id}/>

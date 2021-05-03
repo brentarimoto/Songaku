@@ -24,10 +24,10 @@ const Home = ({isLoaded})=>{
             <div className={styles.topSongsDiv2}>
                 <Suggestions genreId={13}/>
             </div>
-            <div className={styles.topSongsDiv4}>
+            <div className={styles.topSongsDiv3}>
                 <Suggestions genreId={14}/>
             </div>
-            <div className={styles.topSongsDiv5}>
+            <div className={styles.topSongsDiv4}>
                 <Suggestions genreId={10}/>
             </div>
         </div>

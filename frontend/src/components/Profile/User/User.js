@@ -33,7 +33,7 @@ const User = ()=>{
         if(!users[userId]){
             dispatch(getUser(userId))
         }
-    },[dispatch])
+    },[dispatch, url])
 
     const pageUser = users[userId]
 

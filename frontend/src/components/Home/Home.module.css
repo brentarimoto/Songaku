@@ -1,3 +1,12 @@
+@import url('../../css/animation/allAnimations.css');
+
+.topSongsDiv1 :global,
+.topSongsDiv2 :global,
+.topSongsDiv3 :global,
+.topSongsDiv4 :global{
+    animation: fadeIn 3s;
+}
+
 .mainSuggestions{
     margin: auto;
     display: grid;
@@ -13,16 +22,20 @@
 
 .topSongsDiv1{
     grid-area: one;
+    color: var(--rainbowIndigo);
 }
 
 .topSongsDiv2{
     grid-area: two;
+    color: var(--rainbowIndigo);
 }
 
 .topSongsDiv3{
     grid-area: three;
+    color: var(--rainbowIndigo);
 }
 
 .topSongsDiv4{
     grid-area: four;
+    color: var(--rainbowIndigo);
 }

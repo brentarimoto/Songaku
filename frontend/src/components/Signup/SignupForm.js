@@ -58,6 +58,7 @@ const SignupForm = ()=>{
 
     return(
         <div className={styles.formDiv}>
+            <h2>Create your account here</h2>
             <ul className={styles.formErrors}>
                 {errors?.map((error)=>(
                     <li key={error}>{error}</li>
@@ -68,9 +69,8 @@ const SignupForm = ()=>{
                 onSubmit = { handleSubmit }
             >
                 <div className={styles.email}>
-                    <label className= {[styles.signupLabel, styles.emailLabel]}>Email: </label>
                     <input
-                        className={[styles.signupInput, styles.emailInput]}
+                        className={[styles.signupInput]}
                         type='text'
                         placeholder='Email'
                         value={email}
@@ -78,9 +78,8 @@ const SignupForm = ()=>{
                     ></input>
                 </div>
                 <div className={styles.username}>
-                    <label className= {[styles.signupLabel, styles.usernameLabel]}>Username: </label>
                     <input
-                        className={[styles.signupInput, styles.usernameInput]}
+                        className={[styles.signupInput]}
                         type='text'
                         placeholder='Username'
                         value={userName}
@@ -88,9 +87,8 @@ const SignupForm = ()=>{
                     ></input>
                 </div>
                 <div className={styles.password}>
-                    <label className= {[styles.signupLabel, styles.passwordLabel]}>Password: </label>
                     <input
-                        className={[styles.signupInput, styles.passwordInput]}
+                        className={[styles.signupInput]}
                         type='password'
                         placeholder='Password'
                         value={password}
@@ -98,9 +96,8 @@ const SignupForm = ()=>{
                     ></input>
                 </div>
                 <div className={styles.password}>
-                    <label className= {[styles.signupLabel, styles.passwordLabel]}>Confirm Password: </label>
                     <input
-                        className={[styles.signupInput, styles.passwordInput]}
+                        className={[styles.signupInput]}
                         type='password'
                         placeholder='Confirm Password'
                         value={confirmPassword}

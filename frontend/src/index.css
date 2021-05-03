@@ -69,6 +69,13 @@ body{
   --background2: var(--fadedGreyBlue);
   --background3: var(--pastelBlue);
 
+  --formText: var(--rainbowIndigo);
+  --formButtonBackground: var(--quickSilver);
+  --formButtonText: var(--rainbowIndigo);
+
+  --uploadButtonBackground: var(--fadedGreyBlue);
+  --uploadButtonText: whitesmoke;
+
   --borderColor: var(--fadedRainbowIndigo);
 
   --mainNavActiveText: var(--jetStream);

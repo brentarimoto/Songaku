@@ -45,7 +45,7 @@
     grid-template-rows: 460px 80px auto;
     grid-template-areas:
     "song song"
-    "suggest mycomment"
+    "suggest comment"
     "suggest comment";
 }
 
@@ -90,16 +90,18 @@
 
 .songName a{
     color: var(--songTitle);
-    font-size: 250%;
+    font-size: 155%;
     font-weight: bold;
     text-decoration: none;
+    padding: 5px;
 }
 
 .album a,
 .artist a{
     color: var(--otherSongInfo);
-    font-size: 150%;
+    font-size: 125%;
     text-decoration: none;
+    padding: 5px;
 }
 
 .artist a{
@@ -110,7 +112,7 @@
 .genre h3{
     border: 1px solid var(--genreTextColor);
     border-radius: 5px;
-    font-size: 120%;
+    font-size: 110%;
     color: var(--genreTextColor);
     background-color: var(--genreBackground);
 }
@@ -118,8 +120,8 @@
 .songHeader{
     color: var(--songHeaders);
     position: absolute;
-    top:5px;
-    left:5px;
+    top:2px;
+    left:2px;
 
 }
 
@@ -168,8 +170,13 @@
     align-items: center;
 }
 
+.allCommentSection{
+    grid-area: comment;
+    display: flex;
+    flex-direction: column;
+}
+
 .myCommentSection{
-    grid-area: mycomment;
     /* height:100%;
     width: 100%; */
     border-bottom: 1px solid var(--borderColor);
@@ -202,7 +209,6 @@
 }
 
 .myCommentDiv{
-    grid-area: comment;
     padding: 5px;
     display: flex;
     justify-content: flex-start;
@@ -217,6 +223,15 @@
     height: 100%;
     border-radius: 5px;
     /* margin: 10px; */
+}
+
+.myCommentButton{
+    margin: 2px;
+    height: 25px;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: rgba(64,64,64,.2);
+    color: var(--rainbowIndigo);
 }
 
 .commentsDiv{

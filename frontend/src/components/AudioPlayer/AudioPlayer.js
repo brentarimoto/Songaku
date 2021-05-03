@@ -1,6 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useRef, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { useHistory, Redirect, Switch, Route, Link, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player/lazy'
 import ReactSlider from "react-slider";
@@ -178,9 +178,9 @@ const AudioPlayer = ({song, userId})=>{
                 />
             </div>
             <div className={styles.songInfo}>
-                <h2 className={styles.title}>{currentSong ? currentSong.title : null}</h2>
-                <h3 className={styles.artist}>{currentSong ? currentSong.User.userName : null}</h3>
-                <h3 className={styles.album}>{currentSong ? currentSong.Album.name : null}</h3>
+                <Link className={styles.title} to={`/users/${currentSong?.User.id}/songs/${currentSong?.id}`}>{currentSong ? currentSong.title : null}</Link>
+                <Link className={styles.artist} to={`/users/${currentSong?.User.id}`}>{currentSong ? currentSong?.User.userName : null}</Link>
+                <Link className={styles.album} to={`/users/${currentSong?.User.id}/albums/${currentSong?.Album.id}`}>{currentSong ? currentSong?.Album.name : null}</Link>
                 <div className={styles.genreDiv}>
                     <h3 className={styles.genre}>{currentSong ? currentSong.Genre.name : null}</h3>
                 </div>

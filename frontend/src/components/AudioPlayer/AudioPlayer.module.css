@@ -95,6 +95,9 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 150%;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .artist{
@@ -106,6 +109,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-decoration: none;
 }
 
 .album{
@@ -117,6 +121,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-decoration: none;
 }
 
 .genreDiv{

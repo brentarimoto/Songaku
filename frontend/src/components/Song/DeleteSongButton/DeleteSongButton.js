@@ -36,8 +36,10 @@ const DeleteSongButton = ({id, albumId})=>{
                     <li key={error}>{error}</li>
                 ))}
             </ul>
-            <h4>Are you sure?</h4>
-            <h4>Files will be permanently deleted. </h4>
+            <div className={styles.headers}>
+                <h4>Are you sure?</h4>
+                <h4>Files will be permanently deleted. </h4>
+            </div>
             <button className={styles.button} type='submit'>Delete</button>
         </form>
     )
