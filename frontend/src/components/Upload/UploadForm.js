@@ -1,6 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader'
 
@@ -97,7 +97,7 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
                     placeholder='Title'
                     value={title}
                     onChange={(e)=>setTitle(e.target.value)}
-                    autocomplete="off"
+                    autoComplete="off"
                     required
                 ></input>
             </div>

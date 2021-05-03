@@ -23,7 +23,6 @@ function UploadModal() {
           <UploadForm
             title={title}
             setTitle={setTitle}
-            title={title}
             album={album}
             setAlbum={setAlbum}
             music={music}

@@ -1,7 +1,7 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useRef, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, Link, useRouteMatch, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useRef} from 'react'
+import { Link,} from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player/lazy'
 import ReactSlider from "react-slider";
 

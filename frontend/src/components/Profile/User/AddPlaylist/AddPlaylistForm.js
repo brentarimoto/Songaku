@@ -1,6 +1,5 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
@@ -13,7 +12,6 @@ import styles from './AddPlaylistForm.module.css'
 /*************************** COMPONENTS ***************************/
 const AddPlaylistForm = ({onClose})=>{
     const dispatch = useDispatch();
-    const history= useHistory();
 
     const [name, setName] = useState('')
     const [errors, setErrors] = useState([])

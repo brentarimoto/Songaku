@@ -1,6 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Switch, Route, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
@@ -14,11 +14,10 @@ import styles from './UserPlaylists.module.css'
 /*************************** COMPONENTS ***************************/
 const UserPlaylists = ({setCurrentTab})=>{
 
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
     const {id:userId} = useParams()
 
     const dispatch = useDispatch()
-    const songs = useSelector(state => state.songs);
     const playlists = useSelector(state => state.playlists);
 
 

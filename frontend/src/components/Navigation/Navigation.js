@@ -69,7 +69,7 @@ const Navigation = ()=>{
     return(
         <nav className={styles.navbar}>
             <div className = {styles.logoDiv}>
-                <img className= {styles.logo} src={`/img/Songaku_Logo.png`} onClick={handleLogo}></img>
+                <img alt='' className= {styles.logo} src={`/img/Songaku_Logo.png`} onClick={handleLogo}></img>
             </div>
             <div className={styles.homeUpload}>
                 <div className = {styles.homeDiv}>

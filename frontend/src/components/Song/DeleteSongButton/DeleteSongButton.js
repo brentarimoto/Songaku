@@ -1,11 +1,9 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {deleteSong} from '../../../store/songs';
-import {loadAlbums} from '../../../store/albums'
 
 import styles from './DeleteSongButton.module.css'
 
@@ -13,7 +11,6 @@ import styles from './DeleteSongButton.module.css'
 /*************************** COMPONENTS ***************************/
 const DeleteSongButton = ({id, albumId})=>{
     const dispatch = useDispatch();
-    const history= useHistory();
 
     const [errors, setErrors] = useState([])
 
@@ -22,7 +19,7 @@ const DeleteSongButton = ({id, albumId})=>{
     const handleDelete= async (e)=>{
         e.preventDefault();
 
-        let {message, reload, errors} = await dispatch(deleteSong(id, user.id, albumId))
+        let {errors} = await dispatch(deleteSong(id, user.id, albumId))
 
         if(errors){setErrors(errors?.errors || [errors.message])}
     }

@@ -1,6 +1,5 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
@@ -24,7 +23,6 @@ function isLiked(likes, songId, user){
 
 /*************************** COMPONENTS ***************************/
 const LikeButton = ({songId})=>{
-    const history = useHistory();
     const dispatch = useDispatch();
 
     const {user} = useSelector(state => state.session);

@@ -4,7 +4,6 @@ import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import DemoButton from'../DemoButton/DemoButton'
 import {login} from '../../store/session';
 
 import styles from './LoginForm.module.css'

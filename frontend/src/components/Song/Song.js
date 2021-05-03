@@ -1,8 +1,7 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react'
-import { Link, useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import ClipLoader from 'react-spinners/ClipLoader'
 /*************************** OTHER FILE IMPORTS ***************************/
 import DeleteModal from './DeleteSongButton/DeleteModal'
 import LikeButton from '../LikeButton/LikeButton'
@@ -21,7 +20,6 @@ const Song = ({song})=>{
     const {setPlay} = usePlayerContext()
 
     const {user} = useSelector(state => state.session);
-    const genres = useSelector(state => state.genres);
     const likes = useSelector(state => state.likes);
     const currentSong = useSelector(state => state.currentSong);
 
@@ -51,6 +49,7 @@ const Song = ({song})=>{
         <div className={styles.songDiv}>
             <div className={styles.albumArtDiv}>
                 <img
+                    alt=''
                     className={styles.albumArt}
                     src={song?.Album?.url ? song?.Album?.url : `/img/Profile.png`}
                     onClick={songPlay}

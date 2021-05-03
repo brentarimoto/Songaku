@@ -13,7 +13,7 @@ import convertSongsToObject from '../utils/convertSongsToObject'
 const SET_ALBUMS = 'set/ALBUMS'
 const EDIT_ALBUM = 'edit/ALBUM'
 // const EDIT_PLAYLIST = 'edit/PLAYLIST'
-const REMOVE_ALBUM = 'remove/ALBUM '
+// const REMOVE_ALBUM = 'remove/ALBUM '
 
 // const ADD_TO_PLAYLIST = 'addTo/PLAYLIST'
 // const REMOVE_FROM_PLAYLIST = 'removeFrom/PLAYLIST'

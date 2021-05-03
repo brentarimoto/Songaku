@@ -1,7 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
-import { useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {login} from '../../store/session';

@@ -1,6 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
@@ -23,9 +23,6 @@ const User = ()=>{
 
     const users = useSelector(state => state.users);
     const {user} = useSelector(state => state.session);
-    const songs = useSelector(state => state.songs[userId]);
-    const albums = useSelector(state => state.albums[userId]);
-    const playlists = useSelector(state => state.playlists[userId]);
 
     const [currentTab, setCurrentTab] = useState('')
 
@@ -41,7 +38,7 @@ const User = ()=>{
         <div className={styles.userDiv}>
             <div className={styles.info}>
                 <div className={styles.profPicDiv}>
-                    <img className={styles.profPic} src={pageUser?.profilePic ? pageUser.profilePic : `/img/Profile.png`}></img>
+                    <img alt='' className={styles.profPic} src={pageUser?.profilePic ? pageUser.profilePic : `/img/Profile.png`}></img>
                 </div>
                 <div className={styles.nameSection}>
                     <div className={styles.userName}>

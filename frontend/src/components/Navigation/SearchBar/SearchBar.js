@@ -1,7 +1,7 @@
 /*************************** REACT IMPORTS ***************************/
 import { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import {searchSongs} from '../../../store/search'
@@ -13,7 +13,6 @@ import styles from './SearchBar.module.css'
 const SearchBar = ()=>{
     const dispatch=useDispatch()
     const history = useHistory()
-    const {user} = useSelector(state => state.session);
 
     const [searchWords, setSearchWords] =  useState('')
 

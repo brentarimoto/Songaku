@@ -1,6 +1,5 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { Link, useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/

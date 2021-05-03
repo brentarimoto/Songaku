@@ -1,8 +1,43 @@
+@import url('css/animation/allAnimations.css');
+
+.aboutMeSection :global{
+    animation: fadeIn 1s;
+}
+
 .content{
   box-sizing: border-box;
   padding-top: 50px;
   padding-bottom: 60px;
   height:100%;
   overflow: auto;
+}
 
+.aboutMeSection{
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: var(--rainbowIndigo)
+}
+
+.aboutMeName,
+.aboutMeEmail{
+  font-size: 15px;
+}
+
+.aboutMeLinks{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.aboutMeEmail,
+.aboutMeGithub,
+.aboutMeLinkedIn{
+  padding-left: 5px;
 }

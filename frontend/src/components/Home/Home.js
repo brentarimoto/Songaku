@@ -1,20 +1,11 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
-
 /*************************** OTHER FILE IMPORTS ***************************/
 import Suggestions from '../Suggestions/Suggestions'
 import styles from './Home.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const Home = ({isLoaded})=>{
-    const dispatch=useDispatch()
-    const { path } = useRouteMatch();
-    const {id:userId} = useParams()
-
-    const pageUser = useSelector(state => state.users[userId]);
+const Home = ()=>{
 
     return (
         <div className={styles.mainSuggestions}>

@@ -1,7 +1,6 @@
 /*************************** OTHER FILE IMPORTS ***************************/
 import { csrfFetch } from './csrf';
-import {loadAlbums} from './albums'
-import {loadPlaylists} from './playlists'
+
 /*************************** HELPER FUNCTIONS ***************************/
 import convertSongsToObject from '../utils/convertSongsToObject'
 

@@ -1,6 +1,5 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
@@ -12,7 +11,6 @@ import styles from './DeletePlaylistButton.module.css'
 /*************************** COMPONENTS ***************************/
 const DeletePlaylistButton = ({name, id})=>{
     const dispatch = useDispatch();
-    const history= useHistory();
 
     const [errors, setErrors] = useState([])
 

@@ -1,7 +1,5 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { Redirect,useParams } from 'react-router-dom'
 import ClipLoader from 'react-spinners/ClipLoader'
 
 /*************************** OTHER FILE IMPORTS ***************************/

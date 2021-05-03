@@ -1,13 +1,10 @@
 /*************************** REACT IMPORTS ***************************/
 import { useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader'
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import {editSong, getSongs} from '../../../store/songs'
-import {loadAlbums} from '../../../store/albums'
-import {loadPlaylists} from '../../../store/playlists'
+import {editSong} from '../../../store/songs'
 import {setSong} from '../../../store/currentSong'
 
 import styles from './EditForm.module.css'
@@ -15,7 +12,6 @@ import styles from './EditForm.module.css'
 
 /*************************** COMPONENTS ***************************/
 const EditForm = ({song, onClose})=>{
-    const history = useHistory();
     const dispatch = useDispatch();
     const {user} = useSelector(state => state.session);
     const genres = useSelector(state => state.genres);
@@ -82,6 +78,7 @@ const EditForm = ({song, onClose})=>{
         } else {
             console.log(editedSong?.message)
         }
+        reset()
         setIsLoading(false)
     }
 

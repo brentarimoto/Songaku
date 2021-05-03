@@ -1,7 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useParams } from 'react-router-dom'
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import Song from '../../../Song/Song'

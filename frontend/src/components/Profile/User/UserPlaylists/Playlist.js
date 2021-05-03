@@ -1,12 +1,11 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { Link, useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useHistory, useRouteMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import {changePlaylist, loadPlaylists} from '../../../../store/playlists'
+import {changePlaylist} from '../../../../store/playlists'
 import {changeAlbum} from '../../../../store/albums'
-import {getSongs} from '../../../../store/songs'
 import DeletePlaylistModal from './DeletePlaylist/DeletePlaylistModal'
 import styles from './Playlist.module.css'
 
@@ -78,7 +77,7 @@ const Playlist = ({id, playlist, album})=>{
     return(
         <div className={styles.playlistDiv} onClick={playlistClick}>
             <div className={styles.albumArtDiv}>
-                <img className={styles.albumArt} src={firstSong?.Album?.url ? firstSong?.Album?.url : `/img/Profile.png`}></img>
+                <img alt='' className={styles.albumArt} src={firstSong?.Album?.url ? firstSong?.Album?.url : `/img/Profile.png`}></img>
             </div>
             <div className={styles.playlistInfoDiv}>
                 <EditPlaylist editOn={editOn} setEditOn={setEditOn} newName={newName} setNewName={setNewName} url={url} playlist={playlist} handleEditPlaylist={handleEditPlaylist}/>

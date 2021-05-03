@@ -1,8 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
-import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, NavLink, useRouteMatch, useParams } from 'react-router-dom'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import ReactSlider from 'react-slider'
 
 /*************************** OTHER FILE IMPORTS ***************************/
 import { deleteComment, editComment } from '../../../store/comments'
@@ -78,7 +76,7 @@ const Comment = ({comment})=>{
     return (
         <div className={styles.commentContainer}>
             <div className={styles.profPicDiv}>
-                <img className={styles.profPic} src={comment?.User.profilePic ? comment.User.profilePic : `/img/Profile.png`}></img>
+                <img alt='' className={styles.profPic} src={comment?.User.profilePic ? comment.User.profilePic : `/img/Profile.png`}></img>
             </div>
             <div className={styles.userNameDiv}>
                 <h3>{comment?.User?.userName}</h3>

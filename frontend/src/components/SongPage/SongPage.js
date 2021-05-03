@@ -1,6 +1,6 @@
 /*************************** REACT IMPORTS ***************************/
 import { useEffect, useState } from 'react'
-import { useHistory, Redirect, Switch, Route, Link, useRouteMatch, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import ReactSlider from 'react-slider'
 
@@ -98,6 +98,7 @@ const SongPage = ({isLoaded})=>{
                 </div>
                 <div className={styles.albumArtDiv}>
                     <img
+                        alt=''
                         className={styles.albumArt}
                         src={song?.Album.url ? song?.Album.url : `/img/Profile.png`}
                         onClick={songPlay}
@@ -131,6 +132,7 @@ const SongPage = ({isLoaded})=>{
                     <div className={styles.myCommentContainer}>
                         <div className={styles.myProfPicDiv}>
                             <img
+                                alt=''
                                 className={styles.myProfPic}
                                 src={user?.profilePic ? user.profilePic : `/img/Profile.png`}
                             ></img>
