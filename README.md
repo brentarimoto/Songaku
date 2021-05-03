@@ -1,4 +1,4 @@
-# <img src="public/favicon.ico" width="25" height="25"> Welcome to GoodGamesGG!
+# <img src="/fontend/public/favicon.ico" width="25" height="25"> Welcome to GoodGamesGG!
 
 [Songaku](https://songaku.herokuapp.com/), a [SoundCloud](https://soundcloud.com/) inspired project, is an audio streaming/sharing website that allows users to upload and listen to music through its database. Users can signup/login to create their own playlists, comment on, like, and organize music in the existing database of music.
 
