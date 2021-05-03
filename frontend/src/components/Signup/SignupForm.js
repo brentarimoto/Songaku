@@ -54,8 +54,6 @@ const SignupForm = ()=>{
         }
     }
 
-    console.log(userName)
-
     return(
         <div className={styles.formDiv}>
             <h2>Create your account here</h2>
