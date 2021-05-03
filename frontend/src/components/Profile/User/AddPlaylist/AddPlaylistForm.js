@@ -39,8 +39,10 @@ const AddPlaylistForm = ({onClose})=>{
                     <li key={error}>{error}</li>
                 ))}
             </ul>
-            <label className= {styles.playlistNameLabel} htmlFor='playlistName'>Playlist Name: </label>
-            <input className={styles.playlistName} name='playlistName' onChange={(e)=>setName(e.target.value)} value={name}></input>
+            <div className={styles.playlistInputDiv}>
+                <label className= {styles.playlistNameLabel} htmlFor='playlistName'>Playlist Name: </label>
+                <input className={styles.playlistName} name='playlistName' onChange={(e)=>setName(e.target.value)} value={name} autoComplete='off'></input>
+            </div>
             <button className={styles.button} type='submit'>Create</button>
         </form>
     )
