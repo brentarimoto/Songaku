@@ -205,6 +205,9 @@
     border-right: 1px solid var(--borderColor);
     border-left: 1px solid var(--borderColor);
     border-bottom: 1px solid var(--borderColor);
+}
+
+.logout{
     opacity: 0;
 }
 
