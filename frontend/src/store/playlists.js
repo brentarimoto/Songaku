@@ -221,7 +221,7 @@ export default function playlistsReducer(state = {}, action){
     let newState;
     switch(action.type){
         case SET_PLAYLISTS:
-            newState = {...action.playlists}
+            newState = {...state, ...action.playlists}
             return newState
         case ADD_PLAYLIST:
             newState = {...state}

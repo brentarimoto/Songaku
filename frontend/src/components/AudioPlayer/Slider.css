@@ -6,7 +6,7 @@
 
 .seekThumb{
     background-color: var(--sliderPlayed);
-    color: var(--sliderPlayed);
+    color: var(--sliderTime);
 
     top: 25px;
     height: 10px;

@@ -34,6 +34,7 @@
     width: 100%;
     height: 100%;
     background-color: var(--background2);
+    color: var(--userText);
 
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -173,7 +174,7 @@
     border-right: 1px solid var(--borderColor);
 }
 
-.suggestionsDiv{
+.topSongsDiv{
     grid-area: suggest;
     width: 100%;
     height: 100%;

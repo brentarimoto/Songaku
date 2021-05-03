@@ -8,6 +8,7 @@ import ReactSlider from 'react-slider'
 import Comment from './Comment/Comment'
 import LikeButton from '../LikeButton/LikeButton'
 import AddToPlaylist from '../Song/AddToPlaylist/AddToPlaylist'
+import Suggestions from '../Suggestions/Suggestions'
 
 import {loadComments, postComment} from '../../store/comments'
 import {usePlayerContext} from '../../context/player'
@@ -26,13 +27,9 @@ import styles from './SongPage.module.css'
 const SongPage = ({isLoaded})=>{
 
     const {
-        play, setPlay,
-        time, setTime,
-        totalTime, setTotalTime,
-        percent, setPercent,
-        volPercent, setVolPercent,
-        volume, setVolume,
-        mute, setMute
+        setPlay,
+        time,
+        percent,
     } = usePlayerContext()
 
 
@@ -150,6 +147,9 @@ const SongPage = ({isLoaded})=>{
                 {comments[songId] && Object.keys(comments[songId]).reverse().map((id)=>(
                     <Comment key={comments[songId][id].id} comment={comments[songId][id]} songId={songId}/>
                 ))}
+            </div>
+            <div className={styles.topSongsDiv}>
+                <Suggestions genreId={song?.Genre.id}/>
             </div>
         </div>
     )

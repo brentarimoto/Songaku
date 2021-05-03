@@ -11,6 +11,7 @@
     color: var(--optionHeader);
     background-color: var(--playlistSelectBC);
     border-radius: 5px;
+    border: none;
 }
 
 .optionHeader{

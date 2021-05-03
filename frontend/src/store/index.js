@@ -15,6 +15,7 @@ import likesReducer from './likes'
 import playlistsReducer from './playlists'
 import albumsReducer from './albums'
 import searchReducer from './search'
+import topSongsReducer from './topSongs'
 
 /*************************** REDUCER ***************************/
 
@@ -29,6 +30,7 @@ const rootReducer  = combineReducers({
   playlists: playlistsReducer,
   albums: albumsReducer,
   search: searchReducer,
+  topSongs: topSongsReducer,
 });
 
 /*************************** ENHANCER/MIDDLEWARE ***************************/

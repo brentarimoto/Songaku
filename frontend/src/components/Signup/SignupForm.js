@@ -18,7 +18,7 @@ const SignupForm = ()=>{
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
+    const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState([])
@@ -41,18 +41,20 @@ const SignupForm = ()=>{
 
         const user = {
             email,
-            username,
+            userName,
             password
         }
 
         let newUser = await dispatch(signup(user))
 
-        if (newUser.username) {
+        if (newUser.userName) {
             history.replace('/')
         } else {
             setErrors(newUser.errors)
         }
     }
+
+    console.log(userName)
 
     return(
         <div className={styles.formDiv}>
@@ -81,8 +83,8 @@ const SignupForm = ()=>{
                         className={[styles.signupInput, styles.usernameInput]}
                         type='text'
                         placeholder='Username'
-                        value={username}
-                        onChange={(e)=>setUsername(e.target.value)}
+                        value={userName}
+                        onChange={(e)=>setUserName(e.target.value)}
                     ></input>
                 </div>
                 <div className={styles.password}>

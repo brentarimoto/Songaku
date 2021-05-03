@@ -2,7 +2,7 @@
 const express = require('express');
 const { check } = require('express-validator')
 
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 
 const { Song, User, Genre, Album, Like } = require('../../db/models');
 const commentsRouter = require('./comments.js');
@@ -185,7 +185,7 @@ router.post('/', multipleMulterUpload('files'), validateSongs,  asyncHandler(asy
   })
 
   const song = await Song.findByPk(newSong.id, {
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
   })
 
   return res.json({song, reload})
@@ -285,7 +285,7 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
   await tempSong.save();
 
   const song = await Song.findByPk(tempSong.id, {
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
   })
 
   return res.json({song, reload})
@@ -359,25 +359,79 @@ router.post('/search', asyncHandler(async (req, res) => {
       [Op.or] : [
         {title: {
           [Op.iLike]: `%${string}%`
+        }},
+        {'$Genre.name$': {
+          [Op.iLike]: `%${string}%`
+        }},
+        {'$User.userName$': {
+          [Op.iLike]: `%${string}%`
+        }},
+        {'$Album.name$': {
+          [Op.iLike]: `%${string}%`
         }}
       ]
     },
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name', 'id'], as: 'Genre'}, {model:User,attributes:['userName', 'id'], as:'User'},{model:Album, as: 'Album'}],
   });
 
   return res.json({songs})
 }))
 
+/******SORTING FUNCTION********/
+
+function quickSort(array) {
+  if(array.length <= 1) {
+    return array;
+  }
+
+  let left = [];
+  let right = [];
+  let pivot = array[0]
+  let pivotValue= array[0][0];
+  let middle = [pivot];
+
+
+
+  for(let i = 1; i < array.length; i++) {
+    if (array[i][0] > pivotValue) {
+        left.push(array[i]);
+    } else if (array[i][0] < pivotValue) {
+      right.push(array[i]);
+    } else {
+      middle.push(array[i]);
+    }
+  }
+
+  return [...quickSort(left), ...middle, ...quickSort(right)];
+}
+
 
 // GET specific song
-router.get('/suggestions/likes', asyncHandler(async (req, res) => {
-  // const req.body
-  const songs = await Song.findAndCountAll({
-    include:[{model:Like, required:true}],
-    limit: 10,
-  });
+router.post('/suggestions/likes/songs', asyncHandler(async (req, res) => {
+  let {type, value} = req.body
 
-  return res.json({songs})
+  console.log(type)
+
+  const songs = await Song.findAll({
+    include: [{model: Genre, attributes:['name','id']}, {model:User,attributes:['userName', 'id']},{model:Album},{model:Like}],
+    where: (type ? {[type]:value} : null)
+  })
+
+  const likeCount = songs.map((song, i)=>{
+    return [song.Likes.length, i]
+  })
+
+  const sortedLikeCount = quickSort(likeCount)
+
+  const topSongs=[]
+
+  const number = (songs.length>3) ? 3: songs.length;
+
+  for(let i=0;i<number;i++){
+    topSongs.push(songs[sortedLikeCount[i][1]])
+  }
+
+  return res.json({topSongs})
 }))
 
 

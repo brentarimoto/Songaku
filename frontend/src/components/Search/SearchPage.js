@@ -25,6 +25,12 @@ const SearchPage = ({setCurrentTab})=>{
         dispatch(searchSongs(string))
     }, [dispatch])
 
+    if(!search){
+        return(
+            <ClipLoader />
+        )
+    }
+
     return(
         <div className={styles.songsDiv}>
             {/* <h1>{words}</h1> */}

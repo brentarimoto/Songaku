@@ -11,7 +11,7 @@ module.exports = {
       {name: 'Classical'},
       {name: 'Country'},
       {name: 'EDM'},
-      {name: 'Hip-hop'},
+      {name: 'Hip-Hop'},
       {name: 'Indie rock'},
       {name: 'K-pop'},
       {name: 'Metal'},

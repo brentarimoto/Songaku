@@ -8,6 +8,7 @@ import Navigation from './components/Navigation/Navigation'
 import Profile from './components/Profile/Profile'
 import AudioPlayer from './components/AudioPlayer/AudioPlayer'
 import Search from './components/Search/SearchPage'
+import Home from './components/Home/Home'
 
 import {restoreUser} from './store/session'
 import {restoreGenres} from './store/genres'
@@ -35,7 +36,7 @@ function App() {
       <div className={styles.content}>
         <Switch>
           <Route exact path='/'>
-            <h2>Home</h2>
+            <Home />
           </Route>
           <Route path={`/users/:id(\\d+)`}>
             <Profile isLoaded={isLoaded}/>

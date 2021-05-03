@@ -33,7 +33,7 @@ button:hover{
   text-decoration: none;
   border:none;
   color: grey;
-  background-color: whitesmoke;
+  background-color: var(--background3);
   font-size: 20px;
 }
 

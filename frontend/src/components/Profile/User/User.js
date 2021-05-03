@@ -8,22 +8,34 @@ import UserSongs from './UserSongs/UserSongs'
 import UserPlaylists from './UserPlaylists/UserPlaylists'
 import UserAlbums from './UserAlbums/UserAlbums'
 import AddPlaylistModal from './AddPlaylist/AddPlaylistModal'
+import Suggestions from '../../Suggestions/Suggestions'
+
+import {getUser} from '../../../store/users'
 
 import styles from './User.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const User = ({pageUser})=>{
-
+const User = ()=>{
+    const dispatch=useDispatch()
     const { path, url } = useRouteMatch();
     const {id:userId} = useParams()
 
+    const users = useSelector(state => state.users);
     const {user} = useSelector(state => state.session);
     const songs = useSelector(state => state.songs[userId]);
     const albums = useSelector(state => state.albums[userId]);
     const playlists = useSelector(state => state.playlists[userId]);
 
     const [currentTab, setCurrentTab] = useState('')
+
+    useEffect(()=>{
+        if(!users[userId]){
+            dispatch(getUser(userId))
+        }
+    },[dispatch])
+
+    const pageUser = users[userId]
 
     return (
         <div className={styles.userDiv}>
@@ -83,8 +95,8 @@ const User = ({pageUser})=>{
                     </Switch>
                 </div>
             </div>
-            <div className={styles.suggestionsDiv}>
-
+            <div className={styles.topSongsDiv}>
+                <Suggestions genreId={4}/>
             </div>
         </div>
     )

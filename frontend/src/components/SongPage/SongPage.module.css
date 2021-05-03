@@ -149,6 +149,7 @@
 .likesDiv{
     display: flex;
     justify-content: space-evenly;
+    color: var(--songTitle);
     width: 100%;
     font-size: 20px;
 }
@@ -222,4 +223,8 @@
     grid-area: comment;
     margin-top: 10px;
     border-left: 1px solid var(--borderColor);
+}
+
+.topSongsDiv{
+    grid-area: suggest;
 }

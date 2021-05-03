@@ -181,7 +181,9 @@ const AudioPlayer = ({song, userId})=>{
                 <h2 className={styles.title}>{currentSong ? currentSong.title : null}</h2>
                 <h3 className={styles.artist}>{currentSong ? currentSong.User.userName : null}</h3>
                 <h3 className={styles.album}>{currentSong ? currentSong.Album.name : null}</h3>
-                <h3 className={styles.genre}>{currentSong ? currentSong.Genre.name : null}</h3>
+                <div className={styles.genreDiv}>
+                    <h3 className={styles.genre}>{currentSong ? currentSong.Genre.name : null}</h3>
+                </div>
             </div>
             <div className={styles.extras}>
                 <div className={styles.likesDiv}>

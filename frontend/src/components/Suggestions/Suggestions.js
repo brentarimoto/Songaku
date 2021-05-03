@@ -5,40 +5,40 @@ import { useDispatch, useSelector } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader'
 
 /*************************** OTHER FILE IMPORTS ***************************/
-import Song from '../../../Song/Song'
-import { getSongs } from '../../../../store/songs'
+import Song from '../Song/Song'
+import { getTopSongs } from '../../store/topSongs'
 import styles from './Suggestions.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const UserSongs = ({type})=>{
+const Suggestions = ({genreId})=>{
 
     const dispatch = useDispatch()
+    const topSongs = useSelector(state => state.topSongs);
     const genres = useSelector(state => state.genres);
 
-    const [suggestedSongs, setSuggestedSongs]=useState()
+    useEffect(()=>{
+        if(!topSongs[genreId]){
+            dispatch(getTopSongs(genreId))
+        }
+    },[dispatch])
 
-    // const {id:userId} = useParams()
-
-    // useEffect(()=>{
-    // },[dispatch])
-
-    // if(!songs[userId] || !genres[1]){
-    //     return(
-    //         <ClipLoader />
-    //     )
-    // }
+    if(!topSongs[genreId] || !genres[genreId]){
+        return(
+            <ClipLoader />
+        )
+    }
 
     return(
         <div className={styles.suggestionsDiv}>
-            <h2>Suggestions</h2>
-            {/* {songs[userId] && Object.entries(songs[userId]).map(([id, song])=>(
-                <Song key={id} song={song} userId={userId} />
-            ))} */}
+            <h2>Top {genres[genreId]} Songs: </h2>
+            {topSongs[genreId] && Object.entries(topSongs[genreId]).map(([id, song])=>(
+                <Song key={id} song={song}/>
+            ))}
         </div>
 
     )
 }
 
 /*************************** EXPORT ***************************/
-export default UserSongs;
+export default Suggestions;

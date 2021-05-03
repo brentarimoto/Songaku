@@ -98,7 +98,7 @@ export default function albumsReducer(state = {}, action){
     let newState;
     switch(action.type){
         case SET_ALBUMS:
-            newState = {...action.newState}
+            newState = {...state, ...action.newState}
             return newState
         case EDIT_ALBUM:
             newState = {...state}

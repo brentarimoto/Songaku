@@ -15,7 +15,7 @@ import {loadLikes} from '../../store/likes'
 
 
 /*************************** COMPONENTS ***************************/
-const Song = ({song, userId})=>{
+const Song = ({song})=>{
     const dispatch = useDispatch()
 
     const {setPlay} = usePlayerContext()
@@ -77,12 +77,12 @@ const Song = ({song, userId})=>{
                             {likes[song.id] && likes[song.id].count} Likes
                         </div>
                     </div>
-                    {song?.User?.id===user?.id &&
+                    {user &&
                         <>
                             <div className={styles.playlistDiv}>
                                 <AddToPlaylist song={song}/>
                             </div>
-                            {song.User.id===user.id && song.id!==1 && song.id!==2 &&
+                            {song?.User?.id===user?.id && song?.id!==1 && song?.id!==2 &&
                                 <div className={styles.buttons}>
                                     <div className={styles.edit}>
                                         <EditModal song={song}/>
@@ -92,7 +92,7 @@ const Song = ({song, userId})=>{
                                     </div>
                                 </div>
                             }
-                            {(song.id===1 || song.id===2) && <h6>Please Upload Music to Test Edit & Delete</h6>}
+                            {(song.id===1 || song.id===2) && <h6>Please Upload Music to Test Edit or Delete Feature</h6>}
                         </>
                     }
             </div>

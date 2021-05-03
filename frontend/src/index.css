@@ -34,12 +34,12 @@ button{
   margin: 0;
   padding: 0;
   outline: 0;
-  font-family: Varela Round;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   /* font-weight: normal; */
 }
 
 body{
-  background-color: var(--fadedGreyBlue);
+  background-color: var(--background1);
   height: 100vh;
 }
 
@@ -48,66 +48,63 @@ body{
 }
 
 :root {
-  --pastelRed: rgba(255, 105, 97,1);
-  --pastelBlue: rgba(173, 195, 209,1);
-  --pastelPurple: rgba(179, 153, 212, 1);
-  --pastelOrange: rgba(243, 154, 39,1);
-  --fadedGreyBlue: rgba(190, 202, 211,.55);
-
-  --darkPastelGreen: rgba(1, 191, 58, 1);
-
-
+  --pastelWhite: rgba(245, 245, 244, 1);
+  --beige: rgba(245, 245, 221,1);
   --snow: rgba(254, 245, 250,.7);
   --quickSilver: rgba(164, 169, 167,.7);
-  --rainbowIndigo: rgba(29, 48, 100, 1);
-  --fadedRainbowIndigo: rgba(29, 48, 100, .15);
-  --jetStream: rgba(186, 219, 202, 1);
-  --pinkPearl: rgba(225, 167, 202, 1);
-  --paleLavender: rgba(223, 210, 244, 1);
-  --fadedPaleLavender: rgba(223, 210, 244, .5);
-  --skyBlue: rgba(06, 157, 217,1);
-  --fadedSkyBlue: rgba(147, 194, 198, 1);
+  --fadedSilverFoil: rgba(174, 174, 174, .4);
+  --fadedGreyBlue: rgba(190, 202, 211,.55);
+  --pastelBlue: rgba(173, 195, 209,1);
   --paleBlue: rgba(184, 235, 233, 1);
-  --purpleMountain: rgba(156, 115, 167, 1);
-  --darkViolet: rgba(131, 95, 139,1);
-  --beige: rgba(245, 245, 221,1);
+  --fadedSkyBlue: rgba(147, 194, 198, 1);
+  --skyBlue: rgba(06, 157, 217,1);
+  --celestialBlue: rgba(79, 158, 196, 1);
+  --sapphire: rgba(26, 88, 139, 1);
+  --seaSerpent: rgba(90, 198, 198, 1);
+  --jetStream: rgba(186, 219, 202, 1);
+  --fadedRainbowIndigo: rgba(29, 48, 100, .15);
+  --rainbowIndigo: rgba(29, 48, 100, 1);
 
-  --background1: var(--fadedGreyBlue);
-  --background2: var(--pastelBlue);
-  --background3: var(--fadedSkyBlue);
+  --background1: var(--pastelWhite);
+  --background2: var(--fadedGreyBlue);
+  --background3: var(--pastelBlue);
 
-  --borderColor: var(--darkViolet);
+  --borderColor: var(--fadedRainbowIndigo);
 
-  --userNavActive: var(--pastelPurple);
+  --mainNavActiveText: var(--jetStream);
+
+  --userNavActive: var(--celestialBlue);
+  --userText: var(--sapphire);
 
   --songTitle: var(--skyBlue);
-  --otherSongInfo: var(--pastelRed);
-  --genreTextColor: var(--skyBlue);
-  --genreBackground: var(--jetStream);
+  --otherSongInfo: var(--seaSerpent);
+  --genreTextColor: var(--celestialBlue);
+  --genreBackground: var(--fadedGreyBlue);
 
-  --songHeaders: var(--jetStream);
+  --audioPlayerOtherSongInfo: var(--celestialBlue);
 
-  --sliderPlayed: var(--pastelRed);
+  --songHeaders: var(--sapphire);
+
+  --sliderPlayed: var(--seaSerpent);
   --sliderUnplayed: var(--beige);
+  --sliderTime: var(--celestialBlue);
 
   --username: var(--skyBlue);
-  --comment: var(--pastelRed);
-
+  --comment: var(--sapphire);
   --commentBackground: var(--fadedRainbowIndigo);
-  --commentShadow: var(--purpleMountain);
 
-  --profPicBackground: var(--jetStream);
-  --profPicBackground2: var(--beige);
+  --profPicBackground: var(--snow);
+  --profPicBackground2: var(--snow);
 
-  --modalBackground: var(--pastelPurple);
+  --modalBackground: var(--celestialBlue);
   --modalFadedBackground: var(--snow);
 
   --playlistButtons: var(--skyBlue);
 
-  --playlistSelectBC: var(--beige);
-  --optionHeader: var(--rainbowIndigo);
-  --inPlaylist: var(--darkPastelGreen);
-  --notPlaylist: var(--pastelRed);
+  --playlistSelectBC: var(--fadedGreyBlue);
+  --optionHeader: var(--celestialBlue);
+  --inPlaylist: var(--sapphire);
+  --notPlaylist: var(--rainbowIndigo);
 
 }
 

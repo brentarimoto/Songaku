@@ -31,7 +31,7 @@ router.get('/:id(\\d+)/playlists', asyncHandler(async (req, res) => {
     include: [{
         model:Song,
         as:'SongsInPlaylist',
-        include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+        include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
     }],
   })
 
@@ -62,7 +62,7 @@ router.put('/:id(\\d+)/playlists/:playlistId(\\d+)', validatePlaylist, asyncHand
     include: [{
         model: Song,
         as:'SongsInPlaylist',
-        include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+        include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
     }],
   })
 
@@ -112,7 +112,7 @@ router.post('/:id(\\d+)/playlists/:playlistId/song', asyncHandler(async (req, re
   }
 
   const song = await Song.findByPk(songId,{
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
   })
 
   if(!song){

@@ -18,13 +18,15 @@ const { handleValidationErrors } = require('../../utils/validation');
 const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
+      .withMessage('Please provide an email.')
       .isEmail()
       .withMessage('Please provide a valid email.'),
-    check('username')
+    check('userName')
       .exists({ checkFalsy: true })
-      .isLength({ min: 4 })
-      .withMessage('Please provide a username with at least 4 characters.'),
-    check('username')
+      .withMessage('Please provide a username.')
+      .isLength({ min: 3 })
+      .withMessage('Please provide a username with at least 3 characters.'),
+    check('userName')
       .not()
       .isEmail()
       .withMessage('Username cannot be an email.'),
@@ -59,7 +61,7 @@ router.get('/:id(\\d+)/songs', asyncHandler(async (req, res) => {
 
   const songs = await Song.findAll({
     where:{userId},
-    include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
   })
 
   res.json({songs})
@@ -73,7 +75,7 @@ router.get('/:id(\\d+)/albums', asyncHandler(async (req, res) => {
     where:{userId},
     include: [{
       model: Song,
-      include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+      include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
     }]
   })
 
@@ -83,8 +85,8 @@ router.get('/:id(\\d+)/albums', asyncHandler(async (req, res) => {
 
 //SIGN UP
 router.post('', validateSignup, asyncHandler(async (req, res) => {
-  const { email, password, username } = req.body;
-  const user = await User.signup({ email, userName: username, password });
+  const { email, password, userName } = req.body;
+  const user = await User.signup({ email, userName, password });
 
   await setTokenCookie(res, user);
 
@@ -102,7 +104,7 @@ router.put('/:id(\\d+)/albums/:albumId', asyncHandler(async (req, res, next) => 
   const album = await Album.findByPk(albumId,{
     include: [{
       model: Song,
-      include: [{model: Genre, attributes:['name']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+      include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
     }]
   })
 

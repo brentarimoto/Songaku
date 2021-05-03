@@ -30,7 +30,7 @@
         " . logo homeUpload search auth .";
     padding: 0;
     border-bottom: 1px solid rgba(200,200,200,.85);
-    background-color: whitesmoke;
+    background-color: var(--background3);
 }
 
 .navbar :global {
@@ -39,7 +39,7 @@
 }
 
 .active{
-    color:var(--pastelRed);
+    color: whitesmoke;
     background-color: var(--pastelBlue);
     text-decoration: none;
 }
@@ -49,7 +49,7 @@
     grid-area: logo;
     margin-left: 5%;
     margin-right: 10px;
-    background-color: var(--pastelRed);
+    background-color: var(--logoBackground);
     height: 100%;
     border-radius: 5px;
     display: flex;
@@ -58,9 +58,8 @@
 }
 
 .logo{
-    padding: 0 10px;
-    width:90%;
-    height:95%
+    padding: 10px 10px;
+    width: 100%;
 }
 
 .logo:hover{
@@ -187,11 +186,9 @@
 
 .dropdownDiv{
     position: absolute;
-    top: 50px;
+    top: 44px;
     right: 0;
     text-align: center;
-
-    /* z-index: 99; */
 
     display: flex;
     flex-direction: column;
@@ -201,19 +198,20 @@
 .logout{
     border: none;
     background-color: white;
-    font-size: 20px;
-    color: var(--pastelRed);
+    font-size:21px;
+    padding: 1px 2px;
     font-family: initial;
     text-decoration: none;
-    border-right: 1px solid grey;
-    border-left: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-right: 1px solid var(--borderColor);
+    border-left: 1px solid var(--borderColor);
+    border-bottom: 1px solid var(--borderColor);
     opacity: 0;
 }
 
 .profile:hover,
 .logout:hover{
     background-color: var(--pastelBlue);
+    color: var(--beige);
     cursor: pointer;
 }
 

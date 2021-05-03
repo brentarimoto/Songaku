@@ -1,0 +1,28 @@
+.mainSuggestions{
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "one two"
+    "three four";
+    align-items: center;
+    max-width: 1250px;
+    height: 100%;
+}
+
+.topSongsDiv1{
+    grid-area: one;
+}
+
+.topSongsDiv2{
+    grid-area: two;
+}
+
+.topSongsDiv3{
+    grid-area: three;
+}
+
+.topSongsDiv4{
+    grid-area: four;
+}
