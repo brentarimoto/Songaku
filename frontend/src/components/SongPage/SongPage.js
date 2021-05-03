@@ -80,7 +80,7 @@ const SongPage = ({isLoaded})=>{
             <div className={styles.songDiv}>
                 <div className={styles.songInfo}>
                     <div className={styles.songName}>
-                        <Link to={`/users/${user?.id}/songs/${song?.id}`}>{song?.title}</Link>
+                        <Link to={`/users/${song?.User.id}/songs/${song?.id}`}>{song?.title}</Link>
                         <h5 className={styles.songHeader}>Song:</h5>
                     </div>
                     <div className={styles.artist}>
