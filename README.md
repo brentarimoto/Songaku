@@ -1,6 +1,6 @@
 # <img src="/frontend/public/favicon.ico" width="25" height="25"> Welcome to Songaku!
 
-[Songaku](https://songaku.herokuapp.com/), a [SoundCloud](https://soundcloud.com/) inspired project, is an audio streaming/sharing website that allows users to upload and listen to music through its database. Users can signup/login to create their own playlists as well as comment on, like, and organize music in the existing database of music.
+[Songaku](https://songaku.herokuapp.com/), a [SoundCloud](https://soundcloud.com/) inspired project, is an audio streaming/sharing website that allows users to upload and listen to music through its database. Logged in users can create their own playlists as well as comment on, like, and organize music in the existing database of music. Non-logged in users can still listen to music on the site, as well as see any songs, albums, playlists, likes, and/or comments.
 
 ### **Live Link: [Songaku](https://songaku.herokuapp.com/)**
 
@@ -9,7 +9,7 @@
 
 ## Technologies 
 #### Front-End
-- React (ReactPlayer, React-Spinners, 
+- React (ReactPlayer, React Slider, React-Spinners)
 - Redux
 - Javascript
 - HTML
