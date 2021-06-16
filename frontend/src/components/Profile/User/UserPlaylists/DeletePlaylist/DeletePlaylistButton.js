@@ -24,7 +24,7 @@ const DeletePlaylistButton = ({name, id})=>{
         if(errors){setErrors(errors.errors)}
 
         if(message!=='success'){
-            console.log(message)
+            // console.log(message)
         }
     }
 

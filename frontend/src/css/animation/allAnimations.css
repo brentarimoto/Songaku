@@ -53,7 +53,6 @@
 }
 
 
-
 @keyframes :global(slideOutToTop) {
     0% {
       transform: translateY(0);

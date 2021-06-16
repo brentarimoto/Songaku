@@ -102,7 +102,7 @@ const singlePublicFileDelete = async (key) => {
         await s3.deleteObject(deleteParams).promise();
         return true;
     } catch(e){
-        console.log(e)
+        // console.log(e)
     }
 
     return false;

@@ -83,7 +83,6 @@ router.put('/:id(\\d+)/playlists/:playlistId(\\d+)', validatePlaylist, asyncHand
 router.delete('/:id(\\d+)/playlists/:playlistId(\\d+)', asyncHandler(async (req, res, next) => {
   const { playlistId } = req.params
 
-  console.log(playlistId)
 
   const existingPlaylist = await Playlist.findByPk(playlistId)
 

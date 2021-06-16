@@ -410,7 +410,6 @@ function quickSort(array) {
 router.post('/suggestions/likes/songs', asyncHandler(async (req, res) => {
   let {type, value} = req.body
 
-  console.log(type)
 
   const songs = await Song.findAll({
     include: [{model: Genre, attributes:['name','id']}, {model:User,attributes:['userName', 'id']},{model:Album},{model:Like}],

@@ -30,7 +30,6 @@ export const searchSongs = (string)=> async dispatch=>{
     const {songs} = await res.json();
 
     const songsObj = convertSongsToObject(songs)
-    console.log('test')
 
     dispatch(setSearchSongs(songsObj))
 

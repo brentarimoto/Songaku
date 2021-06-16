@@ -61,7 +61,6 @@ export const loadComments = (songId)=> async dispatch=>{
 
 // Uploads song to database, and adds it to store
 export const postComment = (comment, userId, songId) => async dispatch => {
-    console.log('test1')
     const res = await csrfFetch(`/api/songs/${songId}/comments`,{
         method: 'POST',
         headers : {
@@ -82,7 +81,6 @@ export const postComment = (comment, userId, songId) => async dispatch => {
 }
 
 export const editComment = (comment, id, songId) => async dispatch => {
-    console.log('test')
     const res = await csrfFetch(`/api/songs/${songId}/comments/${id}`,{
         method: 'PUT',
         headers : {
