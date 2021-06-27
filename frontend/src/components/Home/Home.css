@@ -1,0 +1,15 @@
+
+
+/*** Swiper ***/
+
+.swiper-container{
+    color: var(--rainbowIndigo);
+    height: 100% !important;
+    width: 100%;
+}
+
+.swiper-slide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
