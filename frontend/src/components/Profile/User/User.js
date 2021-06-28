@@ -53,15 +53,6 @@ const User = ()=>{
                 </div>
                 <div className={styles.otherInfo}>
                     <h4 className={styles.about}>{pageUser?.about}</h4>
-                    {/* <div className={styles.songCount}>
-                        <h4>Songs: {Object.keys(songs || {})?.length}</h4>
-                    </div>
-                    <div className={styles.albumCount}>
-                        <h4>Albums: {Object.keys(albums || {})?.length}</h4>
-                    </div>
-                    <div className={styles.playlistCount}>
-                        <h4>Playlists: {Object.keys(playlists || {})?.length}</h4>
-                    </div> */}
                 </div>
             </div>
             <div className={styles.itemsDiv}>
