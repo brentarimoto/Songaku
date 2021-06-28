@@ -3,6 +3,7 @@
 /*** Swiper ***/
 
 .swiper-container{
+    position: absolute;
     color: var(--rainbowIndigo);
     height: 100% !important;
     width: 100%;
@@ -12,4 +13,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2px;
+    box-sizing: border-box;
 }

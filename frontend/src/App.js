@@ -53,11 +53,12 @@ function App() {
       <AudioPlayer />
       <div className={styles.aboutMeSection}>
         <h6>Designed and Created By:</h6>
-        <a className={styles.aboutMeName} href="https://brentarimoto.herokuapp.com/">Brent Arimoto</a>
+        <a className={styles.aboutMeName} href="https://brentarimoto.github.io/" target="_blank" rel="noreferrer">Brent Arimoto</a>
         <h6>/</h6>
         <a className={styles.aboutMeEmail} href="mailto:brentarimoto@gmail.com">brentarimoto@gmail.com</a>
-        <a className={styles.aboutMeGithub} href="https://www.linkedin.com/in/brent-arimoto/"><i className="fab fa-linkedin-in"></i></a>
-        <a className={styles.aboutMeLinkedIn} href="https://github.com/brentarimoto/"><i className="fab fa-github"></i></a>
+        <a className={styles.aboutMeGithub} href="https://www.linkedin.com/in/brent-arimoto/" target="_blank" rel="noreferrer"><i className="fab fa-linkedin-in"></i></a>
+        <a className={styles.aboutMeLinkedIn} href="https://github.com/brentarimoto/" target="_blank" rel="noreferrer"><i className="fab fa-github"></i></a>
+        <a className={styles.aboutMeName} href="https://github.com/brentarimoto/Songaku" target="_blank" rel="noreferrer"> (Repo)</a>
       </div>
     </>
   );

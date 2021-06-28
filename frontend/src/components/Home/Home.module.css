@@ -9,10 +9,11 @@
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 400px 1fr;
+    grid-template-rows: 375px 1fr;
     grid-template-areas:
     "splash"
-    "songs"
+    "songs";
+    overflow-y: hidden;
 }
 
 /*** Splash ***/
@@ -20,7 +21,7 @@
 .splash :global{
     position: relative;
     overflow: hidden;
-    animation: fadeIn 3s;
+    animation: fadeIn 2s;
     background: var(--fadedGreyBlue);
     width: 100%;
 }
@@ -35,8 +36,9 @@
     opacity: .85;
 }
 
-.logo__image{
+.logo__image :global{
     width: 70%;
+    animation: fadeIn 3s;
 }
 
 .ocean { /* Code By Ted Mcdonald (https://codepen.io/tedmcdo/pen/PqxKXg)*/
@@ -68,10 +70,27 @@
 /*** Suggestions ***/
 .mainSuggestions{
     grid-area: songs;
-    margin: auto;
     align-items: center;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 450px;
+    overflow-y: auto;
     min-height: min-content;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2%;
+}
+
+.mainSuggestions__header :global{
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    animation: fadeIn 2s;
+    color: var(--sapphire);
+}
+
+.mainSuggestions__items{
+    width: 100%;
 }

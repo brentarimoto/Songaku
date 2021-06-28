@@ -36,40 +36,33 @@ const Home = ()=>{
                     <div className={styles.wave}></div>
                 </div>
                 <div className={styles.logo}>
-                    <img className={styles.logo__image} src='/img/Songaku_Logo.png'></img>
+                    <img className={styles.logo__image} src='https://songakubucket.s3.us-west-1.amazonaws.com/Songaku_Logo.png'></img>
                 </div>
             </div>
             <div className={styles.mainSuggestions}>
-                <div className={styles.mainSuggestions__header}>
-                    Top
+                <h1 className={styles.mainSuggestions__header}>
+                    Top Songs
+                </h1>
+                <div className={styles.mainSuggestions__items}>
+                    { topSongs.likes ?
+                        <Swiper
+                        breakpoints={{
+                            200:{slidesPerView: 1},
+                            501:{slidesPerView: 2},
+                            900:{slidesPerView: 3},
+                            1100:{slidesPerView: 4}
+                        }}
+                        navigation
+                        slidesPerView={4}
+                        >
+                        {topSongs.likes && Object.entries(topSongs.likes).map(([id, song])=>(
+                            <SwiperSlide><TruncatedSong key={id} song={song}/></SwiperSlide>
+                        ))}
+                        </Swiper>
+                        :
+                        <ClipLoader />
+                    }
                 </div>
-                { topSongs.likes ?
-                    <Swiper
-                    breakpoints={{
-                        200:{slidesPerView: 1},
-                        501:{slidesPerView: 2},
-                        900:{slidesPerView: 3},
-                        1100:{slidesPerView: 4}
-                    }}
-                    navigation
-                    slidesPerView={4}
-                    >
-                    {topSongs.likes && Object.entries(topSongs.likes).map(([id, song])=>(
-                        <SwiperSlide><TruncatedSong key={id} song={song}/></SwiperSlide>
-                    ))}
-                    </Swiper>
-                    :
-                    <ClipLoader />
-                }
-                {/* <div className={styles.topSongsDiv2}>
-                    <Suggestions genreId={13}/>
-                </div>
-                <div className={styles.topSongsDiv3}>
-                    <Suggestions genreId={14}/>
-                </div>
-                <div className={styles.topSongsDiv4}>
-                    <Suggestions genreId={10}/>
-                </div> */}
             </div>
         </div>
     )
