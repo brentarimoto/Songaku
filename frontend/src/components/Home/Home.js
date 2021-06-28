@@ -2,19 +2,18 @@
 /*************************** OTHER FILE IMPORTS ***************************/
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Suggestions from '../Suggestions/Suggestions'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { getTopLikes } from '../../store/topSongs';
 import TruncatedSong from '../Song/TruncatedSong';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import SwiperCore, { Scrollbar } from 'swiper';
 
 
 import styles from './Home.module.css'
 import './Home.css'
 import 'swiper/swiper-bundle.css';
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+SwiperCore.use([Scrollbar]);
 
 /*************************** COMPONENTS ***************************/
 const Home = ()=>{
@@ -56,7 +55,7 @@ const Home = ()=>{
                         slidesPerView={4}
                         >
                         {topSongs.likes && Object.entries(topSongs.likes).map(([id, song])=>(
-                            <SwiperSlide><TruncatedSong key={id} song={song}/></SwiperSlide>
+                            <SwiperSlide key={id}><TruncatedSong song={song}/></SwiperSlide>
                         ))}
                         </Swiper>
                         :
