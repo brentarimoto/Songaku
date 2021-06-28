@@ -35,7 +35,7 @@
 
 ## Code Highlights
 
-![gif](https://brentarimotoprojects.s3.us-west-1.amazonaws.com/Songaku.gif)
+![gif](https://github.com/brentarimoto/Songaku/blob/main/wiki/demoGif.gif)
 
 ## Future Implementations
  - Plans for creating options to edit the User Account will come first
