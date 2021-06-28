@@ -6,14 +6,14 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { getTopLikes } from '../../store/topSongs';
 import TruncatedSong from '../Song/TruncatedSong';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Scrollbar } from 'swiper';
+import SwiperCore, { Navigation } from 'swiper';
 
 
 import styles from './Home.module.css'
 import './Home.css'
 import 'swiper/swiper-bundle.css';
 
-SwiperCore.use([Scrollbar]);
+SwiperCore.use([Navigation]);
 
 /*************************** COMPONENTS ***************************/
 const Home = ()=>{
