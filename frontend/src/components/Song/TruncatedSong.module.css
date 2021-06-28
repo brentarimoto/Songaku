@@ -1,0 +1,132 @@
+@import url('../../css/animation/allAnimations.css');
+
+.songDiv :global{
+    animation: fadeIn 1s;
+}
+
+.songDiv{
+    height: 350px;
+    width: 225px;
+    display: grid;
+    grid-template-rows: 210px 4fr 2fr;
+    grid-template-areas:
+    "albumArt"
+    "songInfo"
+    "extras";
+    box-shadow: 0px 0px  3px var(--quickSilver);
+}
+
+.songDiv:active{
+    translate: (3px, 3px);
+}
+
+.albumArtDiv{
+    grid-area: albumArt;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.albumArt{
+    object-fit: contain;
+    width: 95%;
+    height: 95%;
+}
+
+.songInfo{
+    grid-area: songInfo;
+
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 1.5fr 1fr 1fr;
+    grid-template-areas:
+    "title genre"
+    "artist genre"
+    "album genre";
+}
+
+.songName{
+    grid-area: title;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.songName a{
+    text-decoration: none;
+    color:var(--songTitle);
+}
+
+.artist{
+    grid-area: artist;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.artist a{
+    font-style: italic;
+    text-decoration: none;
+    color:var(--otherSongInfo);
+}
+
+.album{
+    grid-area: album;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.album a{
+    text-decoration: none;
+    color:var(--otherSongInfo);
+}
+
+
+.genre{
+    padding: 5px;
+    grid-area: genre;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.genre h4{
+    grid-area: genre;
+    border: 1px solid var(--genreTextColor);
+    padding: 1px;
+    border-radius: 5px;
+    font-size: 80%;
+    color: var(--genreTextColor);
+    background-color: var(--genreBackground);
+}
+
+.extras{
+    grid-area: extras;
+    padding: 5px;
+    height: 25px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.likesDiv{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90px;
+}
+
+.playlistDiv{
+    width: 90px;
+}
+
+.likes{
+    color: var(--skyBlue);
+    white-space: nowrap;
+}

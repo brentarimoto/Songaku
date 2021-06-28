@@ -120,6 +120,24 @@ body{
   -webkit-text-stroke: .5px black;
 } */
 
+/*************** Scroll Bar ***************/
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: var(--background1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--fadedGreyBlue);
+  border-radius: 20px;
+}
+
 /*************** Animations ***************/
 
 @keyframes modalAnimation {

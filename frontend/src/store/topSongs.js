@@ -45,6 +45,25 @@ export const getTopSongs = (genreId)=> async dispatch=>{
     return topSongs
 }
 
+// Get top Likes
+export const getTopLikes = ()=> async dispatch=>{
+    const res = await csrfFetch(`/api/songs/suggestions/likes`)
+
+
+    if(!res.ok){
+        const errors = await res.json()
+        return {errors}
+    }
+
+    const {topSongs} = await res.json();
+
+    const songsObj = convertSongsToObject(topSongs)
+
+    dispatch(setTopSongs(songsObj, 'likes'))
+
+    return topSongs
+}
+
 /*************************** REDUCER ***************************/
 
 export default function topSongsReducer(state = {}, action){

@@ -406,7 +406,34 @@ function quickSort(array) {
 }
 
 
-// GET specific song
+// GET Top Songs of specific genre
+router.get('/suggestions/likes', asyncHandler(async (req, res) => {
+  let {type, value} = req.body
+
+  const songs = await Song.findAll({
+    include: [{model: Genre, attributes:['name','id']}, {model:User,attributes:['userName', 'id']},{model:Album},{model:Like}],
+  })
+
+  const likeCount = songs.map((song, i)=>{
+    return [song.Likes.length, i]
+  })
+
+  const sortedLikeCount = quickSort(likeCount)
+
+  const topSongs=[]
+
+  const number = (songs.length>10) ? 10: songs.length;
+
+  for(let i=0;i<number;i++){
+    topSongs.push(songs[sortedLikeCount[i][1]])
+  }
+
+  return res.json({topSongs})
+}))
+
+
+
+// GET Top Songs of specific genre
 router.post('/suggestions/likes/songs', asyncHandler(async (req, res) => {
   let {type, value} = req.body
 

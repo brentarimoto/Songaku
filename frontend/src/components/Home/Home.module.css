@@ -1,41 +1,96 @@
 @import url('../../css/animation/allAnimations.css');
 
-.topSongsDiv1 :global,
-.topSongsDiv2 :global,
-.topSongsDiv3 :global,
-.topSongsDiv4 :global{
+/*** Home ***/
+.home{
+    margin: auto;
+    padding-top: 50px;
+    box-sizing: border-box;
+    max-width: 1250px;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 375px 1fr;
+    grid-template-areas:
+    "splash"
+    "songs";
+    overflow-y: hidden;
+}
+
+/*** Splash ***/
+
+.splash :global{
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 2s;
+    background: var(--fadedGreyBlue);
+    width: 100%;
+}
+
+.logo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: .85;
+}
+
+.logo__image :global{
+    width: 70%;
     animation: fadeIn 3s;
 }
 
+.ocean { /* Code By Ted Mcdonald (https://codepen.io/tedmcdo/pen/PqxKXg)*/
+    height: 5%;
+    width:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
+    background: #015871;
+}
+
+.wave :global{ /* Code By Ted Mcdonald (https://codepen.io/tedmcdo/pen/PqxKXg)*/
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
+  position: absolute;
+  top: -198px;
+  width: 6400px;
+  height: 198px;
+  transform: translate3d(0, 0, 0);
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.wave:nth-of-type(2) :global{ /* Code By Ted Mcdonald (https://codepen.io/tedmcdo/pen/PqxKXg)*/
+  top: -175px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+  opacity: 1;
+}
+
+
+/*** Suggestions ***/
 .mainSuggestions{
-    margin: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-    "one two"
-    "three four";
+    grid-area: songs;
     align-items: center;
-    max-width: 1250px;
-    height: 100%;
+    width: 100%;
+    min-height: 450px;
+    overflow-y: auto;
+    min-height: min-content;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2%;
 }
 
-.topSongsDiv1{
-    grid-area: one;
-    color: var(--rainbowIndigo);
+.mainSuggestions__header :global{
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    animation: fadeIn 2s;
+    color: var(--sapphire);
 }
 
-.topSongsDiv2{
-    grid-area: two;
-    color: var(--rainbowIndigo);
-}
-
-.topSongsDiv3{
-    grid-area: three;
-    color: var(--rainbowIndigo);
-}
-
-.topSongsDiv4{
-    grid-area: four;
-    color: var(--rainbowIndigo);
+.mainSuggestions__items{
+    width: 100%;
 }
