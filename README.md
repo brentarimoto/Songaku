@@ -35,7 +35,7 @@
 
 ## Code Highlights
 
-<img src='/wiki/demoGif.gif'>
+<img src='https://s3.console.aws.amazon.com/s3/object/brentarimotoprojects?region=us-west-1&prefix=Songaku.gif'>
 
 ## Future Implementations
  - Plans for creating options to edit the User Account will come first
