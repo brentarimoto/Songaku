@@ -33,7 +33,7 @@ button:hover{
   align-items: center;
   text-decoration: none;
   border:none;
-  color: grey;
+  color: var(--navbarBase);
   background-color: var(--background3);
   font-size: 20px;
 }

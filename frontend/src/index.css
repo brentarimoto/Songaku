@@ -48,7 +48,6 @@ body{
 }
 
 :root {
-  --pastelWhite: rgba(245, 245, 244, 1);
   --beige: rgba(245, 245, 221,1);
   --snow: rgba(254, 245, 250,.7);
   --quickSilver: rgba(164, 169, 167,.7);
@@ -57,7 +56,6 @@ body{
   --pastelBlue: rgba(173, 195, 209,1);
   --paleBlue: rgba(184, 235, 233, 1);
   --fadedSkyBlue: rgba(147, 194, 198, 1);
-  --skyBlue: rgba(06, 157, 217,1);
   --celestialBlue: rgba(79, 158, 196, 1);
   --sapphire: rgba(26, 88, 139, 1);
   --seaSerpent: rgba(90, 198, 198, 1);
@@ -65,10 +63,22 @@ body{
   --fadedRainbowIndigo: rgba(29, 48, 100, .15);
   --rainbowIndigo: rgba(29, 48, 100, 1);
 
+  --skyBlue: rgb(6, 105, 217);
+  --pastelWhite: rgba(245, 245, 244, 1);
+  --lightGreen: #45F2A4;
+  --deepBlue:#1430FF;
+  --cyanish: #015871;
+
+  /* General */
   --background1: var(--pastelWhite);
   --background2: var(--fadedGreyBlue);
-  --background3: var(--pastelBlue);
+  --background3: var(--cyanish);
 
+  /* Navbar */
+  --navbarBase: var(--pastelWhite);
+  --navbarActive: var(--lightGreen);
+
+  /* Form */
   --formText: var(--rainbowIndigo);
   --formButtonBackground: var(--quickSilver);
   --formButtonText: var(--rainbowIndigo);
@@ -78,40 +88,52 @@ body{
 
   --borderColor: var(--fadedRainbowIndigo);
 
-  --mainNavActiveText: var(--jetStream);
+  /* User Page */
+  --mainNavActiveText: var(--skyBlue);
 
-  --userNavActive: var(--celestialBlue);
-  --userText: var(--sapphire);
+  --userNavActive: var(--skyBlue);
+  --userText: var(--skyBlue);
 
+  /* Song */
   --songTitle: var(--skyBlue);
   --otherSongInfo: var(--seaSerpent);
-  --genreTextColor: var(--celestialBlue);
+  --genreTextColor: var(--skyBlue);
   --genreBackground: var(--fadedGreyBlue);
 
+  /* Playlist */
+  --playlistButtons: var(--skyBlue);
+
+  --playlistSelectBC: var(--fadedGreyBlue);
+  --optionHeader: var(--skyBlue);
+  --inPlaylist: var(--sapphire);
+  --notPlaylist: var(--rainbowIndigo);
+
+  /* Audio Player */
+  --audioPlayerButtons: var(--pastelWhite);
   --audioPlayerOtherSongInfo: var(--celestialBlue);
+  --audioPlayerLikes: var(--pastelWhite);
 
   --songHeaders: var(--sapphire);
 
-  --sliderPlayed: var(--seaSerpent);
-  --sliderUnplayed: var(--beige);
+  --sliderPlayed: var(--lightGreen);
+  --sliderUnplayed: var(--pastelWhite);
   --sliderTime: var(--celestialBlue);
 
+  /* Song Page Comments */
   --username: var(--skyBlue);
   --comment: var(--sapphire);
   --commentBackground: var(--fadedRainbowIndigo);
 
+  --userNavActive: var(--celestialBlue);
+  --userText: var(--sapphire);
+
   --profPicBackground: var(--snow);
   --profPicBackground2: var(--snow);
 
+  /* Modal */
   --modalBackground: var(--celestialBlue);
   --modalFadedBackground: var(--snow);
 
-  --playlistButtons: var(--skyBlue);
-
-  --playlistSelectBC: var(--fadedGreyBlue);
-  --optionHeader: var(--celestialBlue);
-  --inPlaylist: var(--sapphire);
-  --notPlaylist: var(--rainbowIndigo);
 
 }
 
