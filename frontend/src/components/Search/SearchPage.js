@@ -30,11 +30,12 @@ const SearchPage = ({setCurrentTab})=>{
     }
 
     return(
-        <div className={styles.songsDiv}>
-            {/* <h1>{words}</h1> */}
-            {Object.keys(search).length>0 && Object.entries(search).map(([id, song])=>(
-                <Song key={id} song={song} />
-            ))}
+        <div className={styles.songsContainer}>
+            <div className={styles.songsDiv}>
+                {Object.keys(search).length>0 && Object.entries(search).map(([id, song])=>(
+                    <Song key={id} song={song} />
+                ))}
+            </div>
         </div>
     )
 }

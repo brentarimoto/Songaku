@@ -41,10 +41,12 @@ button{
 body{
   background-color: var(--background1);
   height: 100vh;
+  width: 100vw;
 }
 
 #root{
   height:100%;
+  width: 100%;
 }
 
 :root {
@@ -56,18 +58,20 @@ body{
   --pastelBlue: rgba(173, 195, 209,1);
   --paleBlue: rgba(184, 235, 233, 1);
   --fadedSkyBlue: rgba(147, 194, 198, 1);
-  --celestialBlue: rgba(79, 158, 196, 1);
+  --celestialBlue: rgba(79, 158, 196, 1); /* 4F9EC4 */
   --sapphire: rgba(26, 88, 139, 1);
   --seaSerpent: rgba(90, 198, 198, 1);
   --jetStream: rgba(186, 219, 202, 1);
   --fadedRainbowIndigo: rgba(29, 48, 100, .15);
-  --rainbowIndigo: rgba(29, 48, 100, 1);
+  --rainbowIndigo: #1A2956;
 
   --skyBlue: rgb(6, 105, 217);
-  --pastelWhite: rgba(245, 245, 244, 1);
+  --pastelWhite: rgba(245, 245, 244, 1);  /* F5F5F4 */
   --lightGreen: #45F2A4;
   --deepBlue:#1430FF;
+  --darkGreen: #0C7919;
   --cyanish: #015871;
+  --aHintBlue: rgb(215,230,245);
 
   /* General */
   --background1: var(--pastelWhite);
@@ -80,13 +84,19 @@ body{
 
   /* Form */
   --formText: var(--rainbowIndigo);
-  --formButtonBackground: var(--quickSilver);
+  --formLabel: var(--rainbowIndigo);
+  --formButtonBackground: var(--aHintBlue);
   --formButtonText: var(--rainbowIndigo);
 
-  --uploadButtonBackground: var(--fadedGreyBlue);
-  --uploadButtonText: whitesmoke;
+  --uploadButtonBackground: var(--aHintBlue);
+  --uploadButtonText: var(--rainbowIndigo);;
 
   --borderColor: var(--fadedRainbowIndigo);
+
+  /* Modal */
+  --modalBackground: var(--celestialBlue);
+  --modalFadedBackground: var(--snow);
+
 
   /* User Page */
   --mainNavActiveText: var(--skyBlue);
@@ -94,9 +104,12 @@ body{
   --userNavActive: var(--skyBlue);
   --userText: var(--skyBlue);
 
+  --profPicBackground: var(--snow);
+  --profPicBackground2: var(--snow);
+
   /* Song */
   --songTitle: var(--skyBlue);
-  --otherSongInfo: var(--seaSerpent);
+  --otherSongInfo: var(--darkGreen);
   --genreTextColor: var(--skyBlue);
   --genreBackground: var(--fadedGreyBlue);
 
@@ -109,9 +122,13 @@ body{
   --notPlaylist: var(--rainbowIndigo);
 
   /* Audio Player */
-  --audioPlayerButtons: var(--pastelWhite);
-  --audioPlayerOtherSongInfo: var(--celestialBlue);
+  --audioPlayerButtons: var(--lightGreen);
   --audioPlayerLikes: var(--pastelWhite);
+  --audioPlayerSongTitle: var(--pastelWhite);
+  --audioPlayerOtherSongInfo: var(--pastelWhite);
+  --audioPlayerGenreTextColor: var(--pastelWhite);
+  --audioPlayerGenreBackground: var(--pastelWhite);
+
 
   --songHeaders: var(--sapphire);
 
@@ -124,24 +141,33 @@ body{
   --comment: var(--sapphire);
   --commentBackground: var(--fadedRainbowIndigo);
 
-  --userNavActive: var(--celestialBlue);
-  --userText: var(--sapphire);
 
-  --profPicBackground: var(--snow);
-  --profPicBackground2: var(--snow);
-
-  /* Modal */
-  --modalBackground: var(--celestialBlue);
-  --modalFadedBackground: var(--snow);
 
 
 }
 
-/* h1 {
-  font-size: 2rem;
-  -webkit-text-stroke: .5px black;
-} */
+.formErrors{
+  /* position: absolute;
+  bottom: - min-content;
+  right: 0;
+  left: 0; */
+  background-color: rgb(236, 90, 90);
+  color: white;
+  border: 1.5px solid darkred;
+  box-sizing: border-box;
+  list-style: none;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3px 0;
+  transition: 1s;
+}
 
+.formErrors li{
+  text-align: center;
+}
 /*************** Scroll Bar ***************/
 
 /* width */

@@ -8,6 +8,7 @@ import LikeButton from '../LikeButton/LikeButton'
 import styles from './Song.module.css'
 import EditModal from './Edit/EditModal';
 import AddToPlaylist from './AddToPlaylist/AddToPlaylist'
+import PlayStatus from './PlayStatus';
 import {usePlayerContext} from '../../context/player'
 import {setSong} from '../../store/currentSong'
 import {loadLikes} from '../../store/likes'
@@ -54,6 +55,7 @@ const Song = ({song})=>{
                     src={song?.Album?.url ? song?.Album?.url : `/img/Profile.png`}
                     onClick={songPlay}
                 ></img>
+                <PlayStatus song={song} styles={styles}/>
             </div>
             <div className={styles.songInfo}>
                 <div className={styles.songName}>

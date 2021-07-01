@@ -34,8 +34,10 @@
 
 .mainSongPage{
     margin: 0 1%;
+    padding-bottom: 25px;
+    box-sizing: border-box;
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     min-width: 700px;
     max-width: 1250px;
     /* border: 1px solid black; */
@@ -128,6 +130,7 @@
 
 .albumArtDiv{
     grid-area: albumArt;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,12 +171,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none
 }
 
 .allCommentSection{
     grid-area: comment;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    overflow-y: hidden;
 }
 
 .myCommentSection{
@@ -236,10 +242,46 @@
 
 .commentsDiv{
     grid-area: comment;
+    flex-grow: 1;
+    height: 100%;
     margin-top: 10px;
     border-left: 1px solid var(--borderColor);
+    overflow-y: auto;
 }
 
 .topSongsDiv{
     grid-area: suggest;
+}
+
+
+/*** Status ***/
+.albumArtDiv:hover .playstatus{
+    opacity: .9;
+    transition: .1s;
+}
+
+.playstatus{
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 20%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--background3);
+    color: var(--pastelWhite);
+    opacity: 0;
+    transition: .1s;
+    pointer-events: none;
+}
+
+.status{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200%;
 }

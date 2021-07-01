@@ -35,7 +35,7 @@ const SignupForm = ()=>{
         e.preventDefault();
 
         if(password!==confirmPassword){
-            setErrors(['Password and Confirm Password do not match'])
+            setErrors(['Passwords do not match'])
             return
         }
 
@@ -57,11 +57,12 @@ const SignupForm = ()=>{
     return(
         <div className={styles.formDiv}>
             <h2>Create your account here</h2>
-            <ul className={styles.formErrors}>
+            {errors.length>0 &&
+            <ul className='formErrors'>
                 {errors?.map((error)=>(
                     <li key={error}>{error}</li>
                 ))}
-            </ul>
+            </ul>}
             <form
                 className={styles.form}
                 onSubmit = { handleSubmit }

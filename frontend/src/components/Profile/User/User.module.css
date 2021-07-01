@@ -27,6 +27,7 @@
     grid-template-areas:
     "info info"
     "items suggest";
+    padding-bottom: 25px;
 }
 
 /***** Info Section *****/

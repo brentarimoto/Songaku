@@ -44,11 +44,13 @@ const LoginForm = ()=>{
 
     return(
         <div className={styles.formDiv}>
-            <ul className={styles.formErrors}>
+            <h2>Login</h2>
+            {errors.length>0 &&
+            <ul className='formErrors'>
                 {errors?.map((error)=>(
                     <li key={error}>{error}</li>
                 ))}
-            </ul>
+            </ul>}
             <form
                 className={styles.form}
                 onSubmit = { handleSubmit }

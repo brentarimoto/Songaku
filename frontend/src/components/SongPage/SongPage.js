@@ -9,6 +9,7 @@ import Comment from './Comment/Comment'
 import LikeButton from '../LikeButton/LikeButton'
 import AddToPlaylist from '../Song/AddToPlaylist/AddToPlaylist'
 import Suggestions from '../Suggestions/Suggestions'
+import PlayStatus from '../Song/PlayStatus';
 
 import {loadComments, postComment} from '../../store/comments'
 import {usePlayerContext} from '../../context/player'
@@ -103,6 +104,7 @@ const SongPage = ({isLoaded})=>{
                         src={song?.Album.url ? song?.Album.url : `/img/Profile.png`}
                         onClick={songPlay}
                     ></img>
+                    <PlayStatus song={song} styles={styles}/>
                 </div>
                 <div className={styles.extras}>
                     <div className={styles.likesDiv}>

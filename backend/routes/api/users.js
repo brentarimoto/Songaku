@@ -1,4 +1,4 @@
-/*************************** REQUIRES ***************************/
+6/*************************** REQUIRES ***************************/
 const express = require('express');
 const { check } = require('express-validator')
 
@@ -20,7 +20,16 @@ const validateSignup = [
       .exists({ checkFalsy: true })
       .withMessage('Please provide an email.')
       .isEmail()
-      .withMessage('Please provide a valid email.'),
+      .withMessage('Please provide a valid email.')
+      .custom((value) => {
+        return User.findOne({ where: { email: value } }).then((user) => {
+          if (user) {
+            return Promise.reject(
+              "The provided email is already in use by another account"
+            );
+          }
+        });
+      }),
     check('userName')
       .exists({ checkFalsy: true })
       .withMessage('Please provide a username.')
@@ -29,7 +38,16 @@ const validateSignup = [
     check('userName')
       .not()
       .isEmail()
-      .withMessage('Username cannot be an email.'),
+      .withMessage('Username cannot be an email.')
+      .custom((value) => {
+        return User.findOne({ where: { userName: value } }).then((user) => {
+          if (user) {
+            return Promise.reject(
+              "The provided username is already in use by another account"
+            );
+          }
+        });
+      }),
     check('password')
       .exists({ checkFalsy: true })
       .isLength({ min: 6 })

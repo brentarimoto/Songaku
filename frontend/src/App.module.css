@@ -9,7 +9,9 @@
   padding-top: 50px;
   padding-bottom: 60px;
   height:100%;
-  overflow: auto;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 .aboutMeSection{

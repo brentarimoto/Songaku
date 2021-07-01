@@ -178,12 +178,16 @@ const AudioPlayer = ({song, userId})=>{
                 />
             </div>
             <div className={styles.songInfo}>
-                <Link className={styles.title} to={`/users/${currentSong?.User.id}/songs/${currentSong?.id}`}>{currentSong ? currentSong.title : null}</Link>
-                <Link className={styles.artist} to={`/users/${currentSong?.User.id}`}>{currentSong ? currentSong?.User.userName : null}</Link>
-                <Link className={styles.album} to={`/users/${currentSong?.User.id}/albums/${currentSong?.Album.id}`}>{currentSong ? currentSong?.Album.name : null}</Link>
-                <div className={styles.genreDiv}>
-                    <h3 className={styles.genre}>{currentSong ? currentSong.Genre.name : null}</h3>
-                </div>
+                {currentSong &&
+                <>
+                    <Link className={styles.title} to={`/users/${currentSong?.User.id}/songs/${currentSong?.id}`}>{currentSong ? currentSong.title : null}</Link>
+                    <Link className={styles.artist} to={`/users/${currentSong?.User.id}`}>{currentSong ? currentSong?.User.userName : null}</Link>
+                    <Link className={styles.album} to={`/users/${currentSong?.User.id}/albums/${currentSong?.Album.id}`}>{currentSong ? currentSong?.Album.name : null}</Link>
+                    <div className={styles.genreDiv}>
+                        <h3 className={styles.genre}>{currentSong ? currentSong.Genre.name : null}</h3>
+                    </div>
+                </>
+                }
             </div>
             <div className={styles.extras}>
                 <div className={styles.likesDiv}>

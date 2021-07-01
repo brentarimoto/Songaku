@@ -62,11 +62,15 @@ const Playlist = ({id, playlist, album})=>{
         if(editOn){
             if(newName!==playlist.name){
                 if(album){
-                    dispatch(changeAlbum(newName, id, user.id))
-                    setEditOn(false)
+                    (async()=>{
+                        await dispatch(changeAlbum(newName, id, user.id))
+                        setEditOn(false)
+                    })()
                 } else{
-                    dispatch(changePlaylist(newName, id, user.id))
-                    setEditOn(false)
+                    (async()=>{
+                        await dispatch(changePlaylist(newName, id, user.id))
+                        setEditOn(false)
+                    })()
                 }
             }
         } else{

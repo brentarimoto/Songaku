@@ -39,12 +39,6 @@
     animation-name: slideInFromTop;
 }
 
-.active{
-    color: var(--navbarActive);
-    background-color: var(--background3);
-    text-decoration: none;
-}
-
 /***** Logo *****/
 .logoDiv{
     grid-area: logo;
@@ -223,4 +217,10 @@
 
 .fa-user{
     pointer-events: none;
+}
+
+.active{
+    color: var(--navbarActive);
+    background-color: var(--background3);
+    text-decoration: none;
 }

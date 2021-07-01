@@ -110,7 +110,7 @@ const UploadForm = ({title, setTitle, album, setAlbum, music, setMusic, image, s
                     placeholder='Album'
                     value={album}
                     onChange={(e)=>setAlbum(e.target.value)}
-                    autocomplete="off"
+                    autoComplete="off"
                     required
                 ></input>
             </div>
