@@ -53,7 +53,7 @@
 .musicInput,
 .imageInput{
     font-size: 15px;
-    color: var(--uploadButtonText);
+    color: var(--pastelWhite);
 }
 
 .musicInput::file-selector-button,
@@ -69,7 +69,7 @@
     height: 20px;
     font-size: 15px;
     border-radius: 5px;
-    background-color: var(--snow);
+    background-color: white;
     color: var(--rainbowIndigo);
 }
 

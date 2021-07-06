@@ -168,6 +168,8 @@
     width: 100%;
     font-size: 30px;
     height: 50px;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
 

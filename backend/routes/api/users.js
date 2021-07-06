@@ -96,9 +96,20 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 }));
 
 //SIGN UP
-router.post('', validateSignup, asyncHandler(async (req, res) => {
+router.post('', singleMulterUpload('file'), validateSignup, asyncHandler(async (req, res) => {
   const { email, password, userName } = req.body;
-  const user = await User.signup({ email, userName, password});
+
+  let profilePic = null
+
+  console.log(req.file)
+
+  if (req.file){
+    profilePic = await singlePublicFileUpload(req.file)
+  }
+
+  console.log(profilePic)
+
+  const user = await User.signup({ email, userName, password, profilePic});
 
   await setTokenCookie(res, user);
 
@@ -124,7 +135,7 @@ router.put('', singleMulterUpload('file'), validateEdit, asyncHandler(async (req
     next(err)
   }
 
-  let profilePic = undefined
+  let profilePic = null
 
 
   if (userName && userName!==user.userName){

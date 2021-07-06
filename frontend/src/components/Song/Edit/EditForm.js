@@ -39,47 +39,42 @@ const EditForm = ({song, onClose})=>{
         setGenre(e.target.value)
     }
 
-    const reset = () =>{
-        setTitle('')
-        setAlbum('')
-        setMusic(null)
-        setImage(null)
-    }
 
 
-    const handleEdit= async (e)=>{
-        e.preventDefault();
+    const handleEdit= (e)=>{
+        (async ()=> {e.preventDefault();
 
-        setIsLoading(true)
+            setIsLoading(true)
 
-        const genreId = Object.keys(genres).find(key => genres[key] === genre);
-
-
-        const newSong = {
-            title,
-            userId: user.id,
-            album,
-            music,
-            image,
-            genreId,
-            songId: song.id
-        }
+            const genreId = Object.keys(genres).find(key => genres[key] === genre);
 
 
-        let {song: editedSong, errors} = await dispatch(editSong(newSong))
+            const newSong = {
+                title,
+                userId: user.id,
+                album,
+                music,
+                image,
+                genreId,
+                songId: song.id
+            }
 
 
-        if(errors){setErrors(errors?.errors || [errors.message])}
+            let {song: editedSong, errors} = await dispatch(editSong(newSong))
 
 
-        if (editedSong?.id) {
-            if(currentSong?.id===editedSong.id){dispatch(setSong(editedSong))}
-            onClose()
-        } else {
-            // console.log(editedSong?.message)
-        }
-        reset()
-        setIsLoading(false)
+            if(errors){setErrors(errors?.errors || [errors.message])}
+
+
+            if (editedSong?.id) {
+                if(currentSong?.id===editedSong.id){
+                    await dispatch(setSong(editedSong))}
+                    setIsLoading(false)
+                    onClose()
+            } else {
+                // console.log(editedSong?.message)
+            }
+        })()
     }
 
 

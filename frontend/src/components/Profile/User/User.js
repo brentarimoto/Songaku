@@ -30,7 +30,7 @@ const User = ()=>{
     const [currentTab, setCurrentTab] = useState('')
     const [editOn, setEditOn] = useState(false)
     const [username, setUsername] = useState(user?.userName)
-    const [about, setAbout] = useState(user?.about || '')
+    const [about, setAbout] = useState(user?.about)
     const [photo, setPhoto] = useState(null)
     const [errors, setErrors] = useState([])
 
@@ -115,7 +115,7 @@ const User = ()=>{
                     { editOn ?
                         <textarea
                             className={styles.textarea}
-                            value={about}
+                            value={about || ''}
                             onChange={editAbout}
                         />
                         :

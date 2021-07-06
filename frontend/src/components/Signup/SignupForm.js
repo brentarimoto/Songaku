@@ -21,6 +21,7 @@ const SignupForm = ()=>{
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [photo, setPhoto] = useState(null)
     const [errors, setErrors] = useState([])
 
     const {user} = useSelector(state => state.session);
@@ -42,7 +43,8 @@ const SignupForm = ()=>{
         const user = {
             email,
             userName,
-            password
+            password,
+            photo
         }
 
         let newUser = await dispatch(signup(user))
@@ -84,6 +86,21 @@ const SignupForm = ()=>{
                         value={userName}
                         onChange={(e)=>setUserName(e.target.value)}
                     ></input>
+                </div>
+                <div className={styles.profilePic}>
+                    <div className={styles.profilePicText} name='profpic'>
+                        {photo ? `${photo.name}` : "No file chosen"}
+                    </div>
+                    <input
+                        className={[styles.signupInput]}
+                        type='file'
+                        id="profpic__input"
+                        onChange={(e)=>setPhoto(e.target.files[0])}
+                        hidden
+                    ></input>
+                    <label htmlFor="profpic__input" className={styles.profilePicButton}>
+                      <div id="profpic__btn-button">Choose File</div>
+                    </label>
                 </div>
                 <div className={styles.password}>
                     <input

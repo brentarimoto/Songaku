@@ -84,7 +84,7 @@ body{
 
   /* Form */
   --formText: var(--rainbowIndigo);
-  --formLabel: var(--rainbowIndigo);
+  --formLabel: var(--pastelWhite);
   --formButtonBackground: var(--aHintBlue);
   --formButtonText: var(--rainbowIndigo);
 
@@ -94,7 +94,7 @@ body{
   --borderColor: var(--fadedRainbowIndigo);
 
   /* Modal */
-  --modalBackground: var(--celestialBlue);
+  --modalBackground: var(--cyanish);
   --modalFadedBackground: var(--snow);
 
 
