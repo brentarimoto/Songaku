@@ -28,7 +28,7 @@ const Song = ({song})=>{
 
     useEffect(()=>{
         if(!likes[song.id]){
-            setLikedCount(dispatch(loadLikes(song.id)))
+            setLikedCount(dispatch(loadLikes(song?.id)))
         }
     },[dispatch])
 
@@ -52,20 +52,20 @@ const Song = ({song})=>{
                 <img
                     alt=''
                     className={styles.albumArt}
-                    src={song?.Album?.url ? song?.Album?.url : `/img/Profile.png`}
+                    src={song?.Album?.url ? song?.Album?.url : song?.User?.profilePic}
                     onClick={songPlay}
                 ></img>
                 <PlayStatus song={song} styles={styles}/>
             </div>
             <div className={styles.songInfo}>
                 <div className={styles.songName}>
-                    <Link to={`/users/${song?.User.id}/songs/${song.id}`}>{song?.title}</Link>
+                    <Link to={`/users/${song?.User?.id}/songs/${song?.id}`}>{song?.title}</Link>
                 </div>
                 <div className={styles.artist}>
-                    <Link to={`/users/${song?.User.id}`}>{song?.User.userName}</Link>
+                    <Link to={`/users/${song?.User?.id}`}>{song?.User.userName}</Link>
                 </div>
                 <div className={styles.album}>
-                    <Link to={`/users/${song?.User.id}/albums/${song?.Album.id}`}>{song?.Album.name}</Link>
+                    <Link to={`/users/${song?.User?.id}/albums/${song?.Album.id}`}>{song?.Album.name}</Link>
                 </div>
                 <div className={styles.genre}>
                     <h4>{song?.Genre.name}</h4>

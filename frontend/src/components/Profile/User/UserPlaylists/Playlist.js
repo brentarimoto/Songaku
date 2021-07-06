@@ -81,7 +81,11 @@ const Playlist = ({id, playlist, album})=>{
     return(
         <div className={styles.playlistDiv} onClick={playlistClick}>
             <div className={styles.albumArtDiv}>
-                <img alt='' className={styles.albumArt} src={firstSong?.Album?.url ? firstSong?.Album?.url : `/img/Profile.png`}></img>
+                <img
+                    alt=''
+                    className={styles.albumArt}
+                    src={ firstSong?.Album?.url || (firstSong?.User?.profilePic || '/img/Profile.png')}
+                ></img>
             </div>
             <div className={styles.playlistInfoDiv}>
                 <EditPlaylist editOn={editOn} setEditOn={setEditOn} newName={newName} setNewName={setNewName} url={url} playlist={playlist} handleEditPlaylist={handleEditPlaylist}/>

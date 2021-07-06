@@ -1,6 +1,9 @@
 .addToPlaylistDiv{
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .addToPlaylist{
@@ -12,7 +15,11 @@
     background-color: var(--playlistSelectBC);
     border-radius: 5px;
     border: none;
+    text-align-last: center;
     text-align: center;
+    -ms-text-align-last: center;
+    -moz-text-align-last: center;
+    size: 3;
 }
 
 .optionHeader{
@@ -21,8 +28,10 @@
 
 .inPlaylist{
     color: var(--inPlaylist);
+    font-weight: bold;
 }
 
 .notPlaylist{
     color: var(--notPlaylist);
+    font-weight: bold;
 }

@@ -9,7 +9,7 @@ import styles from './AddToPlaylist.module.css'
 
 
 /*************************** COMPONENTS ***************************/
-const AddToPlaylist = ({song})=>{
+const AddToPlaylist = ({song, songPage})=>{
     const dispatch = useDispatch()
 
     const {user} = useSelector(state=>state.session)
@@ -45,8 +45,8 @@ const AddToPlaylist = ({song})=>{
 
 
     return(
-        <div className={styles.addToPlaylistDiv}>
-            <select className={styles.addToPlaylist} onChange={handleAddToPlaylist}>
+        <div className={styles.addToPlaylistDiv} style={songPage ? {padding: '5px', boxSizing: 'border-box'} : {}}>
+            <select className={styles.addToPlaylist} onChange={handleAddToPlaylist} style={songPage ? {backgroundColor: 'var(--background1)', fontSize: '60%'} : {}}>
                 <option className={styles.optionHeader} value={0}>--Playlists--</option>
                 {inPlaylist.map((id)=>(
                     <option className={styles.inPlaylist} key={id} value={id}>{playlists[user?.id][id].name}</option>

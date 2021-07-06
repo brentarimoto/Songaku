@@ -10,5 +10,6 @@
 }
 
 .albumName{
-    border-bottom: 1px solid var(--rainbowIndigo);
+    border-bottom: 1px solid var(--albumPlaylistHeader);
+    color: var(--albumPlaylistHeader)
 }

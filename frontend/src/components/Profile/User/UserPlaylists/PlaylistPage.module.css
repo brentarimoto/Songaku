@@ -1,7 +1,7 @@
 @import url('../../../../css/animation/allAnimations.css');
 
 .playlistHeaderDiv :global{
-    animation: fadeIn 1s
+    animation: fadeIn 1s;
 }
 
 .playlistHeaderDiv{
@@ -11,5 +11,6 @@
 }
 
 .playlistName{
-    border-bottom: 1px solid var(--rainbowIndigo);
+    border-bottom: 1px solid var(--albumPlaylistHeader);
+    color: var(--albumPlaylistHeader)
 }

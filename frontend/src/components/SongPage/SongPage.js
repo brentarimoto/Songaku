@@ -72,8 +72,12 @@ const SongPage = ({isLoaded})=>{
     }
 
     const handleComment=()=>{
-        dispatch(postComment(myComment, user.id, songId))
-        setMyComment('')
+        if(myComment){
+            (async ()=>{
+                await dispatch(postComment(myComment, user.id, songId))
+                setMyComment('')
+            })()
+        }
     }
 
     return (
@@ -101,7 +105,7 @@ const SongPage = ({isLoaded})=>{
                     <img
                         alt=''
                         className={styles.albumArt}
-                        src={song?.Album.url ? song?.Album.url : `/img/Profile.png`}
+                        src={song?.Album.url ? song?.Album.url : song.User.profilePic}
                         onClick={songPlay}
                     ></img>
                     <PlayStatus song={song} styles={styles}/>
@@ -114,7 +118,7 @@ const SongPage = ({isLoaded})=>{
                         </div>
                     </div>
                     {user && <div className={styles.playlistDiv}>
-                        <AddToPlaylist song={song} userId={user.id}/>
+                        <AddToPlaylist song={song} userId={user.id} songPage={true}/>
                     </div>}
                 </div>
                 <div className={styles.waveform}>
@@ -136,7 +140,7 @@ const SongPage = ({isLoaded})=>{
                             <img
                                 alt=''
                                 className={styles.myProfPic}
-                                src={user?.profilePic ? user.profilePic : `/img/Profile.png`}
+                                src={user?.profilePic}
                             ></img>
                         </div>
                         <div className={styles.myCommentDiv}>

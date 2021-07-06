@@ -74,6 +74,37 @@ export const signup = ({email, userName, password}) => async dispatch => {
     return user
 }
 
+// Edits User
+export const editUser = ({id, userName, about, profilePic}) => async dispatch => {
+
+    if (about===undefined){
+        about=null
+    }
+
+    const formData = new FormData();
+    formData.append('id', id)
+    formData.append('userName', userName)
+    formData.append('about', about)
+    formData.append("file", profilePic)
+
+    const res = await csrfFetch('/api/users',{
+        method: 'PUT',
+        headers : {
+            'Content-Type' : 'multipart/form-data'
+        },
+        body: formData,
+    })
+
+    if(!res.ok){
+        const error = await res.json()
+        return error
+    }
+
+    const {user} = await res.json();
+    dispatch(setUser(user))
+    return user
+}
+
 // Logs out user by removing token from cookies, and removing user from Store
 export const logout = () => async dispatch => {
     const res = await csrfFetch('/api/session',{

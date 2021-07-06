@@ -26,21 +26,23 @@
     grid-area: profPic;
     height:60px;
     width:60px;
-    background-color: var(--profPicBackground);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .profPic{
-    object-fit: contain;
-    width:80%;
-    height:80%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    background-color: var(--profPicBackground);
 }
 
 .userNameDiv{
     grid-area: username;
-    color: var(--username)
+    color: var(--username);
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .commentDiv{
@@ -49,11 +51,15 @@
     max-width: 600px;
     height: auto;
     word-wrap: break-word;
+    padding: 5px;
+    box-sizing: border-box;
 
 }
 
 .dateDiv{
     grid-area: date;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .changeDiv{

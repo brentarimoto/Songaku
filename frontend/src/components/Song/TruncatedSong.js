@@ -50,7 +50,7 @@ const TruncatedSong = ({song})=>{
                 <img
                     alt=''
                     className={styles.albumArt}
-                    src={song?.Album?.url ? song?.Album?.url : `/img/Profile.png`}
+                    src={song?.Album?.url ? song?.Album?.url : (song?.User?.profilePic || '/img/Profile.png')}
                     onClick={songPlay}
                 ></img>
                 <PlayStatus song={song} styles={styles}/>

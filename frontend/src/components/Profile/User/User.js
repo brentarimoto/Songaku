@@ -11,6 +11,7 @@ import AddPlaylistModal from './AddPlaylist/AddPlaylistModal'
 import Suggestions from '../../Suggestions/Suggestions'
 
 import {getUser} from '../../../store/users'
+import { editUser } from '../../../store/session';
 
 import styles from './User.module.css'
 
@@ -24,7 +25,15 @@ const User = ()=>{
     const users = useSelector(state => state.users);
     const {user} = useSelector(state => state.session);
 
+    const pageUser = user?.id===parseInt(userId) ? user : users[userId]
+
     const [currentTab, setCurrentTab] = useState('')
+    const [editOn, setEditOn] = useState(false)
+    const [username, setUsername] = useState(user?.userName)
+    const [about, setAbout] = useState(user?.about || '')
+    const [photo, setPhoto] = useState(null)
+    const [errors, setErrors] = useState([])
+
 
     useEffect(()=>{
         if(!users[userId]){
@@ -32,28 +41,98 @@ const User = ()=>{
         }
     },[dispatch, url])
 
-    const pageUser = users[userId]
+    useEffect(()=>{
+        if (username!==user?.userName){
+            setUsername(user?.userName)
+        }
+
+        if (about!==user?.about){
+            setAbout(user?.about)
+        }
+
+    },[user])
+
+    const editUsername = (e)=>{
+        setUsername(e.target.value)
+    }
+
+    const editAbout = (e)=>{
+        setAbout(e.target.value)
+    }
+
+    const handleCancel = (e)=>{
+        setUsername(user?.userName)
+        setAbout(user?.about || '')
+        setPhoto(null)
+        setEditOn(false)
+    }
+
+    const handleEdit = (e)=>{
+        (async()=>{
+            let editedUser = await dispatch(editUser({id:user.id, userName:username, about, profilePic:photo}))
+
+            if (editedUser.userName) {
+                setEditOn(false)
+            } else {
+                console.log(editedUser.errors)
+                setErrors(editedUser.errors)
+            }
+        })()
+
+    }
 
     return (
         <div className={styles.userDiv}>
             <div className={styles.info}>
                 <div className={styles.profPicDiv}>
                     <img alt='' className={styles.profPic} src={pageUser?.profilePic ? pageUser.profilePic : `/img/Profile.png`}></img>
+                    {editOn &&
+                    <div className={styles.picButtonDiv}>
+                        <input type="file" id="profpic-btn" onChange={(e)=>setPhoto(e.target.files[0])} hidden/>
+                        <label tabIndex='0' htmlFor="profpic-btn" className={styles.picButton}>{photo?.name || 'New Image'}</label>
+                    </div>}
                 </div>
                 <div className={styles.nameSection}>
                     <div className={styles.userName}>
-                        <h2>{pageUser?.userName}</h2>
+                        { editOn ?
+                            <input
+                                className={styles.input}
+                                value={username}
+                                onChange={editUsername}
+                            />
+                            :
+                            <h2>{parseInt(userId)===user?.id ? user?.userName : pageUser?.userName}</h2>
+                        }
                     </div>
-                    <div className={styles.firstName}>
+                    {/* <div className={styles.firstName}>
                         <h4>{pageUser?.firstName && `(${pageUser?.firstName}`}</h4>
                     </div>
                     <div className={styles.lastName}>
                         <h4>{pageUser?.lastName && `${pageUser?.lastName})`}</h4>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={styles.otherInfo}>
-                    <h4 className={styles.about}>{pageUser?.about}</h4>
+                    { editOn ?
+                        <textarea
+                            className={styles.textarea}
+                            value={about}
+                            onChange={editAbout}
+                        />
+                        :
+                        <h4 className={styles.about}>{parseInt(userId)===user?.id ? user?.about : pageUser?.about}</h4>
+                    }
                 </div>
+                {parseInt(userId)===user?.id &&
+                <div className={styles.editButton}>
+                    {(editOn) ?
+                        <>
+                            <i onClick={handleEdit}>Confirm</i>
+                            <i onClick={handleCancel}>Cancel</i>
+                        </>
+                        :
+                        <i className={"fas fa-user-edit"} onClick={e=>setEditOn(true)}></i>
+                    }
+                </div>}
             </div>
             <div className={styles.itemsDiv}>
                 <nav className={styles.itemsNav}>

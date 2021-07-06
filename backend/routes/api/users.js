@@ -13,6 +13,7 @@ const router = express.Router();
 /*************************** MIDDLEWARE ***************************/
 const asyncHandler = require('express-async-handler');
 const { handleValidationErrors } = require('../../utils/validation');
+const { singleMulterUpload, singlePublicFileUpload, singlePublicFileDelete } = require('../../awsS3');
 
 // Signup Validation
 const validateSignup = [
@@ -39,9 +40,9 @@ const validateSignup = [
       .not()
       .isEmail()
       .withMessage('Username cannot be an email.')
-      .custom((value) => {
+      .custom((value,  { req }) => {
         return User.findOne({ where: { userName: value } }).then((user) => {
-          if (user) {
+          if (user && user.id!==parseInt(req.id)) {
             return Promise.reject(
               "The provided username is already in use by another account"
             );
@@ -55,6 +56,28 @@ const validateSignup = [
     handleValidationErrors,
   ];
 
+// Signup Edit
+const validateEdit = [
+  check('userName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a username.')
+    .isLength({ min: 3 })
+    .withMessage('Please provide a username with at least 3 characters.'),
+  check('userName')
+    .not()
+    .isEmail()
+    .withMessage('Username cannot be an email.')
+    .custom((value, {req}) => {
+      return User.findOne({ where: { userName: value } }).then((user) => {
+        if (user && user.id!==parseInt(req.body.id)) {
+          return Promise.reject(
+            "The provided username is already in use by another account"
+          );
+        }
+      });
+    }),
+  handleValidationErrors,
+];
 /*************************** USER ROUTES ***************************/
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const { id:userId } = req.params
@@ -72,6 +95,74 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   res.json({user})
 }));
 
+//SIGN UP
+router.post('', validateSignup, asyncHandler(async (req, res) => {
+  const { email, password, userName } = req.body;
+  const user = await User.signup({ email, userName, password});
+
+  await setTokenCookie(res, user);
+
+  return res.json({
+    user,
+  });
+}));
+
+
+
+//EDIT
+router.put('', singleMulterUpload('file'), validateEdit, asyncHandler(async (req, res) => {
+  let {id, userName, about} = req.body
+
+  if (about==='undefined' || about==='null'){
+    about=null
+  }
+
+  const user = await User.findByPk(id)
+
+  if (!user){
+    const err = createError('User Does Not Exist', 'User Does Not Exist', 404)
+    next(err)
+  }
+
+  let profilePic = undefined
+
+
+  if (userName && userName!==user.userName){
+    user.userName=userName
+  }
+
+  if (about!==user.about){
+    user.about=about
+  }
+
+  if (req.file){
+    profilePic = await singlePublicFileUpload(req.file)
+  }
+
+  if (profilePic && profilePic!==user.profilePic){
+    if(user.profilePic){
+      if(user.profilePic.includes('songakubucket')){
+        const array = user.profilePic.split('/')
+        const key = array[array.length-1]
+        const deleted = await singlePublicFileDelete(key)
+
+        if (!deleted){
+          const err = createError('Could Not Delete ProfilePic', 'Could Not Delete ProfilePic', 500)
+          next(err)
+        }
+      }
+    }
+    user.profilePic=profilePic
+  }
+
+  await user.save()
+
+
+  return res.json({
+    user
+  });
+}));
+
 /*************************** USER'S SONGS ROUTES ***************************/
 //Get User's Songs
 router.get('/:id(\\d+)/songs', asyncHandler(async (req, res) => {
@@ -79,7 +170,7 @@ router.get('/:id(\\d+)/songs', asyncHandler(async (req, res) => {
 
   const songs = await Song.findAll({
     where:{userId},
-    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album}],
   })
 
   res.json({songs})
@@ -93,24 +184,11 @@ router.get('/:id(\\d+)/albums', asyncHandler(async (req, res) => {
     where:{userId},
     include: [{
       model: Song,
-      include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+      include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album}],
     }]
   })
 
   res.json({albums})
-}));
-
-
-//SIGN UP
-router.post('', validateSignup, asyncHandler(async (req, res) => {
-  const { email, password, userName } = req.body;
-  const user = await User.signup({ email, userName, password });
-
-  await setTokenCookie(res, user);
-
-  return res.json({
-    user,
-  });
 }));
 
 /*************************** ALBUM UPDATE ***************************/
@@ -122,7 +200,7 @@ router.put('/:id(\\d+)/albums/:albumId', asyncHandler(async (req, res, next) => 
   const album = await Album.findByPk(albumId,{
     include: [{
       model: Song,
-      include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+      include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album}],
     }]
   })
 

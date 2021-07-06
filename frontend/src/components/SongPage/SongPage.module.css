@@ -83,9 +83,11 @@
     background-color: rgba(0,0,0,.02);
     font-size: 20px;
     position: relative;
+    padding: 15px 5px 5px 5px;
+    box-sizing: border-box;
 
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     opacity: 0;
 }
@@ -138,8 +140,11 @@
 }
 
 .albumArt{
-    width: 80%;
+    height: 100%;
+    width: 100%;
     border-radius: 20px;
+    object-fit: cover;
+    background-color: var(--profPicBackground);
 }
 
 .extras{
@@ -162,6 +167,7 @@
 .playlistDiv{
     width: 100%;
     font-size: 30px;
+    height: 50px;
 }
 
 
@@ -209,9 +215,10 @@
 }
 
 .myProfPic{
-    width:80%;
-    height:80%;
-    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    background-color: var(--profPicBackground);
 }
 
 .myCommentDiv{
@@ -228,6 +235,7 @@
     width: 95%;
     height: 100%;
     border-radius: 5px;
+    padding: 5px;
     /* margin: 10px; */
 }
 
@@ -257,13 +265,13 @@
 /*** Status ***/
 .albumArtDiv:hover .playstatus{
     opacity: .9;
-    transition: .1s;
+    transition: .2s;
 }
 
 .playstatus{
     position: absolute;
-    bottom: 5px;
-    left: 5px;
+    bottom: 3%;
+    left:  3%;
     width: 20%;
     height: 20%;
     display: flex;
@@ -273,7 +281,7 @@
     background-color: var(--background3);
     color: var(--pastelWhite);
     opacity: 0;
-    transition: .1s;
+    transition: .2s;
     pointer-events: none;
 }
 

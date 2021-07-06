@@ -76,7 +76,11 @@ const Comment = ({comment})=>{
     return (
         <div className={styles.commentContainer}>
             <div className={styles.profPicDiv}>
-                <img alt='' className={styles.profPic} src={comment?.User.profilePic ? comment.User.profilePic : `/img/Profile.png`}></img>
+                <img
+                    alt=''
+                    className={styles.profPic}
+                    src={comment?.User.profilePic ? comment.User.profilePic : `/img/Profile.png`}
+                ></img>
             </div>
             <div className={styles.userNameDiv}>
                 <h3>{comment?.User?.userName}</h3>

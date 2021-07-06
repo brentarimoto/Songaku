@@ -185,7 +185,7 @@ router.post('/', multipleMulterUpload('files'), validateSongs,  asyncHandler(asy
   })
 
   const song = await Song.findByPk(newSong.id, {
-    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album}],
   })
 
   return res.json({song, reload})
@@ -285,7 +285,7 @@ router.put('/:id(\\d+)', multipleMulterUpload('files'), validatePutSongs, asyncH
   await tempSong.save();
 
   const song = await Song.findByPk(tempSong.id, {
-    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+    include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album}],
   })
 
   return res.json({song, reload})
@@ -371,7 +371,7 @@ router.post('/search', asyncHandler(async (req, res) => {
         }}
       ]
     },
-    include: [{model: Genre, attributes:['name', 'id'], as: 'Genre'}, {model:User,attributes:['userName', 'id'], as:'User'},{model:Album, as: 'Album'}],
+    include: [{model: Genre, attributes:['name', 'id'], as: 'Genre'}, {model:User,attributes:['userName', 'id', 'profilePic'], as:'User'},{model:Album, as: 'Album'}],
   });
 
   return res.json({songs})
@@ -411,7 +411,7 @@ router.get('/suggestions/likes', asyncHandler(async (req, res) => {
   let {type, value} = req.body
 
   const songs = await Song.findAll({
-    include: [{model: Genre, attributes:['name','id']}, {model:User,attributes:['userName', 'id']},{model:Album},{model:Like}],
+    include: [{model: Genre, attributes:['name','id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album},{model:Like}],
   })
 
   const likeCount = songs.map((song, i)=>{
@@ -439,7 +439,7 @@ router.post('/suggestions/likes/songs', asyncHandler(async (req, res) => {
 
 
   const songs = await Song.findAll({
-    include: [{model: Genre, attributes:['name','id']}, {model:User,attributes:['userName', 'id']},{model:Album},{model:Like}],
+    include: [{model: Genre, attributes:['name','id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album},{model:Like}],
     where: (type ? {[type]:value} : null)
   })
 

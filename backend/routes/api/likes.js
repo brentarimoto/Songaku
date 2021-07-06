@@ -20,7 +20,7 @@ router.get('/:id(\\d+)/likes', asyncHandler(async (req, res) => {
 
   const likes = await Like.findAll({
     where:{songId},
-    include: [{model: User, attributes: ['userName','id']}]
+    include: [{model: User, attributes: ['userName','id', 'profilePic']}]
   })
 
   return res.json({likes})

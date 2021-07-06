@@ -22,7 +22,7 @@ router.get('/:id(\\d+)/albums', asyncHandler(async (req, res) => {
     include: [{
         model:Song,
         as:'SongsInPlaylist',
-        include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id']},{model:Album}],
+        include: [{model: Genre, attributes:['name' ,'id']}, {model:User,attributes:['userName', 'id', 'profilePic']},{model:Album}],
     }],
   })
 

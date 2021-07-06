@@ -104,8 +104,8 @@ body{
   --userNavActive: var(--skyBlue);
   --userText: var(--skyBlue);
 
-  --profPicBackground: var(--snow);
-  --profPicBackground2: var(--snow);
+  --profPicBackground: var(--paleBlue);
+  --profPicBackground2: var(--paleBlue);
 
   /* Song */
   --songTitle: var(--skyBlue);
@@ -117,9 +117,12 @@ body{
   --playlistButtons: var(--skyBlue);
 
   --playlistSelectBC: var(--fadedGreyBlue);
-  --optionHeader: var(--skyBlue);
-  --inPlaylist: var(--sapphire);
-  --notPlaylist: var(--rainbowIndigo);
+  --optionHeader: black;
+  --inPlaylist: var(--skyBlue);
+  --notPlaylist: var(--darkGreen);
+
+  /* Playlist/Album Page */
+  --albumPlaylistHeader: var(--cyanish);
 
   /* Audio Player */
   --audioPlayerButtons: var(--lightGreen);
