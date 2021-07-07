@@ -101,13 +101,9 @@ router.post('', singleMulterUpload('file'), validateSignup, asyncHandler(async (
 
   let profilePic = null
 
-  console.log(req.file)
-
   if (req.file){
     profilePic = await singlePublicFileUpload(req.file)
   }
-
-  console.log(profilePic)
 
   const user = await User.signup({ email, userName, password, profilePic});
 

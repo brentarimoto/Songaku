@@ -74,7 +74,6 @@ const User = ()=>{
             if (editedUser.userName) {
                 setEditOn(false)
             } else {
-                console.log(editedUser.errors)
                 setErrors(editedUser.errors)
             }
         })()
